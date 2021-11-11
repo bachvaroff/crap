@@ -23,8 +23,8 @@ end module functionh
 program crap
 use functionh
 implicit none
-! z will be in [e - 1, e]
-	real*16 :: z = exp(1.0) - 1.0
+! x will be in [e - 1, e]
+	real*16 :: z = 0.5
 	integer :: step
 	
 	write(*, *) 0, z, 1.0 / z
