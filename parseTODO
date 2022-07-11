@@ -1,0 +1,27 @@
+#!/usr/bin/env -S awk -f
+
+BEGIN {
+	count = 0;
+	record = -1;
+}
+
+{
+	if (match($0, "^$")) {
+		if (++count == 3) {
+			if (record >= 0) printf("####### END RECORD %d ########\n\n", record);
+			record++;
+			printf("####### BEGIN RECORD %d ########\n", record);
+			count = 0;
+		}
+	} else {
+		for (i = 0; i < count; i++)
+			printf("\n");
+		count = 0;
+		print;
+	}
+}
+
+END {
+	if (record >= 0) printf("####### END RECORD %d ########\n\n", record);
+}
+
