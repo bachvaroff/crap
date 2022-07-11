@@ -6,16 +6,16 @@ BEGIN {
 }
 
 {
-	if (match($0, "^$")) {
-		if (++count == 3) {
+	if (match($0, "^$")) count++;
+	else {
+		if (count >= 3) {
 			if (record >= 0) printf("####### END RECORD %d ########\n\n", record);
 			record++;
 			printf("####### BEGIN RECORD %d ########\n", record);
-			count = 0;
+		} else {
+			for (i = 0; i < count; i++)
+				printf("\n");
 		}
-	} else {
-		for (i = 0; i < count; i++)
-			printf("\n");
 		count = 0;
 		print;
 	}
