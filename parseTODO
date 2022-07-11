@@ -3,6 +3,7 @@
 BEGIN {
 	count = 0;
 	record = -1;
+	printf("######## BEGIN SESSION ########\n\n");
 }
 
 {
@@ -23,5 +24,6 @@ BEGIN {
 
 END {
 	if (record >= 0) printf("####### END RECORD %d ########\n\n", record);
+	printf("######## END SESSION ########\n");
 }
 
