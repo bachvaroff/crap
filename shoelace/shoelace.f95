@@ -9,12 +9,12 @@ implicit none
 			4, 1, 2, 3, 4, 1, 3, 2, 4, 2, 1, 3, 4, 2, 3, 1, 4, 3, 1, 2, 4, 3, 2, 1 &
 		/), &
 		shape(perm), &
-		order = (/2, 1/) &
+		order = (/ 2, 1 /) &
 	)
 	
 	integer :: row
 	real, dimension(2, 4) :: temp
-		
+	
 	read (*, *) &
 		temp(1, 1), temp(2, 1), &
 		temp(1, 2), temp(2, 2), &
@@ -33,6 +33,6 @@ implicit none
 				temp(1, perm(row, 2)), temp(2, perm(row, 2)), &
 				temp(1, perm(row, 3)), temp(2, perm(row, 3)), &
 				temp(1, perm(row, 4)), temp(2, perm(row, 4)))
-	end do	
+	end do
 end program main
 
