@@ -1,7 +1,7 @@
 program main
 use shoelace_implementation
 implicit none
-	integer :: perm(4, 24) = reshape( &
+	integer :: perm(24, 4) = reshape( &
 		(/ &
 			1, 2, 3, 4, &
 			1, 2, 4, 3, &
@@ -27,7 +27,7 @@ implicit none
 			4, 2, 3, 1, &
 			4, 3, 1, 2, &
 			4, 3, 2, 1 &
-		/), (/ 4, 24 /) &
+		/), (/ 24, 4 /), order = (/ 2, 1 /) &
 	)
 	
 	integer :: row
@@ -42,15 +42,15 @@ implicit none
 	do row = 1, 24
 		write (*, *) &
 			intersect( &
-				temp(1, perm(1, row)), temp(2, perm(1, row)), &
-				temp(1, perm(2, row)), temp(2, perm(2, row)), &
-				temp(1, perm(3, row)), temp(2, perm(3, row)), &
-				temp(1, perm(4, row)), temp(2, perm(4, row))), &
+				temp(1, perm(row, 1)), temp(2, perm(row, 1)), &
+				temp(1, perm(row, 2)), temp(2, perm(row, 2)), &
+				temp(1, perm(row, 3)), temp(2, perm(row, 3)), &
+				temp(1, perm(row, 4)), temp(2, perm(row, 4))), &
 			shoelace( &
-				temp(1, perm(1, row)), temp(2, perm(1, row)), &
-				temp(1, perm(2, row)), temp(2, perm(2, row)), &
-				temp(1, perm(3, row)), temp(2, perm(3, row)), &
-				temp(1, perm(4, row)), temp(2, perm(4, row)))
+				temp(1, perm(row, 1)), temp(2, perm(row, 1)), &
+				temp(1, perm(row, 2)), temp(2, perm(row, 2)), &
+				temp(1, perm(row, 3)), temp(2, perm(row, 3)), &
+				temp(1, perm(row, 4)), temp(2, perm(row, 4)))
 	end do	
 end program main
 
