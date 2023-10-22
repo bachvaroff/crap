@@ -64,7 +64,7 @@ int stack_iter_peek(stack_t *s, stack_iter_t iter, void *_ctx) {
 	if (!s->data) return -1;
 	if (s->p < 0) return 0;
 	
-	for (j = s->p; j >= 0; j--)
+	for (j = s->p, r = 0; j >= 0; j--)
 		if ((r = iter(_ctx, s->data[j])) <= 0) break;
 	
 	return r;
