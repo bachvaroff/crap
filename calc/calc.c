@@ -191,13 +191,6 @@ static int operator(void *_ctx, delta_t *delta) {
 			(void)stack_push(ctx->s, d1);
 		}
 		break;
-	case '~':
-		if (!stack_pop(ctx->s, &d0)) printf("stack underflow\n");
-		else if (d0.type == INT) {
-			d0.datum.i = ~d0.datum.i;
-			(void)stack_push(ctx->s, d0);
-		} else return UNDEF;
-		break;
 	case '^':
 		if (!stack_pop(ctx->s, &d0)) printf("stack underflow\n");
 		else if (!stack_pop(ctx->s, &d1)) {
@@ -209,6 +202,13 @@ static int operator(void *_ctx, delta_t *delta) {
 			d1.datum.i ^= d0.datum.i;
 			(void)stack_push(ctx->s, d1);
 		}
+		break;
+	case '~':
+		if (!stack_pop(ctx->s, &d0)) printf("stack underflow\n");
+		else if (d0.type == INT) {
+			d0.datum.i = ~d0.datum.i;
+			(void)stack_push(ctx->s, d0);
+		} else return UNDEF;
 		break;
 	default:
 		return UNDEF;
@@ -279,8 +279,8 @@ int main(void) {
 				((char)input == '%') ||
 				((char)input == '&') ||
 				((char)input == '|') ||
-				((char)input == '~') ||
-				((char)input == '^')
+				((char)input == '^') ||
+				((char)input == '~')
 		) {
 			c.digit[0] = (char)input;
 			if (state_exec(&s, EVENT_OP) <= 0) break;
