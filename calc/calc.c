@@ -193,7 +193,7 @@ static int operator(void *_ctx, delta_t *delta) {
 		else if (d0.type == INT) {
 			d0.datum.i = ~d0.datum.i;
 			(void)stack_push(ctx->s, d0);
-		}
+		} else return UNDEF;
 		break;
 	case '^':
 		if (!stack_pop(ctx->s, &d0)) printf("stack underflow\n");
