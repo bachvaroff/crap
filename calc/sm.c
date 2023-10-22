@@ -53,13 +53,13 @@ int state_exec(state_t *state, int event) {
 		goto error;
 	}
 	
-	if (ret > 0) state->current = state->deltas[j].next;
+	if ((ret > 0) && (state->deltas[j].next != ANY)) state->current = state->deltas[j].next;
 	
 	if (state->current == state->final) {
 		ret = 0;
 		goto error;
 	}
-		
+	
 error:
 	return ret;
 }
