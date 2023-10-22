@@ -97,11 +97,14 @@ static int operator(void *_ctx, delta_t *delta) {
 	case 'V':
 		(void)dump_pop(_ctx, delta);
 		break;
-	case 'u':
+	case 'x':
 		if (!stack_pop(ctx->s, &d0)) printf("stack underflow\n");
-		else {
+		else if (!stack_pop(ctx->s, &d1)) {
 			(void)stack_push(ctx->s, d0);
-			if (!stack_push(ctx->s, d0)) printf("stack overflow\n");
+			printf("stack underflow\n");
+		} else {
+			(void)stack_push(ctx->s, d0);
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	case '+':
@@ -112,8 +115,8 @@ static int operator(void *_ctx, delta_t *delta) {
 		} else {
 			if ((!(d0.type == INT)) || (!(d1.type == INT)))
 				return UNDEF;
-			d0.datum.i += d1.datum.i;
-			(void)stack_push(ctx->s, d0);
+			d1.datum.i += d0.datum.i;
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	case '-':
@@ -124,8 +127,8 @@ static int operator(void *_ctx, delta_t *delta) {
 		} else {
 			if ((!(d0.type == INT)) || (!(d1.type == INT)))
 				return UNDEF;
-			d0.datum.i -= d1.datum.i;
-			(void)stack_push(ctx->s, d0);
+			d1.datum.i -= d0.datum.i;
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	case '*':
@@ -136,8 +139,8 @@ static int operator(void *_ctx, delta_t *delta) {
 		} else {
 			if ((!(d0.type == INT)) || (!(d1.type == INT)))
 				return UNDEF;
-			d0.datum.i *= d1.datum.i;
-			(void)stack_push(ctx->s, d0);
+			d1.datum.i *= d0.datum.i;
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	case '/':
@@ -148,8 +151,8 @@ static int operator(void *_ctx, delta_t *delta) {
 		} else {
 			if ((!(d0.type == INT)) || (!(d1.type == INT)))
 				return UNDEF;
-			d0.datum.i /= d1.datum.i;
-			(void)stack_push(ctx->s, d0);
+			d1.datum.i /= d0.datum.i;
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	case '%':
@@ -160,8 +163,8 @@ static int operator(void *_ctx, delta_t *delta) {
 		} else {
 			if ((!(d0.type == INT)) || (!(d1.type == INT)))
 				return UNDEF;
-			d0.datum.i %= d1.datum.i;
-			(void)stack_push(ctx->s, d0);
+			d1.datum.i %= d0.datum.i;
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	case '&':
@@ -172,8 +175,8 @@ static int operator(void *_ctx, delta_t *delta) {
 		} else {
 			if ((!(d0.type == INT)) || (!(d1.type == INT)))
 				return UNDEF;
-			d0.datum.i &= d1.datum.i;
-			(void)stack_push(ctx->s, d0);
+			d1.datum.i &= d0.datum.i;
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	case '|':
@@ -184,8 +187,8 @@ static int operator(void *_ctx, delta_t *delta) {
 		} else {
 			if ((!(d0.type == INT)) || (!(d1.type == INT)))
 				return UNDEF;
-			d0.datum.i |= d1.datum.i;
-			(void)stack_push(ctx->s, d0);
+			d1.datum.i |= d0.datum.i;
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	case '~':
@@ -203,8 +206,8 @@ static int operator(void *_ctx, delta_t *delta) {
 		} else {
 			if ((!(d0.type == INT)) || (!(d1.type == INT)))
 				return UNDEF;
-			d0.datum.i ^= d1.datum.i;
-			(void)stack_push(ctx->s, d0);
+			d1.datum.i ^= d0.datum.i;
+			(void)stack_push(ctx->s, d1);
 		}
 		break;
 	default:
@@ -268,7 +271,7 @@ int main(void) {
 				((char)input == 'h') || ((char)input == 'H') ||
 				((char)input == 'p') || ((char)input == 'P') ||
 				((char)input == '.') || ((char)input == 'v') || ((char)input == 'V') ||
-				((char)input == 'u') ||
+				((char)input == 'x') ||
 				((char)input == '+') ||
 				((char)input == '-') ||
 				((char)input == '*') ||
