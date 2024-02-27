@@ -152,31 +152,27 @@ typedef struct {
 
 
 #define SinZ(Z) do { \
-	register double __t0__ = exp(Im(Z)); \
-	register double __t1__ = Re(Z); \
-	Re(Z) = 0.5 * (1.0 / __t0__ + __t0__) * sin(__t1__); \
-	Im(Z) = -0.5 * (1.0 / __t0__ - __t0__) * cos(__t1__); \
+	register double __t__ = exp(Im(Z)); \
+	Im(Z) = -0.5 * (1.0 / __t__ - __t__) * cos(Re(Z)); \
+	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * sin(Re(Z)); \
 } while (0)
 
 #define SinZ2(Z, U) do { \
-	register double __t0__ = exp(Im(U)); \
-	register double __t1__ = Re(U); \
-	Re(Z) = 0.5 * (1.0 / __t0__ + __t0__) * sin(__t1__); \
-	Im(Z) = -0.5 * (1.0 / __t0__ - __t0__) * cos(__t1__); \
+	register double __t__ = exp(Im(U)); \
+	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * sin(Re(U)); \
+	Im(Z) = -0.5 * (1.0 / __t__ - __t__) * cos(Re(U)); \
 } while (0)
 
 #define CosZ(Z) do { \
-	register double __t0__ = exp(Im(Z)); \
-	register double __t1__ = Re(Z); \
-	Re(Z) = 0.5 * (1.0 / __t0__ + __t0__) * cos(__t1__); \
-	Im(Z) = 0.5 * (1.0 / __t0__ - __t0__) * sin(__t1__); \
+	register double __t__ = exp(Im(Z)); \
+	Im(Z) = 0.5 * (1.0 / __t__ - __t__) * sin(Re(Z)); \
+	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * cos(Re(Z)); \
 } while (0)
 
 #define CosZ2(Z, U) do { \
-	register double __t0__ = exp(Im(U)); \
-	register double __t1__ = Re(U); \
-	Re(Z) = 0.5 * (1.0 / __t0__ + __t0__) * cos(__t1__); \
-	Im(Z) = 0.5 * (1.0 / __t0__ - __t0__) * sin(__t1__); \
+	register double __t__ = exp(Im(U)); \
+	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * cos(Re(U)); \
+	Im(Z) = 0.5 * (1.0 / __t__ - __t__) * sin(Re(U)); \
 } while (0)
 
 #endif
