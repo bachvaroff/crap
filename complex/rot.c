@@ -26,17 +26,14 @@ main()
 		expiphi(phasor, phacc);
 		printf("%d %.16lf ", j, Arg(phasor));
 		madd(cacc, a, phasor);
-		printc(cacc);
-		printf(" ");
+		printc("", cacc, " ");
 		LogZ2(t0, cacc);
 		expZ(t0);
-		printc(t0);
-		printf(" ");
+		printc("", t0, " ");
 		sub2(t0, cacc);
 		add2(erracc, t0);
 #ifdef ERRACC
-		printc(erracc);
-		printf("\n");
+		printc("", erracc, "\n");
 #else
 		printf("%.16lf\n", log(mag(erracc)) / _M_LOG10);
 #endif

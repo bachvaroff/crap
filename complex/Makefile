@@ -13,7 +13,7 @@ LD_LIBRARY_PATH=
 .c.o:
 	$(COMPILE) -c $< -o $@
 
-all: mult rot
+all: mult rot ttrig
 
 mult: mult.o cmatrix.o
 	$(LINK) mult.o cmatrix.o $(LDPOSTFLAGS0) -o $@
@@ -21,5 +21,8 @@ mult: mult.o cmatrix.o
 rot: rot.o
 	$(LINK) rot.o $(LDPOSTFLAGS0) -o $@
 
+ttrig: ttrig.o
+	$(LINK) ttrig.o $(LDPOSTFLAGS0) -o $@
+
 clean:
-	rm -f *.o mult rot
+	rm -f *.o mult rot ttrig

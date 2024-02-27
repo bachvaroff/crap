@@ -25,8 +25,7 @@ mulCAB(size, C, A, B)
 				madd(IDX(C, i, j, size), IDX(A, i, k, size), IDX(B, k, j, size));
 #ifdef _DEBUG_CIJ_
 			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, i, j, size));
-			printcerr(IDX(C, i, j, size));
-			fprintf(stderr, "\n");
+			printcerr("", IDX(C, i, j, size), "\n");
 #endif
 		}
 	}
@@ -52,8 +51,7 @@ mulCAtransB(size, C, A, B)
 				madd(IDX(C, i, j, size), IDX(A, k, i, size), IDX(B, k, j, size));
 #ifdef _DEBUG_CIJ_
 			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, i, j, size));
-			printcerr(IDX(C, i, j, size));
-			fprintf(stderr, "\n");
+			printcerr("", IDX(C, i, j, size), "\n");
 #endif
 		}
 	}
@@ -79,8 +77,7 @@ mulCABtrans(size, C, A, B)
 				madd(IDX(C, i, j, size), IDX(A, i, k, size), IDX(B, j, k, size));
 #ifdef _DEBUG_CIJ_
 			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, i, j, size));
-			printcerr(IDX(C, i, j, size));
-			fprintf(stderr, "\n");
+			printcerr("", IDX(C, i, j, size), "\n");
 #endif
 		}
 	}

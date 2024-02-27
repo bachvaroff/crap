@@ -9,12 +9,12 @@ typedef struct {
 #define Re(Z)		   ((Z).re)
 #define Im(Z)		   ((Z).im)
 
-#define printc(Z) do { \
-	printf("[ %.16lf, %.16lf ]", Re(Z), Im(Z)); \
+#define printc(PFX, Z, SFX) do { \
+	printf(PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
 } while (0)
 
-#define printcerr(Z) do { \
-	fprintf(stderr, "[ %.16lf, %.16lf ]", Re(Z), Im(Z)); \
+#define printcerr(PFX, Z, SFX) do { \
+	fprintf(stderr, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
 } while (0)
 
 #define scale(Z, R) do { \

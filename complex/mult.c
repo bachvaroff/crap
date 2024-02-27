@@ -84,10 +84,8 @@ compare(size, c0, c1)
 	for (i = 0u; i < size; i++)
 		if ((cmp = memcmp((void *)(c0 + i), (void *)(c1 + i), sizeof (complex_t)))) {
 			printf("%u %d %08x %08x\n", i, cmp, c0 + i, c1 + i);
-			printc(c0[i]);
-			printf(" | ");
-			printc(c1[i]);
-			printf("\n");
+			printc("", c0[i], " | ");
+			printc("", c1[i], "\n");
 			for (j = 0u; j < sizeof (complex_t); j++) {
 				pb0 = (unsigned char *)(c0 + i) + j;
 				b0 = *pb0;
