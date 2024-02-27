@@ -37,8 +37,8 @@ main()
 
 	for (i = 0u; i < SIZE; i++)
 		for (j = 0u; j < SIZE; j++) {
-			Re(IDX(a, SIZE, i, j)) = (double)((3u * i) % SIZE) / 97.0;
-			Im(IDX(a, SIZE, i, j)) = (double)((7u * j) % SIZE) / 91.0;
+			Re(MIJ(a, SIZE, i, j)) = (double)((3u * i) % SIZE) / 97.0;
+			Im(MIJ(a, SIZE, i, j)) = (double)((7u * j) % SIZE) / 91.0;
 		}
 
 	contransAB(SIZE, b, a);
