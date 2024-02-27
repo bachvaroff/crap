@@ -1,17 +1,27 @@
 CC=cc
 CFLAGS=
+CDEBUG=-D_DEBUG_ -D_DEBUG_CI_ -D_DEBUG_CIJ_
 INCLUDE=-I.
 LDFLAGS=
+LDEBUG=
+LIB=
 LDPOSTFLAGS0=-lm
 SOFLAGS=
-DEBUG=-D_DEBUG_ -D_DEBUG_CI_ -D_DEBUG_CIJ_
-COMPILE=$(CC) $(DEBUG) $(INCLUDE) $(CFLAGS)
-LINK=$(CC) $(DEBUG) $(LDFLAGS)
-LINKSO=$(CC) $(DEBUG) $(SOFLAGS)
-LD_LIBRARY_PATH=
+SODEBUG=
+COMPILE=$(CC) $(INCLUDE) $(CFLAGS) $(CDEBUG)
+LINK=$(CC) $(LIB) $(LDFLAGS) $(LDEBUG)
+LINKSO=$(CC) $(LIB) $(SOFLAGS) $(SODEBUG)
 
 .c.o:
 	$(COMPILE) -c $< -o $@
+
+cmatrix.o: complex.h cmatrix.h
+
+mult.o: complex.h cmatrix.h
+
+rot.o: complex.h
+
+ttrig.o: complex.h
 
 all: mult rot ttrig
 
