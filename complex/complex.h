@@ -77,25 +77,33 @@ typedef struct {
 } while (0)
 
 #define mul3(Z, U, V) do { \
-	Re(Z) = Re(U) * Re(V) - Im(U) * Im(V); \
-	Im(Z) = Im(U) * Re(V) + Re(U) * Im(V); \
+	register double __tReU__ = Re(U); \
+	register double __tReV__ = Re(V); \
+	Re(Z) = __tReU__ * __tReV__ - Im(U) * Im(V); \
+	Im(Z) = Im(U) * __tReV__ + __tReU__ * Im(V); \
 } while (0)
 
 #define madd(Z, U, V) do { \
-	Re(Z) += Re(U) * Re(V) - Im(U) * Im(V); \
-	Im(Z) += Im(U) * Re(V) + Re(U) * Im(V); \
+	register double __tReU__ = Re(U); \
+	register double __tReV__ = Re(V); \
+	Re(Z) += __tReU__ * __tReV__ - Im(U) * Im(V); \
+	Im(Z) += Im(U) * __tReV__ + __tReU__ * Im(V); \
 } while (0)
 
 #define div2(Z, U) do { \
 	register double __tReZ__ = Re(Z); \
 	register double __tReU__ = Re(U); \
-	Re(Z) = (__tReZ__ * __tReU__ + Im(Z) * Im(U)) / magsq(U); \
-	Im(Z) = (Im(Z) * __tReU__ - __tReZ__ * Im(U)) / magsq(U); \
+	register double __magsqU__ = magsq(U); \
+	Re(Z) = (__tReZ__ * __tReU__ + Im(Z) * Im(U)) / __magsqU__; \
+	Im(Z) = (Im(Z) * __tReU__ - __tReZ__ * Im(U)) / __magsqU__; \
 } while (0)
 
 #define div3(Z, U, V) do { \
-	Re(Z) = (Re(U) * Re(V) + Im(U) * Im(V)) / magsq(V); \
-	Im(Z) = (Im(U) * Re(V) - Re(U) * Im(V)) / magsq(V); \
+	register double __tReU__ = Re(U); \
+	register double __tReV__ = Re(V); \
+	register double __magsqV__ = magsq(V); \
+	Re(Z) = (__tReU__ * __tReV__ + Im(U) * Im(V)) / __magsqV__; \
+	Im(Z) = (Im(U) * __tReV__ - __tReU__ * Im(V)) / __magsqV__; \
 } while (0)
 
 #define expiphi(Z, PHI) do { \
@@ -109,9 +117,9 @@ typedef struct {
 } while (0)
 
 #define expZ(Z) do { \
-	register double __t__ = Re(Z); \
-	Re(Z) = exp(__t__) * cos(Im(Z)); \
-	Im(Z) = exp(__t__) * sin(Im(Z)); \
+	register double __tReZ__ = Re(Z); \
+	Re(Z) = exp(__tReZ__) * cos(Im(Z)); \
+	Im(Z) = exp(__tReZ__) * sin(Im(Z)); \
 } while (0)
 
 #define expZ2(Z, U) do { \
@@ -136,9 +144,9 @@ typedef struct {
 } while (0)
 
 #define _norm(Z) do { \
-	register double __t__ = mag(Z); \
-	Re(Z) /= __t__; \
-	Im(Z) /= __t__; \
+	register double __magZ__ = mag(Z); \
+	Re(Z) /= __magZ__; \
+	Im(Z) /= __magZ__; \
 } while (0)
 
 #define norm2(Z, U) do { \
@@ -147,11 +155,10 @@ typedef struct {
 } while (0)
 
 #define _norm2(Z, U) do { \
-	register double __t__ = mag(U); \
-	Re(Z) = Re(U) / __t__; \
-	Im(Z) = Im(U) / __t__; \
+	register double __magU__ = mag(U); \
+	Re(Z) = Re(U) / __magU__; \
+	Im(Z) = Im(U) / __magU__; \
 } while (0)
-
 
 #define SinZ(Z) do { \
 	register double __t__ = exp(Im(Z)); \
@@ -161,8 +168,8 @@ typedef struct {
 
 #define SinZ2(Z, U) do { \
 	register double __t__ = exp(Im(U)); \
-	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * sin(Re(U)); \
 	Im(Z) = -0.5 * (1.0 / __t__ - __t__) * cos(Re(U)); \
+	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * sin(Re(U)); \
 } while (0)
 
 #define CosZ(Z) do { \
@@ -173,8 +180,8 @@ typedef struct {
 
 #define CosZ2(Z, U) do { \
 	register double __t__ = exp(Im(U)); \
-	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * cos(Re(U)); \
 	Im(Z) = 0.5 * (1.0 / __t__ - __t__) * sin(Re(U)); \
+	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * cos(Re(U)); \
 } while (0)
 
 #endif
