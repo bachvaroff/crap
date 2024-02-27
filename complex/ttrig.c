@@ -6,7 +6,8 @@
 #include "complex.h"
 
 int
-main() {
+main()
+{
 	complex_t z0, z1;
 
 	Re(z0) = 1.0;
