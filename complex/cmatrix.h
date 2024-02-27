@@ -8,7 +8,7 @@
 
 #include "complex.h"
 
-#define IDX(ARR, R, C, NC) ((ARR)[(R) * (NC) + (C)])
+#define IDX(ARR, SIZE, I, J) ((ARR)[(I) * (SIZE) + (J)])
 
 #define copyAB(SIZE, A, B) do { \
 	(void)memcpy((void *)(A), (void *)(B), (SIZE) * (SIZE) * sizeof (complex_t)); \

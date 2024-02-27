@@ -16,16 +16,16 @@ mulCAB(size, C, A, B)
 
 	for (i = 0u; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%08x % 11u %08x\n", C, i, &IDX(C, i, 0u, size));
+		fprintf(stderr, "%08x % 11u %08x\n", C, i, &IDX(C, size, i, 0u));
 #endif
 		for (j = 0u; j < size; j++) {
-			Re(IDX(C, i, j, size)) = 0.0;
-			Im(IDX(C, i, j, size)) = 0.0;
+			Re(IDX(C, size, i, j)) = 0.0;
+			Im(IDX(C, size, i, j)) = 0.0;
 			for (k = 0u; k < size; k++)
-				madd(IDX(C, i, j, size), IDX(A, i, k, size), IDX(B, k, j, size));
+				madd(IDX(C, size, i, j), IDX(A, size, i, k), IDX(B, size, k, j));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, i, j, size));
-			printcerr("", IDX(C, i, j, size), "\n");
+			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, size, i, j));
+			printcerr("", IDX(C, size, i, j), "\n");
 #endif
 		}
 	}
@@ -42,16 +42,16 @@ mulCAtransB(size, C, A, B)
 
 	for (i = 0u; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%08x % 11u %08x\n", C, i, &IDX(C, i, 0u, size));
+		fprintf(stderr, "%08x % 11u %08x\n", C, i, &IDX(C, size, i, 0u));
 #endif
 		for (j = 0u; j < size; j++) {
-			Re(IDX(C, i, j, size)) = 0.0;
-			Im(IDX(C, i, j, size)) = 0.0;
+			Re(IDX(C, size, i, j)) = 0.0;
+			Im(IDX(C, size, i, j)) = 0.0;
 			for (k = 0u; k < size; k++)
-				madd(IDX(C, i, j, size), IDX(A, k, i, size), IDX(B, k, j, size));
+				madd(IDX(C, size, i, j), IDX(A, size, k, i), IDX(B, size, k, j));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, i, j, size));
-			printcerr("", IDX(C, i, j, size), "\n");
+			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, size, i, j));
+			printcerr("", IDX(C, size, i, j), "\n");
 #endif
 		}
 	}
@@ -68,16 +68,16 @@ mulCABtrans(size, C, A, B)
 
 	for (i = 0u; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%08x % 11u %08x\n", C, i, &IDX(C, i, 0u, size));
+		fprintf(stderr, "%08x % 11u %08x\n", C, i, &IDX(C, size, i, 0u));
 #endif
 		for (j = 0u; j < size; j++) {
-			Re(IDX(C, i, j, size)) = 0.0;
-			Im(IDX(C, i, j, size)) = 0.0;
+			Re(IDX(C, size, i, j)) = 0.0;
+			Im(IDX(C, size, i, j)) = 0.0;
 			for (k = 0u; k < size; k++)
-				madd(IDX(C, i, j, size), IDX(A, i, k, size), IDX(B, j, k, size));
+				madd(IDX(C, size, i, j), IDX(A, size, i, k), IDX(B, size, j, k));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, i, j, size));
-			printcerr("", IDX(C, i, j, size), "\n");
+			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &IDX(C, size, i, j));
+			printcerr("", IDX(C, size, i, j), "\n");
 #endif
 		}
 	}
@@ -93,9 +93,9 @@ transA(size, A)
 	
 	for (i = 0u; i < size; i++)
 		for (j = i; j < size; j++) {
-			t = IDX(A, i, j, size);
-			IDX(A, i, j, size) = IDX(A, j, i, size);
-			IDX(A, j, i, size) = t;
+			t = IDX(A, size, i, j);
+			IDX(A, size, i, j) = IDX(A, size, j, i);
+			IDX(A, size, j, i) = t;
 		}
 	
 	return;
@@ -111,7 +111,7 @@ transAB(size, A, B)
 	
 	for (i = 0u; i < size; i++)
 		for (j = 0u; j < size; j++)
-			IDX(A, i, j, size) = IDX(B, j, i, size);
+			IDX(A, size, i, j) = IDX(B, size, j, i);
 	
 	return;
 }
@@ -126,9 +126,9 @@ contrans(size, A)
 	
 	for (i = 0u; i < size; i++)
 		for (j = i; j < size; j++) {
-			con2(t, IDX(A, i, j, size));
-			con2(IDX(A, i, j, size), IDX(A, j, i, size));
-			IDX(A, j, i, size) = t;
+			con2(t, IDX(A, size, i, j));
+			con2(IDX(A, size, i, j), IDX(A, size, j, i));
+			IDX(A, size, j, i) = t;
 		}
 	
 	return;
@@ -144,7 +144,7 @@ contransAB(size, A, B)
 	
 	for (i = 0u; i < size; i++)
 		for (j = 0u; j < size; j++)
-			con2(IDX(A, i, j, size), IDX(B, j, i, size));
+			con2(IDX(A, size, i, j), IDX(B, size, j, i));
 	
 	return;
 }
