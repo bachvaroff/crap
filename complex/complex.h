@@ -1,13 +1,13 @@
 #ifndef _COMPLEX_
 #define _COMPLEX_
 
-typedef struct {
+typedef struct _complex_t {
 	double re;
 	double im;
 } complex_t;
 
-#define Re(Z)		   ((Z).re)
-#define Im(Z)		   ((Z).im)
+#define Re(Z) ((Z).re)
+#define Im(Z) ((Z).im)
 
 #define printc(PFX, Z, SFX) do { \
 	printf(PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
@@ -17,171 +17,107 @@ typedef struct {
 	fprintf(stderr, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
 } while (0)
 
+#define dist(U, V) \
+	sqrt((Re(U) - Re(V)) * (Re(U) - Re(V)) + (Im(U) - Im(V)) * (Im(U) - Im(V)))
+#define distsq(U, V) \
+	((Re(U) - Re(V)) * (Re(U) - Re(V)) + (Im(U) - Im(V)) * (Im(U) - Im(V)))
 #define pseudosc(U, V) (Re(U) * Re(V) + Im(U) * Im(V))
 #define magsq(Z) pseudosc(Z, Z)
 #define mag(Z) sqrt(pseudosc(Z, Z))
 #define Arg(Z) atan2(Im(Z), Re(Z))
 
-#define scale(Z, R) do { \
-	Re(Z) *= (R); \
-	Im(Z) *= (R); \
-} while (0)
-
-#define scale2(Z, U, R) { \
+#define scale3(Z, U, R) { \
 	Re(Z) = Re(U) * (R); \
 	Im(Z) = Im(U) * (R); \
 } while (0)
-
-#define con(Z) do { \
-	Im(Z) = -Im(Z); \
-} while (0)
+#define scale2(Z, R) scale3(Z, Z, R)
 
 #define con2(Z, U) do { \
 	Re(Z) = Re(U); \
 	Im(Z) = -Im(U); \
 } while (0)
-
-#define dist(U, V) \
-	(sqrt((Re(U) - Re(V)) * (Re(U) - Re(V)) + \
-	(Im(U) - Im(V)) * (Im(U) - Im(V))))
-
-#define distsq(U, V) \
-	((Re(U) - Re(V)) * (Re(U) - Re(V)) + \
-	(Im(U) - Im(V)) * (Im(U) - Im(V)))
-
-#define add2(Z, U) do { \
-	Re(Z) += Re(U); \
-	Im(Z) += Im(U); \
-} while (0)
+#define con(Z) con2(Z, Z)
 
 #define add3(Z, U, V) do { \
 	Re(Z) = Re(U) + Re(V); \
 	Im(Z) = Im(U) + Im(V); \
 } while (0)
-
-#define sub2(Z, U) do { \
-	Re(Z) -= Re(U); \
-	Im(Z) -= Im(U); \
-} while (0)
+#define add2(Z, U) add3(Z, Z, U)
 
 #define sub3(Z, U, V) do { \
 	Re(Z) = Re(U) - Re(V); \
 	Im(Z) = Im(U) - Im(V); \
 } while (0)
-
-#define mul2(Z, U) do { \
-	register double __tReZ__ = Re(Z); \
-	register double __tReU__ = Re(U); \
-	Re(Z) = __tReZ__ * __tReU__ - Im(Z) * Im(U); \
-	Im(Z) = Im(Z) * __tReU__ + __tReZ__ * Im(U); \
-} while (0)
+#define sub2(Z, U) sub3(Z, Z, U)
 
 #define mul3(Z, U, V) do { \
-	register double __tReU__ = Re(U); \
-	register double __tReV__ = Re(V); \
-	Re(Z) = __tReU__ * __tReV__ - Im(U) * Im(V); \
-	Im(Z) = Im(U) * __tReV__ + __tReU__ * Im(V); \
+	register double __ReU__ = Re(U); \
+	register double __ReV__ = Re(V); \
+	Re(Z) = __ReU__ * __ReV__ - Im(U) * Im(V); \
+	Im(Z) = Im(U) * __ReV__ + __ReU__ * Im(V); \
 } while (0)
+#define mul2(Z, U) mul3(Z, Z, U)
 
 #define madd(Z, U, V) do { \
-	register double __tReU__ = Re(U); \
-	register double __tReV__ = Re(V); \
-	Re(Z) += __tReU__ * __tReV__ - Im(U) * Im(V); \
-	Im(Z) += Im(U) * __tReV__ + __tReU__ * Im(V); \
-} while (0)
-
-#define div2(Z, U) do { \
-	register double __tReZ__ = Re(Z); \
-	register double __tReU__ = Re(U); \
-	register double __magsqU__ = magsq(U); \
-	Re(Z) = (__tReZ__ * __tReU__ + Im(Z) * Im(U)) / __magsqU__; \
-	Im(Z) = (Im(Z) * __tReU__ - __tReZ__ * Im(U)) / __magsqU__; \
+	register double __ReU__ = Re(U); \
+	register double __ReV__ = Re(V); \
+	Re(Z) += __ReU__ * __ReV__ - Im(U) * Im(V); \
+	Im(Z) += Im(U) * __ReV__ + __ReU__ * Im(V); \
 } while (0)
 
 #define div3(Z, U, V) do { \
-	register double __tReU__ = Re(U); \
-	register double __tReV__ = Re(V); \
+	register double __ReU__ = Re(U); \
+	register double __ReV__ = Re(V); \
 	register double __magsqV__ = magsq(V); \
-	Re(Z) = (__tReU__ * __tReV__ + Im(U) * Im(V)) / __magsqV__; \
-	Im(Z) = (Im(U) * __tReV__ - __tReU__ * Im(V)) / __magsqV__; \
+	Re(Z) = (__ReU__ * __ReV__ + Im(U) * Im(V)) / __magsqV__; \
+	Im(Z) = (Im(U) * __ReV__ - __ReU__ * Im(V)) / __magsqV__; \
 } while (0)
+#define div2(Z, U) div3(Z, Z, U)
 
 #define expiphi(Z, PHI) do { \
 	Re(Z) = cos(PHI); \
 	Im(Z) = sin(PHI); \
 } while (0)
 
-#define expiZ(Z, U) do { \
-	Re(Z) = exp(-Im(U)) * cos(Re(U)); \
-	Im(Z) = exp(-Im(U)) * sin(Re(U)); \
+#define expiZ2(Z, U) do { \
+	register double __ReU__ = Re(U); \
+	Re(Z) = exp(-Im(U)) * cos(__ReU__); \
+	Im(Z) = exp(-Im(U)) * sin(__ReU__); \
 } while (0)
-
-#define expZ(Z) do { \
-	register double __tReZ__ = Re(Z); \
-	Re(Z) = exp(__tReZ__) * cos(Im(Z)); \
-	Im(Z) = exp(__tReZ__) * sin(Im(Z)); \
-} while (0)
+#define expiZ(Z) expiZ(Z, Z)
 
 #define expZ2(Z, U) do { \
-	Re(Z) = exp(Re(U)) * cos(Im(U)); \
-	Im(Z) = exp(Re(U)) * sin(Im(U)); \
+	register double __ReU__ = Re(U); \
+	Re(Z) = exp(__ReU__) * cos(Im(U)); \
+	Im(Z) = exp(__ReU__) * sin(Im(U)); \
 } while (0)
-
-#define LogZ(Z) do { \
-	register double __Arg__ = Arg(Z); \
-	Re(Z) = 0.5 * log(magsq(Z)); \
-	Im(Z) = __Arg__; \
-} while (0)
+#define expZ(Z) expZ2(Z, Z)
 
 #define LogZ2(Z, U) do { \
+	register double __ArgU__ = Arg(U); \
 	Re(Z) = 0.5 * log(magsq(U)); \
-	Im(Z) = Arg(U); \
+	Im(Z) = __ArgU__; \
 } while (0)
-
-#define norm(Z) do { \
-	register double __Arg__ = Arg(Z); \
-	expiphi(Z, __Arg__); \
-} while (0)
-
-#define _norm(Z) do { \
-	register double __magZ__ = mag(Z); \
-	Re(Z) /= __magZ__; \
-	Im(Z) /= __magZ__; \
-} while (0)
+#define LogZ(Z) LogZ2(Z, Z)
 
 #define norm2(Z, U) do { \
-	register double __Arg__ = Arg(U); \
-	expiphi(Z, __Arg__); \
+	register double __ArgU__ = Arg(U); \
+	expiphi(Z, __ArgU__); \
 } while (0)
-
-#define _norm2(Z, U) do { \
-	register double __magU__ = mag(U); \
-	Re(Z) = Re(U) / __magU__; \
-	Im(Z) = Im(U) / __magU__; \
-} while (0)
-
-#define SinZ(Z) do { \
-	register double __t__ = exp(Im(Z)); \
-	Im(Z) = -0.5 * (1.0 / __t__ - __t__) * cos(Re(Z)); \
-	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * sin(Re(Z)); \
-} while (0)
+#define norm(Z) norm2(Z, Z)
 
 #define SinZ2(Z, U) do { \
-	register double __t__ = exp(Im(U)); \
-	Im(Z) = -0.5 * (1.0 / __t__ - __t__) * cos(Re(U)); \
-	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * sin(Re(U)); \
+	register double __expImU__ = exp(Im(U)); \
+	Im(Z) = -0.5 * (1.0 / __expImU__ - __expImU__) * cos(Re(U)); \
+	Re(Z) = 0.5 * (1.0 / __expImU__ + __expImU__) * sin(Re(U)); \
 } while (0)
-
-#define CosZ(Z) do { \
-	register double __t__ = exp(Im(Z)); \
-	Im(Z) = 0.5 * (1.0 / __t__ - __t__) * sin(Re(Z)); \
-	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * cos(Re(Z)); \
-} while (0)
+#define SinZ(Z) SinZ2(Z, Z)
 
 #define CosZ2(Z, U) do { \
-	register double __t__ = exp(Im(U)); \
-	Im(Z) = 0.5 * (1.0 / __t__ - __t__) * sin(Re(U)); \
-	Re(Z) = 0.5 * (1.0 / __t__ + __t__) * cos(Re(U)); \
+	register double __expImU__ = exp(Im(U)); \
+	Im(Z) = 0.5 * (1.0 / __expImU__ - __expImU__) * sin(Re(U)); \
+	Re(Z) = 0.5 * (1.0 / __expImU__ + __expImU__) * cos(Re(U)); \
 } while (0)
+#define CosZ(Z) CosZ2(Z, Z)
 
 #endif

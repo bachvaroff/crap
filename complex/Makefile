@@ -1,4 +1,4 @@
-CC=cc
+CC=/bin/time cc
 CFLAGS=
 CDEBUG=-D_DEBUG_ -D_DEBUG_CI_ -D_DEBUG_CIJ_
 INCLUDE=-I.
