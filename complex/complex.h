@@ -17,6 +17,11 @@ typedef struct {
 	fprintf(stderr, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
 } while (0)
 
+#define pseudosc(U, V) (Re(U) * Re(V) + Im(U) * Im(V))
+#define magsq(Z) pseudosc(Z, Z)
+#define mag(Z) sqrt(pseudosc(Z, Z))
+#define Arg(Z) atan2(Im(Z), Re(Z))
+
 #define scale(Z, R) do { \
 	Re(Z) *= (R); \
 	Im(Z) *= (R); \
@@ -35,12 +40,6 @@ typedef struct {
 	Re(Z) = Re(U); \
 	Im(Z) = -Im(U); \
 } while (0)
-
-#define mag(Z) (sqrt(Re(Z) * Re(Z) + Im(Z) * Im(Z)))
-
-#define magsq(Z) (Re(Z) * Re(Z) + Im(Z) * Im(Z))
-
-#define Arg(Z) (atan2(Im(Z), Re(Z)))
 
 #define dist(U, V) \
 	(sqrt((Re(U) - Re(V)) * (Re(U) - Re(V)) + \
@@ -69,8 +68,6 @@ typedef struct {
 	Re(Z) = Re(U) - Re(V); \
 	Im(Z) = Im(U) - Im(V); \
 } while (0)
-
-#define pseudosc(U, V) (Re(U) * Re(V) + Im(U) * Im(V))
 
 #define mul2(Z, U) do { \
 	register double __t__ = Re(Z); \
