@@ -8,7 +8,7 @@
 int
 main()
 {
-	complex_t z0, z1;
+	complex_t z0, z1, u;
 
 	Re(z0) = 1.0;
 	Im(z0) = 0.5;
@@ -18,6 +18,12 @@ main()
 	SinZ(z1);
 	printc("", z0, "\n");
 	printc("", z1, "\n");
+	mul2(z0, z0);
+	mul2(z1, z1);
+	printc("", z0, "\n");
+	printc("", z1, "\n");
+	add3(u, z0, z1);
+	printc("", u, "\n");
 	
 	LogZ(z0);
 	printc("", z0, "\n");

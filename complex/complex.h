@@ -70,25 +70,27 @@ typedef struct {
 } while (0)
 
 #define mul2(Z, U) do { \
-	register double __t__ = Re(Z); \
-	Re(Z) = (__t__ * Re(U) - Im(Z) * Im(U)); \
-	Im(Z) = (Im(Z) * Re(U) + __t__ * Im(U)); \
+	register double __tReZ__ = Re(Z); \
+	register double __tReU__ = Re(U); \
+	Re(Z) = __tReZ__ * __tReU__ - Im(Z) * Im(U); \
+	Im(Z) = Im(Z) * __tReU__ + __tReZ__ * Im(U); \
 } while (0)
 
 #define mul3(Z, U, V) do { \
-	Re(Z) = (Re(U) * Re(V) - Im(U) * Im(V)); \
-	Im(Z) = (Im(U) * Re(V) + Re(U) * Im(V)); \
+	Re(Z) = Re(U) * Re(V) - Im(U) * Im(V); \
+	Im(Z) = Im(U) * Re(V) + Re(U) * Im(V); \
 } while (0)
 
 #define madd(Z, U, V) do { \
-	Re(Z) += (Re(U) * Re(V) - Im(U) * Im(V)); \
-	Im(Z) += (Im(U) * Re(V) + Re(U) * Im(V)); \
+	Re(Z) += Re(U) * Re(V) - Im(U) * Im(V); \
+	Im(Z) += Im(U) * Re(V) + Re(U) * Im(V); \
 } while (0)
 
 #define div2(Z, U) do { \
-	register double __t__ = Re(Z); \
-	Re(Z) = (__t__ * Re(U) + Im(Z) * Im(U)) / magsq(U); \
-	Im(Z) = (Im(Z) * Re(U) - __t__ * Im(U)) / magsq(U); \
+	register double __tReZ__ = Re(Z); \
+	register double __tReU__ = Re(U); \
+	Re(Z) = (__tReZ__ * __tReU__ + Im(Z) * Im(U)) / magsq(U); \
+	Im(Z) = (Im(Z) * __tReU__ - __tReZ__ * Im(U)) / magsq(U); \
 } while (0)
 
 #define div3(Z, U, V) do { \
