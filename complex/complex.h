@@ -129,4 +129,18 @@ typedef struct _complex_t {
 } while (0)
 #define CosZ(Z) CosZ2(Z, Z)
 
+#define SinhZ2(Z, U) do { \
+	register double __expReU__ = exp(Re(U)); \
+	Re(Z) = 0.5 * (__expReU__ - 1.0 / __expReU__) * cos(Im(U)); \
+	Im(Z) = 0.5 * (__expReU__ + 1.0 / __expReU__) * sin(Im(U)); \
+} while (0)
+#define SinhZ(Z) SinhZ2(Z, Z)
+
+#define CoshZ2(Z, U) do { \
+	register double __expReU__ = exp(Re(U)); \
+	Re(Z) = 0.5 * (__expReU__ + 1.0 / __expReU__) * cos(Im(U)); \
+	Im(Z) = 0.5 * (__expReU__ - 1.0 / __expReU__) * sin(Im(U)); \
+} while (0)
+#define CoshZ(Z) CoshZ2(Z, Z)
+
 #endif

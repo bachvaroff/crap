@@ -1,4 +1,5 @@
-CC=/bin/time cc
+# CC=/bin/time /bin/cc
+CC=/bin/cc
 CFLAGS=
 CDEBUG=-D_DEBUG_ -D_DEBUG_CI_ -D_DEBUG_CIJ_
 INCLUDE=-I.
@@ -19,9 +20,10 @@ cmatrix.o: complex.h cmatrix.h
 mult.o: complex.h cmatrix.h
 rot.o: complex.h
 ttrig.o: complex.h
+thyp.o: complex.h
 tinner.o: complex.h
 
-all: mult rot ttrig tinner
+all: mult rot ttrig thyp tinner
 
 mult: mult.o cmatrix.o
 	$(LINK) mult.o cmatrix.o $(LDPOSTFLAGS0) -o $@
@@ -32,8 +34,11 @@ rot: rot.o
 ttrig: ttrig.o
 	$(LINK) ttrig.o $(LDPOSTFLAGS0) -o $@
 
+thyp: thyp.o
+	$(LINK) thyp.o $(LDPOSTFLAGS0) -o $@
+
 tinner: tinner.o
 	$(LINK) tinner.o $(LDPOSTFLAGS0) -o $@
 
 clean:
-	rm -f *.o mult rot ttrig tinner
+	rm -f *.o mult rot ttrig thyp tinner
