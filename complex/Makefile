@@ -16,14 +16,14 @@ LINKSO=$(CC) $(LIB) $(SOFLAGS) $(SODEBUG)
 .c.o:
 	$(COMPILE) -c $< -o $@
 
-cmatrix.o: complex.h cmatrix.h
-mult.o: complex.h cmatrix.h
-rot.o: complex.h
-ttrig.o: complex.h
-thyp.o: complex.h
-tinner.o: complex.h
-
 all: mult rot ttrig thyp tinner
+
+cmatrix.o: cmatrix.c complex.h cmatrix.h
+mult.o: mult.c complex.h cmatrix.h
+rot.o: rot.c complex.h
+ttrig.o: ttrig.c complex.h
+thyp.o: thyp.c complex.h
+tinner.o: tinner.c complex.h
 
 mult: mult.o cmatrix.o
 	$(LINK) mult.o cmatrix.o $(LDPOSTFLAGS0) -o $@
