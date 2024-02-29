@@ -3,6 +3,10 @@
 
 #include "complex.h"
 
+#ifndef STEPS
+#define STEPS 4096.0
+#endif
+
 double _M_PI;
 double _M_2PI, _M_LOG10;
 
@@ -17,7 +21,7 @@ main()
 	_M_2PI = 8.0 * atan(1.0);
 	_M_LOG10 = log(10.0);
 
-	ph = _M_2PI / 960.0;
+	ph = _M_2PI / STEPS;
 	expiphi(a, _M_PI / 4.0);
 
 	for (j = 0, phacc = 0.0,
