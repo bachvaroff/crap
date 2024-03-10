@@ -10,8 +10,7 @@ main()
 {
 	complex_t z0, z1, u;
 
-	Re(z0) = 1.0;
-	Im(z0) = 0.5;
+	mkC(z0, 1.0, 0.5);
 	z1 = z0;
 	
 	CosZ(z0);

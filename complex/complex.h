@@ -1,6 +1,9 @@
 #ifndef _COMPLEX_
 #define _COMPLEX_
 
+#include <stdio.h>
+#include <math.h>
+
 typedef struct _complex_t {
 	double re;
 	double im;
@@ -8,6 +11,13 @@ typedef struct _complex_t {
 
 #define Re(Z) ((Z).re)
 #define Im(Z) ((Z).im)
+#define mkC(Z, R, I) do { \
+	Re(Z) = (R); \
+	Im(Z) = (I); \
+} while (0)
+#define mk1(Z) mkC(Z, 1.0, 0.0)
+#define mki(Z) mkC(Z, 0.0, 1.0)
+#define mk0(Z) mkC(Z, 0.0, 0.0)
 
 #define printc(PFX, Z, SFX) do { \
 	printf(PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
@@ -24,7 +34,13 @@ typedef struct _complex_t {
 #define pseudosc(U, V) (Re(U) * Re(V) + Im(U) * Im(V))
 #define magsq(Z) pseudosc(Z, Z)
 #define mag(Z) sqrt(pseudosc(Z, Z))
+#define arg(Z, BR) (atan2(Im(Z), Re(Z)) + 2.0 * (double)(BR) * M_PI)
+
+#ifdef __BRANCH
+#define Arg(Z) arg(Z, 0)
+#else
 #define Arg(Z) atan2(Im(Z), Re(Z))
+#endif
 
 #define scale3(Z, U, R) { \
 	Re(Z) = Re(U) * (R); \
@@ -102,12 +118,24 @@ typedef struct _complex_t {
 } while (0)
 #define expZ(Z) expZ2(Z, Z)
 
+#define logZ2(Z, U, BR) do { \
+	register double __argU__ = arg(U, BR); \
+	Re(Z) = 0.5 * log(magsq(U)); \
+	Im(Z) = __argU__; \
+} while (0)
+#define logZ(Z, BR) logZ2(Z, Z, BR)
+
+#ifdef __BRANCH
+#define LogZ2(Z, U) logZ2(Z, U, 0)
+#define LogZ(Z) logZ(Z, 0)
+#else
 #define LogZ2(Z, U) do { \
 	register double __ArgU__ = Arg(U); \
 	Re(Z) = 0.5 * log(magsq(U)); \
 	Im(Z) = __ArgU__; \
 } while (0)
 #define LogZ(Z) LogZ2(Z, Z)
+#endif
 
 #define norm2(Z, U) do { \
 	register double __ArgU__ = Arg(U); \

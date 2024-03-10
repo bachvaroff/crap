@@ -148,3 +148,19 @@ contransAB(size, A, B)
 	
 	return;
 }
+
+void
+mulYAX(size, Y, A, X)
+	size_t size;
+	complex_t *Y;
+	complex_t *A;
+	complex_t *X;
+{
+	size_t i, j;
+	
+	for (i = 0u; i < size; i++)
+		for (j = 0u; j < size; j++)
+			mul3(Y[i], MIJ(A, size, i, j), X[i]);
+	
+	return;
+}

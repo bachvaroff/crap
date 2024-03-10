@@ -1,6 +1,6 @@
 # CC=/bin/time /bin/cc
 CC=/bin/cc
-CFLAGS=
+CFLAGS=-D__BRANCH
 CDEBUG=-D_DEBUG_ -D_DEBUG_CI_ -D_DEBUG_CIJ_
 INCLUDE=-I.
 LDFLAGS=

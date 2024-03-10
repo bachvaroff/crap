@@ -36,10 +36,10 @@ main()
 	printf("a %08x b %08x bt %08x c0 %08x c1 %08x\n", a, b, c0, c1);
 
 	for (i = 0u; i < SIZE; i++)
-		for (j = 0u; j < SIZE; j++) {
-			Re(MIJ(a, SIZE, i, j)) = (double)((3u * i) % SIZE) / 97.0;
-			Im(MIJ(a, SIZE, i, j)) = (double)((7u * j) % SIZE) / 91.0;
-		}
+		for (j = 0u; j < SIZE; j++)
+			mkC(MIJ(a, SIZE, i, j),
+					(double)((3u * i) % SIZE) / 97.0,
+					(double)((7u * j) % SIZE) / 91.0);
 
 	contransAB(SIZE, b, a);
 

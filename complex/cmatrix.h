@@ -21,5 +21,6 @@ void transA(size_t, complex_t *);
 void transAB(size_t, complex_t *, complex_t *);
 void contransA(size_t, complex_t *); 
 void contransAB(size_t, complex_t *, complex_t *);
+void mulYAX(size_t, complex_t *, complex_t *, complex_t *);
 
 #endif
