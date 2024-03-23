@@ -33,7 +33,7 @@ main()
 	b = marr + 2l * SIZESQ;
 	c1 = marr + 3l * SIZESQ;
 	bt = marr + 4l * SIZESQ;
-	printf("a %16lx b %16lx bt %16lx c0 %16lx c1 %16lx\n",
+	printf("a %16lx | b %16lx | bt %16lx | c0 %16lx | c1 %16lx\n",
 		(unsigned long)a, (unsigned long)b, (unsigned long)bt,
 		(unsigned long)c0, (unsigned long)c1);
 

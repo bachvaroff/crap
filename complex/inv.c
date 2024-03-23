@@ -34,7 +34,7 @@ main()
 	dec = marr + 2l * SIZESQ;
 	abi = marr + 3l * SIZESQ;
 	biai = marr + 4l * SIZESQ;
-	printf("a %16lx b %16lx bt %16lx c0 %16lx c1 %16lx\n",
+	printf("a %16lx | b %16lx | dec %16lx | abi %16lx | biai %16lx\n",
 		(unsigned long)a, (unsigned long)b, (unsigned long)dec,
 		(unsigned long)abi, (unsigned long)biai);
 
