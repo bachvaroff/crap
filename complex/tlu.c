@@ -65,7 +65,7 @@ main()
 		printc("", x[i], "\n");
 	}
 	
-	mulYAX(3, y, A, x);
+	mulyAx(3, y, A, x);
 	for (i = 0; i < 3; i++) {
 		printf("y[%d] =", i);
 		printc("", y[i], " | ");

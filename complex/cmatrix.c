@@ -150,18 +150,18 @@ contransAB(size, A, B)
 }
 
 void
-mulYAX(size, Y, A, X)
+mulyAx(size, y, A, x)
 	int size;
-	complex_t *Y;
+	complex_t *y;
 	complex_t *A;
-	complex_t *X;
+	complex_t *x;
 {
 	int i, j;
 	
 	for (i = 0u; i < size; i++) {
-		mkC(Y[i], 0.0, 0.0);
+		mkC(y[i], 0.0, 0.0);
 		for (j = 0u; j < size; j++)
-			madd(Y[i], MIJ(size, A, i, j), X[j]);
+			madd(y[i], MIJ(size, A, i, j), x[j]);
 	}
 	
 	return;
