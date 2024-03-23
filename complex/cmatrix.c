@@ -16,7 +16,9 @@ mulCAB(size, C, A, B)
 
 	for (i = 0l; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%16lx % 11ld %16lx\n", C, i, &MIJ(size, C, i, 0l));
+		fprintf(stderr, "%16lx % 11ld %16lx\n",
+			(unsigned long)C, i,
+			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
 			Re(MIJ(size, C, i, j)) = 0.0;
@@ -24,7 +26,9 @@ mulCAB(size, C, A, B)
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j), MIJ(size, A, i, k), MIJ(size, B, k, j));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ", C, i, j, &MIJ(size, C, i, j));
+			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ",
+				(unsigned long)C, i, j,
+				(unsigned long)&MIJ(size, C, i, j));
 			printcerr("", MIJ(size, C, i, j), "\n");
 #endif
 		}
@@ -42,7 +46,9 @@ mulCAtransB(size, C, A, B)
 
 	for (i = 0l; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%16lx % 11ld %16lx\n", C, i, &MIJ(size, C, i, 0l));
+		fprintf(stderr, "%16lx % 11ld %16lx\n",
+			(unsigned long)C, i,
+			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
 			Re(MIJ(size, C, i, j)) = 0.0;
@@ -50,7 +56,9 @@ mulCAtransB(size, C, A, B)
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j), MIJ(size, A, k, i), MIJ(size, B, k, j));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ", C, i, j, &MIJ(size, C, i, j));
+			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ",
+				(unsigned long)C, i, j,
+				(unsigned long)&MIJ(size, C, i, j));
 			printcerr("", MIJ(size, C, i, j), "\n");
 #endif
 		}
@@ -68,7 +76,9 @@ mulCABtrans(size, C, A, B)
 
 	for (i = 0l; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%16lx % 11ld %16lx\n", C, i, &MIJ(size, C, i, 0l));
+		fprintf(stderr, "%16lx % 11ld %16lx\n",
+			(unsigned long)C, i,
+			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
 			Re(MIJ(size, C, i, j)) = 0.0;
@@ -76,7 +86,9 @@ mulCABtrans(size, C, A, B)
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j), MIJ(size, A, i, k), MIJ(size, B, j, k));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ", C, i, j, &MIJ(size, C, i, j));
+			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ",
+				(unsigned long)C, i, j,
+				(unsigned long)&MIJ(size, C, i, j));
 			printcerr("", MIJ(size, C, i, j), "\n");
 #endif
 		}

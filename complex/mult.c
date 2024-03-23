@@ -26,14 +26,16 @@ main()
 	if (!marr) {
 		fprintf(stderr, "cannot alloc marr\n");
 		goto bad0;
-	} else printf("marr % 16lx % 10ld\n", marr, 5l * SIZESQ * sizeof (complex_t));
+	} else printf("marr %16lx % 10ld\n", (unsigned long)marr, 5l * SIZESQ * sizeof (complex_t));
 
 	a = marr + 0l * SIZESQ;
 	c0 = marr + 1l * SIZESQ;
 	b = marr + 2l * SIZESQ;
 	c1 = marr + 3l * SIZESQ;
 	bt = marr + 4l * SIZESQ;
-	printf("a % 16lx b % 16lx bt % 16lx c0 % 16lx c1 % 16lx\n", a, b, c0, c1);
+	printf("a %16lx b %16lx bt %16lx c0 %16lx c1 %16lx\n",
+		(unsigned long)a, (unsigned long)b, (unsigned long)bt,
+		(unsigned long)c0, (unsigned long)c1);
 
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++)
@@ -45,10 +47,10 @@ main()
 
 	printf("begin\n");
 
-	printf("c0 % 16lx\n", c0);
+	printf("c0 %16lx\n", (unsigned long)c0);
 	mulCAB(SIZE, c0, a, b);
 	
-	printf("c1 % 16lx\n", c1);
+	printf("c1 %16lx\n", (unsigned long)c1);
 #ifdef TRANS
 	transAB(SIZE, bt, b);
 #else
@@ -83,7 +85,8 @@ compare(size, c0, c1)
 	
 	for (i = 0l; i < size; i++)
 		if ((cmp = memcmp((void *)(c0 + i), (void *)(c1 + i), sizeof (complex_t)))) {
-			printf("%ld %d % 16lx % 16lx\n", i, cmp, c0 + i, c1 + i);
+			printf("%ld %d %16lx %16lx\n", i, cmp,
+				(unsigned long)c0 + i, (unsigned long)c1 + i);
 			printc("", c0[i], " | ");
 			printc("", c1[i], "\n");
 			for (j = 0l; j < sizeof (complex_t); j++) {
@@ -91,9 +94,9 @@ compare(size, c0, c1)
 				b0 = *pb0;
 				pb1 = (unsigned char *)(c1 + i) + j;
 				b1 = *pb1;
-				printf("\t% 16lx %02x | % 16lx %02x%s",
-						pb0, (unsigned int)b0,
-						pb1, (unsigned int)b1,
+				printf("\t%16lx %02x | %16lx %02x%s",
+						(unsigned long)pb0, (unsigned int)b0,
+						(unsigned long)pb1, (unsigned int)b1,
 						(b0 == b1) ? "\n" : " ***\n");
 			}
 		}
