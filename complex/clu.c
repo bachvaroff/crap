@@ -9,11 +9,11 @@
  *		where S is the number of row exchanges needed for determinant computation, det(P)=(-1)^S	
  */
 int
-LUPDecompose(N, A, Tol, P)
+LUPDecompose(N, A, P, Tol)
 	int N;
 	complex_t *A;
-	double Tol;
 	int *P;
+	double Tol;
 {
 	int i, j, k, imax; 
 	double maxA, absA;
@@ -103,11 +103,11 @@ LUPSolve(N, A, P, x, b)
  * OUTPUT: IA is the inverse of the initial matrix
  */
 void
-LUPInvert(N, A, P, IA)
+LUPInvert(N, IA, A, P)
 	int N;
+	complex_t *IA;
 	complex_t *A;
 	int *P;
-	complex_t *IA;
 {
 	int i, j, k;
 	complex_t t0;

@@ -31,21 +31,26 @@ main()
 	
 	copyAB(3, decA, A);
 	
-	r = LUPDecompose(3, decA, 0.000000001, P);
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++) {
+			printf("A[%d][%d] = ", i, j);
+			printc("", MIJ(3, A, i, j), "\n");
+		}
+	r = LUPDecompose(3, decA, P, 0.000000001);
 	assert(r);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
-			printf("decA[%d][%d] = ", i, j);
+			printf("\tdecA[%d][%d] = ", i, j);
 			printc("", MIJ(3, decA, i, j), "\n");
 		}
 	for (i = 0; i <= 3; i++)
-		printf("P[%d] = %d\n", i, P[i]);
+		printf("\tP[%d] = %d\n", i, P[i]);
 	
 	t0 = LUPDeterminant(3, decA, P);
 	printf("det(A) = ");
 	printc("", t0, "\n");
 	
-	LUPInvert(3, decA, P, IA);
+	LUPInvert(3, IA, decA, P);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
 			printf("IA[%d][%d] = ", i, j);
