@@ -12,12 +12,12 @@
 complex_t *c0, *c1, *a, *b, *bt;
 complex_t *marr;
 
-void compare(size_t, complex_t *, complex_t *);
+void compare(int, complex_t *, complex_t *);
 
 int
 main()
 {
-	size_t i, j;
+	int i, j;
 	int cmp;
 	
 	printf("init\n");
@@ -37,7 +37,7 @@ main()
 
 	for (i = 0u; i < SIZE; i++)
 		for (j = 0u; j < SIZE; j++)
-			mkC(MIJ(a, SIZE, i, j),
+			mkC(MIJ(SIZE, a, i, j),
 					(double)((3u * i) % SIZE) / 97.0,
 					(double)((7u * j) % SIZE) / 91.0);
 
@@ -72,11 +72,11 @@ bad0:
 
 void
 compare(size, c0, c1)
-	size_t size;
+	int size;
 	complex_t *c0;
 	complex_t *c1;
 {
-	size_t i, j;
+	int i, j;
 	int cmp;
 	unsigned char *pb0, b0;
 	unsigned char *pb1, b1;

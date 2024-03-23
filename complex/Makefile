@@ -13,20 +13,24 @@ COMPILE=$(CC) $(INCLUDE) $(CFLAGS) $(CDEBUG)
 LINK=$(CC) $(LIB) $(LDFLAGS) $(LDEBUG)
 LINKSO=$(CC) $(LIB) $(SOFLAGS) $(SODEBUG)
 
+CMOBJ=cmatrix.o clu.o
+
 .c.o:
 	$(COMPILE) -c $< -o $@
 
-all: mult rot ttrig thyp tinner
+all: mult rot ttrig thyp tinner tlu
 
 cmatrix.o: cmatrix.c complex.h cmatrix.h
+clu.o: clu.c complex.h cmatrix.h clu.h
 mult.o: mult.c complex.h cmatrix.h
 rot.o: rot.c complex.h
 ttrig.o: ttrig.c complex.h
 thyp.o: thyp.c complex.h
 tinner.o: tinner.c complex.h
+tlu.o: tlu.c complex.h cmatrix.h clu.h
 
-mult: mult.o cmatrix.o
-	$(LINK) mult.o cmatrix.o $(LDPOSTFLAGS0) -o $@
+mult: mult.o $(CMOBJ)
+	$(LINK) mult.o $(CMOBJ) $(LDPOSTFLAGS0) -o $@
 
 rot: rot.o
 	$(LINK) rot.o $(LDPOSTFLAGS0) -o $@
@@ -40,5 +44,8 @@ thyp: thyp.o
 tinner: tinner.o
 	$(LINK) tinner.o $(LDPOSTFLAGS0) -o $@
 
+tlu: tlu.o $(CMOBJ)
+	$(LINK) tlu.o $(CMOBJ) $(LDPOSTFLAGS0) -o $@
+
 clean:
-	rm -f *.o mult rot ttrig thyp tinner
+	rm -f *.o mult rot ttrig thyp tinner tlu

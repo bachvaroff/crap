@@ -7,25 +7,25 @@
 
 void
 mulCAB(size, C, A, B)
-	size_t size;
+	int size;
 	complex_t *C;
 	complex_t *A;
 	complex_t *B;
 {
-	size_t i, j, k;
+	int i, j, k;
 
 	for (i = 0u; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%08x % 11u %08x\n", C, i, &MIJ(C, size, i, 0u));
+		fprintf(stderr, "%08x % 11u %08x\n", C, i, &MIJ(size, C, i, 0u));
 #endif
 		for (j = 0u; j < size; j++) {
-			Re(MIJ(C, size, i, j)) = 0.0;
-			Im(MIJ(C, size, i, j)) = 0.0;
+			Re(MIJ(size, C, i, j)) = 0.0;
+			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0u; k < size; k++)
-				madd(MIJ(C, size, i, j), MIJ(A, size, i, k), MIJ(B, size, k, j));
+				madd(MIJ(size, C, i, j), MIJ(size, A, i, k), MIJ(size, B, k, j));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &MIJ(C, size, i, j));
-			printcerr("", MIJ(C, size, i, j), "\n");
+			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &MIJ(size, C, i, j));
+			printcerr("", MIJ(size, C, i, j), "\n");
 #endif
 		}
 	}
@@ -33,25 +33,25 @@ mulCAB(size, C, A, B)
 
 void
 mulCAtransB(size, C, A, B)
-	size_t size;
+	int size;
 	complex_t *C;
 	complex_t *A;
 	complex_t *B;
 {
-	size_t i, j, k;
+	int i, j, k;
 
 	for (i = 0u; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%08x % 11u %08x\n", C, i, &MIJ(C, size, i, 0u));
+		fprintf(stderr, "%08x % 11u %08x\n", C, i, &MIJ(size, C, i, 0u));
 #endif
 		for (j = 0u; j < size; j++) {
-			Re(MIJ(C, size, i, j)) = 0.0;
-			Im(MIJ(C, size, i, j)) = 0.0;
+			Re(MIJ(size, C, i, j)) = 0.0;
+			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0u; k < size; k++)
-				madd(MIJ(C, size, i, j), MIJ(A, size, k, i), MIJ(B, size, k, j));
+				madd(MIJ(size, C, i, j), MIJ(size, A, k, i), MIJ(size, B, k, j));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &MIJ(C, size, i, j));
-			printcerr("", MIJ(C, size, i, j), "\n");
+			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &MIJ(size, C, i, j));
+			printcerr("", MIJ(size, C, i, j), "\n");
 #endif
 		}
 	}
@@ -59,25 +59,25 @@ mulCAtransB(size, C, A, B)
 
 void
 mulCABtrans(size, C, A, B)
-	size_t size;
+	int size;
 	complex_t *C;
 	complex_t *A;
 	complex_t *B;
 {
-	size_t i, j, k;
+	int i, j, k;
 
 	for (i = 0u; i < size; i++) {
 #ifdef _DEBUG_CI_
-		fprintf(stderr, "%08x % 11u %08x\n", C, i, &MIJ(C, size, i, 0u));
+		fprintf(stderr, "%08x % 11u %08x\n", C, i, &MIJ(size, C, i, 0u));
 #endif
 		for (j = 0u; j < size; j++) {
-			Re(MIJ(C, size, i, j)) = 0.0;
-			Im(MIJ(C, size, i, j)) = 0.0;
+			Re(MIJ(size, C, i, j)) = 0.0;
+			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0u; k < size; k++)
-				madd(MIJ(C, size, i, j), MIJ(A, size, i, k), MIJ(B, size, j, k));
+				madd(MIJ(size, C, i, j), MIJ(size, A, i, k), MIJ(size, B, j, k));
 #ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &MIJ(C, size, i, j));
-			printcerr("", MIJ(C, size, i, j), "\n");
+			fprintf(stderr, "\t%08x % 11u% 11u %08x ", C, i, j, &MIJ(size, C, i, j));
+			printcerr("", MIJ(size, C, i, j), "\n");
 #endif
 		}
 	}
@@ -85,17 +85,17 @@ mulCABtrans(size, C, A, B)
 
 void
 transA(size, A)
-	size_t size;
+	int size;
 	complex_t *A;
 {
-	size_t i, j;
+	int i, j;
 	complex_t t;
 	
 	for (i = 0u; i < size; i++)
 		for (j = i; j < size; j++) {
-			t = MIJ(A, size, i, j);
-			MIJ(A, size, i, j) = MIJ(A, size, j, i);
-			MIJ(A, size, j, i) = t;
+			t = MIJ(size, A, i, j);
+			MIJ(size, A, i, j) = MIJ(size, A, j, i);
+			MIJ(size, A, j, i) = t;
 		}
 	
 	return;
@@ -103,32 +103,32 @@ transA(size, A)
 
 void
 transAB(size, A, B)
-	size_t size;
+	int size;
 	complex_t *A;
 	complex_t *B;
 {
-	size_t i, j;
+	int i, j;
 	
 	for (i = 0u; i < size; i++)
 		for (j = 0u; j < size; j++)
-			MIJ(A, size, i, j) = MIJ(B, size, j, i);
+			MIJ(size, A, i, j) = MIJ(size, B, j, i);
 	
 	return;
 }
 
 void
 contrans(size, A)
-	size_t size;
+	int size;
 	complex_t *A;
 {
-	size_t i, j;
+	int i, j;
 	complex_t t;
 	
 	for (i = 0u; i < size; i++)
 		for (j = i; j < size; j++) {
-			con2(t, MIJ(A, size, i, j));
-			con2(MIJ(A, size, i, j), MIJ(A, size, j, i));
-			MIJ(A, size, j, i) = t;
+			con2(t, MIJ(size, A, i, j));
+			con2(MIJ(size, A, i, j), MIJ(size, A, j, i));
+			MIJ(size, A, j, i) = t;
 		}
 	
 	return;
@@ -136,31 +136,33 @@ contrans(size, A)
 
 void
 contransAB(size, A, B)
-	size_t size;
+	int size;
 	complex_t *A;
 	complex_t *B;
 {
-	size_t i, j;
+	int i, j;
 	
 	for (i = 0u; i < size; i++)
 		for (j = 0u; j < size; j++)
-			con2(MIJ(A, size, i, j), MIJ(B, size, j, i));
+			con2(MIJ(size, A, i, j), MIJ(size, B, j, i));
 	
 	return;
 }
 
 void
 mulYAX(size, Y, A, X)
-	size_t size;
+	int size;
 	complex_t *Y;
 	complex_t *A;
 	complex_t *X;
 {
-	size_t i, j;
+	int i, j;
 	
-	for (i = 0u; i < size; i++)
+	for (i = 0u; i < size; i++) {
+		mkC(Y[i], 0.0, 0.0);
 		for (j = 0u; j < size; j++)
-			mul3(Y[i], MIJ(A, size, i, j), X[i]);
+			madd(Y[i], MIJ(size, A, i, j), X[j]);
+	}
 	
 	return;
 }

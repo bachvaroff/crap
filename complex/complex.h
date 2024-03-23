@@ -15,6 +15,7 @@ typedef struct _complex_t {
 	Re(Z) = (R); \
 	Im(Z) = (I); \
 } while (0)
+#define mkz mkC
 #define mk1(Z) mkC(Z, 1.0, 0.0)
 #define mki(Z) mkC(Z, 0.0, 1.0)
 #define mk0(Z) mkC(Z, 0.0, 0.0)
