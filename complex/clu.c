@@ -1,28 +1,28 @@
 #include "cmatrix.h"
 #include "clu.h"
 
-/* INPUT: A - array of pointers to rows of a square matrix having dimension N
+/* INPUT: A - array of polongers to rows of a square matrix having dimension N
  *		Tol - small tolerance number to detect failure when the matrix is near degenerate
  * OUTPUT: Matrix A is changed, it contains a copy of both matrices L-E and U as A=(L-E)+U such that P*A=L*U.
- *		The permutation matrix is not stored as a matrix, but in an integer vector P of size N+1 
+ *		The permutation matrix is not stored as a matrix, but in an longeger vector P of size N+1 
  *		containing column indexes where the permutation matrix has "1". The last element P[N]=S+N, 
  *		where S is the number of row exchanges needed for determinant computation, det(P)=(-1)^S	
  */
 int
 LUPDecompose(N, A, P, Tol)
-	int N;
+	long N;
 	complex_t *A;
-	int *P;
+	long *P;
 	double Tol;
 {
-	int i, j, k, imax; 
+	long i, j, k, imax; 
 	double maxA, absA;
 	complex_t t0;
 	
-	for (i = 0; i <= N; i++)
+	for (i = 0l; i <= N; i++)
 		P[i] = i; /* Unit permutation matrix, P[N] initialized with N */
 	
-	for (i = 0; i < N; i++) {
+	for (i = 0l; i < N; i++) {
 		maxA = 0.0;
 		imax = i;
 
@@ -41,7 +41,7 @@ LUPDecompose(N, A, P, Tol)
 			P[imax] = j;
 
 			/* pivoting rows of A */
-			for (j = 0; j < N; j++) {
+			for (j = 0l; j < N; j++) {
 				t0 = MIJ(N, A, i, j);
 				MIJ(N, A, i, j) = MIJ(N, A, imax, j);
 				MIJ(N, A, imax, j) = t0;
@@ -51,10 +51,10 @@ LUPDecompose(N, A, P, Tol)
 			P[N]++;
 		}
 		
-		for (j = i + 1; j < N; j++) {
+		for (j = i + 1l; j < N; j++) {
 			div2(MIJ(N, A, j, i), MIJ(N, A, i, i));
 			
-			for (k = i + 1; k < N; k++) {
+			for (k = i + 1l; k < N; k++) {
 				mul3(t0, MIJ(N, A, j, i), MIJ(N, A, i, k));
 				sub2(MIJ(N, A, j, k), t0);
 			}
@@ -69,26 +69,26 @@ LUPDecompose(N, A, P, Tol)
  */
 void
 LUPSolve(N, A, P, x, b)
-	int N;
+	long N;
 	complex_t *A;
-	int *P;
+	long *P;
 	complex_t *x;
 	complex_t *b;
 {
-	int i, k;
+	long i, k;
 	complex_t t0;
 	
-	for (i = 0; i < N; i++) {
+	for (i = 0l; i < N; i++) {
 		x[i] = b[P[i]];
 
-		for (k = 0; k < i; k++) {
+		for (k = 0l; k < i; k++) {
 			mul3(t0, MIJ(N, A, i, k), x[k]);
 			sub2(x[i], t0);
 		}
 	}
 
-	for (i = N - 1; i >= 0; i--) {
-		for (k = i + 1; k < N; k++) {
+	for (i = N - 1l; i >= 0l; i--) {
+		for (k = i + 1l; k < N; k++) {
 			mul3(t0, MIJ(N, A, i, k), x[k]);
 			sub2(x[i], t0);
 		}
@@ -104,27 +104,27 @@ LUPSolve(N, A, P, x, b)
  */
 void
 LUPInvert(N, IA, A, P)
-	int N;
+	long N;
 	complex_t *IA;
 	complex_t *A;
-	int *P;
+	long *P;
 {
-	int i, j, k;
+	long i, j, k;
 	complex_t t0;
 	
-	for (j = 0; j < N; j++) {
-		for (i = 0; i < N; i++) {
+	for (j = 0l; j < N; j++) {
+		for (i = 0l; i < N; i++) {
 			if (P[i] == j) mk1(MIJ(N, IA, i, j));
 			else mk0(MIJ(N, IA, i, j));
 			
-			for (k = 0; k < i; k++) {
+			for (k = 0l; k < i; k++) {
 				mul3(t0, MIJ(N, A, i, k), MIJ(N, IA, k, j));
 				sub2(MIJ(N, IA, i, j), t0);
 			}
 		}
 
-		for (i = N - 1; i >= 0; i--) {
-			for (k = i + 1; k < N; k++) {
+		for (i = N - 1l; i >= 0l; i--) {
+			for (k = i + 1l; k < N; k++) {
 				mul3(t0, MIJ(N, A, i, k), MIJ(N, IA, k, j));
 				sub2(MIJ(N, IA, i, j), t0);
 			}
@@ -141,19 +141,19 @@ LUPInvert(N, IA, A, P)
  */
 complex_t
 LUPDeterminant(N, A, P)
-	int N;
+	long N;
 	complex_t *A;
-	int *P;
+	long *P;
 {
-	int i;
+	long i;
 	complex_t det;
 	
-	det = MIJ(N, A, 0, 0);
+	det = MIJ(N, A, 0l, 0l);
 
-	for (i = 1; i < N; i++)
+	for (i = 1l; i < N; i++)
 		mul2(det, MIJ(N, A, i, i));
 	
-	if ((P[N] - N) % 2) scale2(det, -1.0);
+	if ((P[N] - N) % 2l) scale2(det, -1.0);
 	return det;
 }
 

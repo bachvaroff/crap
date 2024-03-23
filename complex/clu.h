@@ -3,10 +3,10 @@
 
 #include "cmatrix.h"
 
-int LUPDecompose(int, complex_t *, int *, double);
-void LUPSolve(int, complex_t *, int *, complex_t *, complex_t *);
-void LUPInvert(int, complex_t *, complex_t *, int *);
-complex_t LUPDeterminant(int, complex_t *, int *);
+int LUPDecompose(long, complex_t *, long *, double);
+void LUPSolve(long, complex_t *, long *, complex_t *, complex_t *);
+void LUPInvert(long, complex_t *, complex_t *, long *);
+complex_t LUPDeterminant(long, complex_t *, long *);
 
 #endif
 

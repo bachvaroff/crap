@@ -11,7 +11,7 @@ main()
 	complex_t A[9], decA[9], IA[9], C[9];
 	complex_t x[3], b[3], y[3];
 	complex_t t0;
-	int P[4];
+	long P[4];
 	int i, j;
 	int r;
 	
@@ -44,7 +44,7 @@ main()
 			printc("", MIJ(3, decA, i, j), "\n");
 		}
 	for (i = 0; i <= 3; i++)
-		printf("\tP[%d] = %d\n", i, P[i]);
+		printf("\tP[%d] = %ld\n", i, P[i]);
 	
 	t0 = LUPDeterminant(3, decA, P);
 	printf("det(A) = ");

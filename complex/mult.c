@@ -6,49 +6,49 @@
 #include "complex.h"
 #include "cmatrix.h"
 
-#define SIZE 400u
+#define SIZE 400l
 #define SIZESQ (SIZE * SIZE)
 
 complex_t *c0, *c1, *a, *b, *bt;
 complex_t *marr;
 
-void compare(int, complex_t *, complex_t *);
+void compare(long, complex_t *, complex_t *);
 
 int
 main()
 {
-	int i, j;
+	long i, j;
 	int cmp;
 	
 	printf("init\n");
 	
-	marr = (complex_t *)calloc(5u * SIZESQ, sizeof (complex_t));
+	marr = (complex_t *)calloc(5l * SIZESQ, sizeof (complex_t));
 	if (!marr) {
 		fprintf(stderr, "cannot alloc marr\n");
 		goto bad0;
-	} else printf("marr %08x % 10u\n", marr, 5u * SIZESQ * sizeof (complex_t));
+	} else printf("marr % 16lx % 10ld\n", marr, 5l * SIZESQ * sizeof (complex_t));
 
-	a = marr + 0u * SIZESQ;
-	c0 = marr + 1u * SIZESQ;
-	b = marr + 2u * SIZESQ;
-	c1 = marr + 3u * SIZESQ;
-	bt = marr + 4u * SIZESQ;
-	printf("a %08x b %08x bt %08x c0 %08x c1 %08x\n", a, b, c0, c1);
+	a = marr + 0l * SIZESQ;
+	c0 = marr + 1l * SIZESQ;
+	b = marr + 2l * SIZESQ;
+	c1 = marr + 3l * SIZESQ;
+	bt = marr + 4l * SIZESQ;
+	printf("a % 16lx b % 16lx bt % 16lx c0 % 16lx c1 % 16lx\n", a, b, c0, c1);
 
-	for (i = 0u; i < SIZE; i++)
-		for (j = 0u; j < SIZE; j++)
+	for (i = 0l; i < SIZE; i++)
+		for (j = 0l; j < SIZE; j++)
 			mkC(MIJ(SIZE, a, i, j),
-					(double)((3u * i) % SIZE) / 97.0,
-					(double)((7u * j) % SIZE) / 91.0);
+					(double)((3l * i) % SIZE) / 97.0,
+					(double)((7l * j) % SIZE) / 91.0);
 
 	contransAB(SIZE, b, a);
 
 	printf("begin\n");
 
-	printf("c0 %08x\n", c0);
+	printf("c0 % 16lx\n", c0);
 	mulCAB(SIZE, c0, a, b);
 	
-	printf("c1 %08x\n", c1);
+	printf("c1 % 16lx\n", c1);
 #ifdef TRANS
 	transAB(SIZE, bt, b);
 #else
@@ -72,26 +72,26 @@ bad0:
 
 void
 compare(size, c0, c1)
-	int size;
+	long size;
 	complex_t *c0;
 	complex_t *c1;
 {
-	int i, j;
+	long i, j;
 	int cmp;
 	unsigned char *pb0, b0;
 	unsigned char *pb1, b1;
 	
-	for (i = 0u; i < size; i++)
+	for (i = 0l; i < size; i++)
 		if ((cmp = memcmp((void *)(c0 + i), (void *)(c1 + i), sizeof (complex_t)))) {
-			printf("%u %d %08x %08x\n", i, cmp, c0 + i, c1 + i);
+			printf("%ld %d % 16lx % 16lx\n", i, cmp, c0 + i, c1 + i);
 			printc("", c0[i], " | ");
 			printc("", c1[i], "\n");
-			for (j = 0u; j < sizeof (complex_t); j++) {
+			for (j = 0l; j < sizeof (complex_t); j++) {
 				pb0 = (unsigned char *)(c0 + i) + j;
 				b0 = *pb0;
 				pb1 = (unsigned char *)(c1 + i) + j;
 				b1 = *pb1;
-				printf("\t%08x %02x | %08x %02x%s",
+				printf("\t% 16lx %02x | % 16lx %02x%s",
 						pb0, (unsigned int)b0,
 						pb1, (unsigned int)b1,
 						(b0 == b1) ? "\n" : " ***\n");
@@ -100,3 +100,4 @@ compare(size, c0, c1)
 	
 	return;
 }
+
