@@ -7,7 +7,7 @@
 #include "cmatrix.h"
 #include "clu.h"
 
-#define SIZE 400l
+#define SIZE (400l)
 #define SIZESQ (SIZE * SIZE)
 
 complex_t *a, *b, *dec, *abi, *biai;
@@ -20,9 +20,7 @@ main()
 {
 	long i, j;
 	complex_t t0;
-	double t1;
-	double maxij;
-	long maxi, maxj;
+	double mi, stddev;
 	
 	printf("init\n");
 	
@@ -82,28 +80,24 @@ main()
 	mulCAB(SIZE, biai, b, a);
 	printf("biai\n");
 	
+	mi = 0.0;
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++) {
 			sub3(t0, MIJ(SIZE, abi, i, j), MIJ(SIZE, biai, i, j));
-			t1 = log(mag(t0)) / M_LN10;
-			if (i || j) {
-				if (maxij < t1) {
-					maxij = t1;
-					maxi = i;
-					maxj = j;
-				}
-			} else {
-				maxij = t1;
-				maxi = i;
-				maxj = j;
-			}
+			mi += mag(t0);
 		}
-	printf("%ld | %ld | %lf\n", maxi, maxj, maxij);
-	printf("abi[%ld][%ld] = ", maxi, maxj);
-	printc("", MIJ(SIZE, abi, maxi, maxj), " | ");
-	printf("biai[%ld][%ld] = ", maxi, maxj);
-	printc("", MIJ(SIZE, biai, maxi, maxj), "\n");
+	mi /= (double)SIZESQ;
 	
+	stddev = 0.0;
+	for (i = 0l; i < SIZE; i++)
+		for (j = 0l; j < SIZE; j++) {
+			sub3(t0, MIJ(SIZE, abi, i, j), MIJ(SIZE, biai, i, j));
+			stddev += (mag(t0) - mi) * (mag(t0) - mi);
+		}
+	stddev = sqrt(stddev / (double)SIZESQ);
+	
+	printf("mi = %.16lf | stddev = %.16lf\n", mi, stddev);
+		
 	printf("end\n");
 
 	free((void *)marr);
