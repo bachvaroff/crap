@@ -25,12 +25,6 @@ mulCAB(size, C, A, B)
 			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j), MIJ(size, A, i, k), MIJ(size, B, k, j));
-#ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ",
-				(unsigned long)C, i, j,
-				(unsigned long)&MIJ(size, C, i, j));
-			printcerr("", MIJ(size, C, i, j), "\n");
-#endif
 		}
 	}
 }
@@ -55,12 +49,6 @@ mulCAtransB(size, C, A, B)
 			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j), MIJ(size, A, k, i), MIJ(size, B, k, j));
-#ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ",
-				(unsigned long)C, i, j,
-				(unsigned long)&MIJ(size, C, i, j));
-			printcerr("", MIJ(size, C, i, j), "\n");
-#endif
 		}
 	}
 }
@@ -85,12 +73,6 @@ mulCABtrans(size, C, A, B)
 			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j), MIJ(size, A, i, k), MIJ(size, B, j, k));
-#ifdef _DEBUG_CIJ_
-			fprintf(stderr, "\t%16lx % 11ld% 11ld %16lx ",
-				(unsigned long)C, i, j,
-				(unsigned long)&MIJ(size, C, i, j));
-			printcerr("", MIJ(size, C, i, j), "\n");
-#endif
 		}
 	}
 }
