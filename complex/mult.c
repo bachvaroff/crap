@@ -26,7 +26,8 @@ main()
 	if (!marr) {
 		fprintf(stderr, "cannot alloc marr\n");
 		goto bad0;
-	} else printf("marr %16lx % 10ld\n", (unsigned long)marr, 5l * SIZESQ * sizeof (complex_t));
+	} else printf("marr %16lx % 10ld\n",
+		(unsigned long)marr, 5l * SIZESQ * sizeof (complex_t));
 
 	a = marr + 0l * SIZESQ;
 	c0 = marr + 1l * SIZESQ;
@@ -40,8 +41,8 @@ main()
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++)
 			mkC(MIJ(SIZE, a, i, j),
-					(double)((3l * i) % SIZE) / 97.0,
-					(double)((7l * j) % SIZE) / 91.0);
+				(double)((3l * i) % SIZE) / 97.0,
+				(double)((7l * j) % SIZE) / 91.0);
 
 	contransAB(SIZE, b, a);
 
@@ -84,7 +85,10 @@ compare(size, c0, c1)
 	unsigned char *pb1, b1;
 	
 	for (i = 0l; i < size; i++)
-		if ((cmp = memcmp((void *)(c0 + i), (void *)(c1 + i), sizeof (complex_t)))) {
+		if ((cmp = memcmp(
+				(void *)(c0 + i),
+				(void *)(c1 + i),
+				sizeof (complex_t)))) {
 			printf("%ld %d %16lx %16lx\n", i, cmp,
 				(unsigned long)c0 + i, (unsigned long)c1 + i);
 			printc("", c0[i], " | ");
@@ -95,9 +99,9 @@ compare(size, c0, c1)
 				pb1 = (unsigned char *)(c1 + i) + j;
 				b1 = *pb1;
 				printf("\t%16lx %02x | %16lx %02x%s",
-						(unsigned long)pb0, (unsigned int)b0,
-						(unsigned long)pb1, (unsigned int)b1,
-						(b0 == b1) ? "\n" : " ***\n");
+					(unsigned long)pb0, (unsigned int)b0,
+					(unsigned long)pb1, (unsigned int)b1,
+					(b0 == b1) ? "\n" : " ***\n");
 			}
 		}
 	

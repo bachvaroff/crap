@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "complex.h"
 #include "cmatrix.h"
 
 void

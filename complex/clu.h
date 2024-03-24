@@ -1,6 +1,7 @@
 #ifndef _CLU_
 #define _CLU_
 
+#include "complex.h"
 #include "cmatrix.h"
 
 int LUPDecompose(long, complex_t *, long *, double);
