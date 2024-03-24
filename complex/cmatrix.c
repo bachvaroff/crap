@@ -24,7 +24,9 @@ mulCAB(size, C, A, B)
 			Re(MIJ(size, C, i, j)) = 0.0;
 			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0l; k < size; k++)
-				madd(MIJ(size, C, i, j), MIJ(size, A, i, k), MIJ(size, B, k, j));
+				madd(MIJ(size, C, i, j),
+					MIJ(size, A, i, k),
+					MIJ(size, B, k, j));
 		}
 	}
 }
@@ -48,7 +50,9 @@ mulCAtransB(size, C, A, B)
 			Re(MIJ(size, C, i, j)) = 0.0;
 			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0l; k < size; k++)
-				madd(MIJ(size, C, i, j), MIJ(size, A, k, i), MIJ(size, B, k, j));
+				madd(MIJ(size, C, i, j),
+					MIJ(size, A, k, i),
+					MIJ(size, B, k, j));
 		}
 	}
 }
@@ -72,7 +76,9 @@ mulCABtrans(size, C, A, B)
 			Re(MIJ(size, C, i, j)) = 0.0;
 			Im(MIJ(size, C, i, j)) = 0.0;
 			for (k = 0l; k < size; k++)
-				madd(MIJ(size, C, i, j), MIJ(size, A, i, k), MIJ(size, B, j, k));
+				madd(MIJ(size, C, i, j),
+					MIJ(size, A, i, k),
+					MIJ(size, B, j, k));
 		}
 	}
 }
