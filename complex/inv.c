@@ -7,7 +7,7 @@
 #include "cmatrix.h"
 #include "clu.h"
 
-#define SIZE 20l
+#define SIZE 400l
 #define SIZESQ (SIZE * SIZE)
 
 complex_t *a, *b, *dec, *abi, *biai;
