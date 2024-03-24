@@ -7,7 +7,7 @@
 #include "cmatrix.h"
 #include "clu.h"
 
-#define SIZE 400l
+#define SIZE 20l
 #define SIZESQ (SIZE * SIZE)
 
 complex_t *a, *b, *dec, *abi, *biai;
@@ -20,6 +20,9 @@ main()
 {
 	long i, j;
 	complex_t t0;
+	double t1;
+	double maxij;
+	long maxi, maxj;
 	
 	printf("init\n");
 	
@@ -49,7 +52,8 @@ main()
 	
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++) {
-			if (i == j) mkC(MIJ(SIZE, b, i, j), 1.0, 0.0);
+			if (i == j) expiphi(MIJ(SIZE, b, i, j),
+				M_PI / 3.0 + 2.0 * M_PI * (double)i / (double)SIZE);
 			else mkC(MIJ(SIZE, b, i, j),
 				cos(M_PI * (double)i / (double)SIZE),
 				sin(M_PI * (double)j / (double)SIZE));
@@ -80,16 +84,25 @@ main()
 	
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++) {
-/*
-			printf("abi[%ld][%ld] = ", i, j);
-			printc("", MIJ(SIZE, abi, i, j), " | ");
-			printf("biai[%ld][%ld] = ", i, j);
-			printc("", MIJ(SIZE, biai, i, j), " | ");
-*/
 			sub3(t0, MIJ(SIZE, abi, i, j), MIJ(SIZE, biai, i, j));
-			printc("", t0, " | ");
-			printf("%lf\n", log(mag(t0)) / M_LN10);
+			t1 = log(mag(t0)) / M_LN10;
+			if (i || j) {
+				if (maxij < t1) {
+					maxij = t1;
+					maxi = i;
+					maxj = j;
+				}
+			} else {
+				maxij = t1;
+				maxi = i;
+				maxj = j;
+			}
 		}
+	printf("%ld | %ld | %lf\n", maxi, maxj, maxij);
+	printf("abi[%ld][%ld] = ", maxi, maxj);
+	printc("", MIJ(SIZE, abi, maxi, maxj), " | ");
+	printf("biai[%ld][%ld] = ", maxi, maxj);
+	printc("", MIJ(SIZE, biai, maxi, maxj), "\n");
 	
 	printf("end\n");
 
