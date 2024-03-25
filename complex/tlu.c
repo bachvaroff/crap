@@ -9,7 +9,7 @@
 int
 main()
 {
-	complex_t A[9], decA[9], IA[9], C[9];
+	complex_t A[9], decA[9], iA[9], C[9];
 	complex_t x[3], b[3], y[3];
 	complex_t t0;
 	long P[4];
@@ -51,14 +51,14 @@ main()
 	printf("det(A) = ");
 	printc("", t0, "\n");
 	
-	LUPInvert(3, IA, decA, P);
+	LUPInvert(3, iA, decA, P);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
-			printf("IA[%d][%d] = ", i, j);
-			printc("", MIJ(3, IA, i, j), "\n");
+			printf("iA[%d][%d] = ", i, j);
+			printc("", MIJ(3, iA, i, j), "\n");
 		}
 	
-	mulCAB(3, C, A, IA);
+	mulCAB(3, C, A, iA);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
 			printf("C[%d][%d] = ", i, j);
