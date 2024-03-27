@@ -13,6 +13,7 @@ main()
 	complex_t Pm[9], L[9], U[9], PmA[9], LU[9];
 	complex_t Pminv[9], PminvLU[9];
 	complex_t x[3], b[3], Ax[3];
+	complex_t Ainvb[3];
 	complex_t t0;
 	long P[4];
 	int i, j;
@@ -100,16 +101,24 @@ main()
 	
 	LUPSolve(3, Adec, P, x, b);
 	for (i = 0; i < 3; i++) {
-		printf("x[%d] =", i);
+		printf("x[%d] = ", i);
 		printc("", x[i], "\n");
 	}
 	
 	mulyAx(3, Ax, A, x);
 	for (i = 0; i < 3; i++) {
-		printf("A*x[%d] =", i);
+		printf("A*x[%d] = ", i);
 		printc("", Ax[i], " | ");
-		printf("b[%d] =", i);
+		printf("b[%d] = ", i);
 		printc("", b[i], "\n");
+	}
+	
+	mulyAx(3, Ainvb, Ainv, b);
+	for (i = 0; i < 3; i++) {
+		printf("Ainv*b[%d] = ", i);
+		printc("", Ainvb[i], " | ");
+		printf("x[%d] = ", i);
+		printc("", x[i], "\n");
 	}
 	
 	return 0;
