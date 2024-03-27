@@ -22,7 +22,7 @@ mulCAB(size, C, A, B)
 			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
-			mkC(MIJ(size, C, i, j), 0.0, 0.0);
+			mk0(MIJ(size, C, i, j));
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j),
 					MIJ(size, A, i, k),
@@ -47,7 +47,7 @@ mulCAtransB(size, C, A, B)
 			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
-			mkC(MIJ(size, C, i, j), 0.0, 0.0);
+			mk0(MIJ(size, C, i, j));
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j),
 					MIJ(size, A, k, i),
@@ -72,7 +72,7 @@ mulCABtrans(size, C, A, B)
 			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
-			mkC(MIJ(size, C, i, j), 0.0, 0.0);
+			mk0(MIJ(size, C, i, j));
 			for (k = 0l; k < size; k++)
 				madd(MIJ(size, C, i, j),
 					MIJ(size, A, i, k),
@@ -157,7 +157,7 @@ mulyAx(size, y, A, x)
 	long i, j;
 	
 	for (i = 0l; i < size; i++) {
-		mkC(y[i], 0.0, 0.0);
+		mk0(y[i]);
 		for (j = 0l; j < size; j++)
 			madd(y[i], MIJ(size, A, i, j), x[j]);
 	}

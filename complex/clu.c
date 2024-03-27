@@ -65,6 +65,39 @@ LUPDecompose(N, A, P, Tol)
 	return 1; /* decomposition done */
 }
 
+void
+LUPExtract(N, Pm, L, U, A, P)
+	long N;
+	complex_t *Pm;
+	complex_t *L;
+	complex_t *U;
+	complex_t *A;
+	long *P;
+{
+	long i, j;
+	
+	for (i = 0l; i < N; i++)
+		for (j = 0l; j < N; j++)
+			if (P[i] == j) mk1(MIJ(N, Pm, i, j));
+			else mk0(MIJ(N, Pm, i, j));
+	
+	for (i = 0l; i < N; i++)
+		for (j = 0l; j < N; j++) {
+			if (i > j) {
+				MIJ(N, L, i, j) = MIJ(N, A, i, j);
+				mk0(MIJ(N, U, i, j));
+			} else if (i == j) {
+				mk1(MIJ(N, L, i, j));
+				MIJ(N, U, i, j) = MIJ(N, A, i, j);
+			} else {
+				mk0(MIJ(N, L, i, j));
+				MIJ(N, U, i, j) = MIJ(N, A, i, j);
+			}
+	}
+	
+	return;
+}
+
 /* INPUT: A,P filled in LUPDecompose; b - rhs vector; N - dimension
  * OUTPUT: x - solution vector of A*x=b
  */
