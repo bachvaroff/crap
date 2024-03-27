@@ -11,7 +11,7 @@ main()
 {
 	complex_t A[9], Adec[9], Ainv[9], AAinv[9];
 	complex_t Pm[9], L[9], U[9], PA[9], LU[9];
-	complex_t x[3], b[3], y[3];
+	complex_t x[3], b[3], Ax[3];
 	complex_t t0;
 	long P[4];
 	int i, j;
@@ -92,10 +92,10 @@ main()
 		printc("", x[i], "\n");
 	}
 	
-	mulyAx(3, y, A, x);
+	mulyAx(3, Ax, A, x);
 	for (i = 0; i < 3; i++) {
-		printf("y[%d] =", i);
-		printc("", y[i], " | ");
+		printf("A*x[%d] =", i);
+		printc("", Ax[i], " | ");
 		printf("b[%d] =", i);
 		printc("", b[i], "\n");
 	}
