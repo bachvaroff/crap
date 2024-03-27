@@ -9,7 +9,7 @@
 int
 main()
 {
-	complex_t A[9], Adec[9], Ainv[9], AAinv[9];
+	complex_t A[9], Adec[9], Ainv[9], AinvA[9];
 	complex_t Pm[9], L[9], U[9], PA[9], LU[9];
 	complex_t x[3], b[3], Ax[3];
 	complex_t t0;
@@ -79,11 +79,11 @@ main()
 			printc("", MIJ(3, Ainv, i, j), "\n");
 		}
 	
-	mulCAB(3, AAinv, A, Ainv);
+	mulCAB(3, AinvA, Ainv, A);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
-			printf("A*Ainv[%d][%d] = ", i, j);
-			printc("", MIJ(3, AAinv, i, j), "\n");
+			printf("Ainv*A[%d][%d] = ", i, j);
+			printc("", MIJ(3, AinvA, i, j), "\n");
 		}
 	
 	LUPSolve(3, Adec, P, x, b);
