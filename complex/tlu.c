@@ -10,7 +10,8 @@ int
 main()
 {
 	complex_t A[9], Adec[9], Ainv[9], AinvA[9];
-	complex_t Pm[9], L[9], U[9], PA[9], LU[9];
+	complex_t Pm[9], L[9], U[9], PmA[9], LU[9];
+	complex_t Pminv[9], PminvLU[9];
 	complex_t x[3], b[3], Ax[3];
 	complex_t t0;
 	long P[4];
@@ -58,14 +59,25 @@ main()
 			printf("U[%d][%d] = ", i, j);
 			printc("", MIJ(3, U, i, j), "\n");
 		}
-	mulCAB(3, PA, Pm, A);
+	
+	mulCAB(3, PmA, Pm, A);
 	mulCAB(3, LU, L, U);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
-			printf("P*A[%d][%d] = ", i, j);
-			printc("", MIJ(3, PA, i, j), " | ");
+			printf("Pm*A[%d][%d] = ", i, j);
+			printc("", MIJ(3, PmA, i, j), " | ");
 			printf("L*U[%d][%d] = ", i, j);
 			printc("", MIJ(3, LU, i, j), "\n");
+		}
+	
+	contransAB(3, Pminv, Pm);
+	mulCAB(3, PminvLU, Pminv, LU);
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++) {
+			printf("A[%d][%d] = ", i, j);
+			printc("", MIJ(3, A, i, j), " | ");
+			printf("Pminv*L*U[%d][%d] = ", i, j);
+			printc("", MIJ(3, PminvLU, i, j), "\n");
 		}
 	
 	t0 = LUPDeterminant(3, Adec, P);
