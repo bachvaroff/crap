@@ -11,14 +11,14 @@ typedef struct _complex_t {
 
 #define Re(Z) ((Z).re)
 #define Im(Z) ((Z).im)
-#define mkC(Z, R, I) do { \
-	Re(Z) = (R); \
-	Im(Z) = (I); \
+#define mkC(Z, RE, IM) do { \
+	Re(Z) = (RE); \
+	Im(Z) = (IM); \
 } while (0)
 #define mkz mkC
+#define mk0(Z) mkC(Z, 0.0, 0.0)
 #define mk1(Z) mkC(Z, 1.0, 0.0)
 #define mki(Z) mkC(Z, 0.0, 1.0)
-#define mk0(Z) mkC(Z, 0.0, 0.0)
 
 #define printc(PFX, Z, SFX) do { \
 	(void)fprintf(stdout, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
