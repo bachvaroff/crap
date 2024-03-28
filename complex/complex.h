@@ -21,11 +21,13 @@ typedef struct _complex_t {
 #define mk0(Z) mkC(Z, 0.0, 0.0)
 
 #define printc(PFX, Z, SFX) do { \
-	printf(PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
+	(void)fprintf(stdout, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
+	(void)fflush(stdout); \
 } while (0)
 
 #define printcerr(PFX, Z, SFX) do { \
-	fprintf(stderr, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
+	(void)fprintf(stderr, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
+	(void)fflush(stderr); \
 } while (0)
 
 #define dist(U, V) \
