@@ -77,12 +77,10 @@ LUPExtract(N, Pm, L, U, A, P)
 	long i, j;
 	
 	for (i = 0l; i < N; i++)
-		for (j = 0l; j < N; j++)
+		for (j = 0l; j < N; j++) {
 			if (P[i] == j) mk1(MIJ(N, Pm, i, j));
 			else mk0(MIJ(N, Pm, i, j));
-	
-	for (i = 0l; i < N; i++)
-		for (j = 0l; j < N; j++) {
+			
 			if (i > j) {
 				MIJ(N, L, i, j) = MIJ(N, A, i, j);
 				mk0(MIJ(N, U, i, j));
