@@ -17,6 +17,8 @@
 void mulCAB(long, complex_t *, complex_t *, complex_t *);
 void mulCABtrans(long, complex_t *, complex_t *, complex_t *);
 void mulCAtransB(long, complex_t *, complex_t *, complex_t *);
+void mulCAcontransB(long, complex_t *, complex_t *, complex_t *);
+void mulCABcontrans(long, complex_t *, complex_t *, complex_t *);
 void transA(long, complex_t *);
 void transAB(long, complex_t *, complex_t *);
 void contransA(long, complex_t *); 

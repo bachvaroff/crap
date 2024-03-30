@@ -57,6 +57,12 @@ typedef struct _complex_t {
 } while (0)
 #define con(Z) con2(Z, Z)
 
+#define neg2(Z, U) do { \
+	Re(Z) = -Re(U); \
+	Im(Z) = -Im(U); \
+} while (0)
+#define neg(Z) neg2(Z, Z)
+
 #define add3(Z, U, V) do { \
 	Re(Z) = Re(U) + Re(V); \
 	Im(Z) = Im(U) + Im(V); \

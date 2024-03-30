@@ -82,6 +82,60 @@ mulCABtrans(size, C, A, B)
 }
 
 void
+mulCAcontransB(size, C, A, B)
+	long size;
+	complex_t *C;
+	complex_t *A;
+	complex_t *B;
+{
+	long i, j, k;
+	complex_t t0;
+	
+	for (i = 0l; i < size; i++) {
+#ifdef _DEBUG_CI_
+		fprintf(stderr, "%16lx % 11ld %16lx\n",
+			(unsigned long)C, i,
+			(unsigned long)&MIJ(size, C, i, 0l));
+#endif
+		for (j = 0l; j < size; j++) {
+			mk0(MIJ(size, C, i, j));
+			for (k = 0l; k < size; k++) {
+				con2(t0, MIJ(size, A, k, i));
+				madd(MIJ(size, C, i, j),
+					t0, MIJ(size, B, k, j));
+			}
+		}
+	}
+}
+
+void
+mulCABcontrans(size, C, A, B)
+	long size;
+	complex_t *C;
+	complex_t *A;
+	complex_t *B;
+{
+	long i, j, k;
+	complex_t t0;
+	
+	for (i = 0l; i < size; i++) {
+#ifdef _DEBUG_CI_
+		fprintf(stderr, "%16lx % 11ld %16lx\n",
+			(unsigned long)C, i,
+			(unsigned long)&MIJ(size, C, i, 0l));
+#endif
+		for (j = 0l; j < size; j++) {
+			mk0(MIJ(size, C, i, j));
+			for (k = 0l; k < size; k++) {
+				con2(t0, MIJ(size, B, j, k));
+				madd(MIJ(size, C, i, j),
+					MIJ(size, A, i, k), t0);
+			}
+		}
+	}
+}
+
+void
 transA(size, A)
 	long size;
 	complex_t *A;

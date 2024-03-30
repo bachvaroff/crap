@@ -185,7 +185,7 @@ LUPDeterminant(N, A, P)
 	for (i = 1l; i < N; i++)
 		mul2(det, MIJ(N, A, i, i));
 	
-	if ((P[N] - N) % 2l) scale2(det, -1.0);
+	if ((P[N] ^ N) & 1l) neg(det);
 	return det;
 }
 
