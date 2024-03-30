@@ -181,11 +181,11 @@ LUPDeterminant(N, A, P)
 	complex_t det;
 	
 	det = MIJ(N, A, 0l, 0l);
-
 	for (i = 1l; i < N; i++)
 		mul2(det, MIJ(N, A, i, i));
 	
 	if ((P[N] ^ N) & 1l) neg(det);
+	
 	return det;
 }
 
