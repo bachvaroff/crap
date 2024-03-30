@@ -8,7 +8,7 @@
 #include "cmatrix.h"
 #include "clu.h"
 
-#define SIZE (400l)
+#define SIZE (40l)
 #define SIZESQ (SIZE * SIZE)
 
 complex_t *a, *b, *dec, *abi, *biai;
@@ -45,40 +45,69 @@ main()
 			if (i == j) expiphi(MIJ(SIZE, a, i, j),
 				2.0 * M_PI * (double)i / (double)SIZE);
 			else mkC(MIJ(SIZE, a, i, j),
-				cos(M_PI * (double)j / (double)SIZE),
+				0.0,
 				sin(M_PI * (double)i / (double)SIZE));
 		}
 	
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++) {
 			if (i == j) expiphi(MIJ(SIZE, b, i, j),
-				M_PI / 3.0 + 2.0 * M_PI * (double)i / (double)SIZE);
+				2.0 * M_PI * (double)i / (double)SIZE);
 			else mkC(MIJ(SIZE, b, i, j),
-				cos(M_PI * (double)i / (double)SIZE),
-				sin(M_PI * (double)j / (double)SIZE));
+				cos(M_PI * (double)j / (double)SIZE),
+				0.0);
 		}
 	
 	printf("begin\n");
 	
 	mulCAB(SIZE, abi, a, b);
+	copyAB(SIZE, dec, abi);
+	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
+	t0 = LUPDeterminant(SIZE, dec, P);
+	printf("det(ab) = ");
+	printc("", t0, "\n");
 	printf("ab\n");
 	
-	copyAB(SIZE, dec, abi);
-	assert(LUPDecompose(SIZE, dec, P, 0.000000001));
 	LUPInvert(SIZE, abi, dec, P);
+	copyAB(SIZE, dec, abi);
+	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
+	t0 = LUPDeterminant(SIZE, dec, P);
+	printf("det(abi) = ");
+	printc("", t0, "\n");
 	printf("abi\n");
 	
 	copyAB(SIZE, dec, a);
-	assert(LUPDecompose(SIZE, dec, P, 0.000000001));
+	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
+	t0 = LUPDeterminant(SIZE, dec, P);
+	printf("det(a) = ");
+	printc("", t0, "\n");
 	LUPInvert(SIZE, a, dec, P);
+	copyAB(SIZE, dec, a);
+	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
+	t0 = LUPDeterminant(SIZE, dec, P);
+	printf("det(ai) = ");
+	printc("", t0, "\n");
 	printf("ai\n");
 	
 	copyAB(SIZE, dec, b);
-	assert(LUPDecompose(SIZE, dec, P, 0.000000001));
+	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
+	t0 = LUPDeterminant(SIZE, dec, P);
+	printf("det(b) = ");
+	printc("", t0, "\n");
 	LUPInvert(SIZE, b, dec, P);
+	copyAB(SIZE, dec, b);
+	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
+	t0 = LUPDeterminant(SIZE, dec, P);
+	printf("det(bi) = ");
+	printc("", t0, "\n");
 	printf("bi\n");
 	
 	mulCAB(SIZE, biai, b, a);
+	copyAB(SIZE, dec, biai);
+	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
+	t0 = LUPDeterminant(SIZE, dec, P);
+	printf("det(biai) = ");
+	printc("", t0, "\n");
 	printf("biai\n");
 	
 	mi = 0.0;

@@ -40,7 +40,7 @@ main()
 			printf("A[%d][%d] = ", i, j);
 			printc("", MIJ(3, A, i, j), "\n");
 		}
-	r = LUPDecompose(3, Adec, P, 0.000000001);
+	r = LUPDecompose(3, Adec, P, 0.000000000001);
 	assert(r);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
