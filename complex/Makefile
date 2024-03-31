@@ -5,7 +5,7 @@ INCLUDE=-I.
 LDFLAGS=
 LDEBUG=-g
 LIB=libcomplex.a
-LIBH=complex.h cmatrix.h clu.h
+LIBH=complex.h cmatrix.h clu.h cfft.h
 LDPOSTFLAGS0=$(LIB) -lm
 SOFLAGS=
 SODEBUG=-g
@@ -16,11 +16,12 @@ LINKSO=$(CC) $(SOFLAGS) $(SODEBUG)
 .c.o:
 	$(COMPILE) -c $< -o $@
 
-all: lib mult rot ttrig thyp tinner tlu inv
+all: lib mult rot ttrig thyp tinner tlu inv tfft
 
-cmatrix.o: cmatrix.c $(LIBH)
-clu.o: clu.c $(LIBH)
-$(LIB): cmatrix.o clu.o
+cmatrix.o: cmatrix.c complex.h cmatrix.h
+clu.o: clu.c complex.h clu.h
+cfft.o: cfft.c complex.h cfft.h
+$(LIB): cmatrix.o clu.o cfft.o
 	ar ruv $@ $?
 	ranlib $@
 lib: $(LIB)
@@ -32,6 +33,7 @@ thyp.o: thyp.c $(LIBH)
 tinner.o: tinner.c $(LIBH)
 tlu.o: tlu.c $(LIBH)
 inv.o: inv.c $(LIBH)
+tfft.o: tfft.c $(LIBH)
 
 mult: mult.o $(LIB)
 	$(LINK) mult.o $(LDPOSTFLAGS0) -o $@
@@ -54,5 +56,8 @@ tinner: tinner.o $(LIB)
 tlu: tlu.o $(LIB)
 	$(LINK) tlu.o $(LDPOSTFLAGS0) -o $@
 
+tfft: tfft.o $(LIB)
+	$(LINK) tfft.o $(LDPOSTFLAGS0) -o $@
+
 clean:
-	rm -f *.o $(LIB) mult rot ttrig thyp tinner tlu inv
+	rm -f *.o $(LIB) mult rot ttrig thyp tinner tlu inv tfft
