@@ -40,7 +40,7 @@ main()
 
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++)
-			mkC(MIJ(SIZE, a, i, j),
+			mkZ(MIJ(SIZE, a, i, j),
 				(double)((3l * i) % SIZE) / 97.0,
 				(double)((7l * j) % SIZE) / 91.0);
 
@@ -91,8 +91,8 @@ compare(size, c0, c1)
 				sizeof (complex_t)))) {
 			printf("%ld %d %16lx %16lx\n", i, cmp,
 				(unsigned long)c0 + i, (unsigned long)c1 + i);
-			printc("", c0[i], " | ");
-			printc("", c1[i], "\n");
+			printZ("", c0[i], " | ");
+			printZ("", c1[i], "\n");
 			for (j = 0l; j < sizeof (complex_t); j++) {
 				pb0 = (unsigned char *)(c0 + i) + j;
 				b0 = *pb0;

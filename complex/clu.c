@@ -42,11 +42,8 @@ LUPDecompose(N, A, P, Tol)
 			P[imax] = j;
 
 			/* pivoting rows of A */
-			for (j = 0l; j < N; j++) {
-				t0 = MIJ(N, A, i, j);
-				MIJ(N, A, i, j) = MIJ(N, A, imax, j);
-				MIJ(N, A, imax, j) = t0;
-			}
+			for (j = 0l; j < N; j++)
+				xchgZ(MIJ(N, A, i, j), MIJ(N, A, imax, j));
 			
 			/* counting pivots starting from N (for determinant) */
 			P[N]++;

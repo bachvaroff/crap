@@ -11,21 +11,20 @@ typedef struct _complex_t {
 
 #define Re(Z) ((Z).re)
 #define Im(Z) ((Z).im)
-#define mkC(Z, RE, IM) do { \
+#define mkZ(Z, RE, IM) do { \
 	Re(Z) = (RE); \
 	Im(Z) = (IM); \
 } while (0)
-#define mkz mkC
-#define mk0(Z) mkC(Z, 0.0, 0.0)
-#define mk1(Z) mkC(Z, 1.0, 0.0)
-#define mki(Z) mkC(Z, 0.0, 1.0)
+#define mk0(Z) mkZ(Z, 0.0, 0.0)
+#define mk1(Z) mkZ(Z, 1.0, 0.0)
+#define mki(Z) mkZ(Z, 0.0, 1.0)
 
-#define printc(PFX, Z, SFX) do { \
+#define printZ(PFX, Z, SFX) do { \
 	(void)fprintf(stdout, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
 	(void)fflush(stdout); \
 } while (0)
 
-#define printcerr(PFX, Z, SFX) do { \
+#define printZerr(PFX, Z, SFX) do { \
 	(void)fprintf(stderr, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
 	(void)fflush(stderr); \
 } while (0)
@@ -45,7 +44,22 @@ typedef struct _complex_t {
 #define Arg(Z) atan2(Im(Z), Re(Z))
 #endif
 
-#define scale3(Z, U, R) { \
+#define xchgZ(U, V) do { \
+	complex_t __t__; \
+	__t__ = (U); \
+	(U) = (V); \
+	(V) = __t__; \
+} while (0)
+
+#define swapZ2(Z, U) do { \
+	register double __ReU__; \
+	__ReU__ = Re(U); \
+	Re(Z) = Im(U); \
+	Im(Z) = __ReU__; \
+} while (0)
+#define swapZ(Z) swapZ2(Z, Z)
+
+#define scale3(Z, U, R) do { \
 	Re(Z) = Re(U) * (R); \
 	Im(Z) = Im(U) * (R); \
 } while (0)

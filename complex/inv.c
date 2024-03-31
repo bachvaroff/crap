@@ -44,7 +44,7 @@ main()
 		for (j = 0l; j < SIZE; j++) {
 			if (i == j) expiphi(MIJ(SIZE, a, i, j),
 				2.0 * M_PI * (double)i / (double)SIZE);
-			else mkC(MIJ(SIZE, a, i, j),
+			else mkZ(MIJ(SIZE, a, i, j),
 				0.0,
 				sin(M_PI * (double)i / (double)SIZE));
 		}
@@ -53,7 +53,7 @@ main()
 		for (j = 0l; j < SIZE; j++) {
 			if (i == j) expiphi(MIJ(SIZE, b, i, j),
 				2.0 * M_PI * (double)i / (double)SIZE);
-			else mkC(MIJ(SIZE, b, i, j),
+			else mkZ(MIJ(SIZE, b, i, j),
 				cos(M_PI * (double)j / (double)SIZE),
 				0.0);
 		}
@@ -65,7 +65,7 @@ main()
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(ab) = ");
-	printc("", t0, "\n");
+	printZ("", t0, "\n");
 	printf("ab\n");
 	
 	LUPInvert(SIZE, abi, dec, P);
@@ -73,33 +73,33 @@ main()
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(abi) = ");
-	printc("", t0, "\n");
+	printZ("", t0, "\n");
 	printf("abi\n");
 	
 	copyAB(SIZE, dec, a);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(a) = ");
-	printc("", t0, "\n");
+	printZ("", t0, "\n");
 	LUPInvert(SIZE, a, dec, P);
 	copyAB(SIZE, dec, a);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(ai) = ");
-	printc("", t0, "\n");
+	printZ("", t0, "\n");
 	printf("ai\n");
 	
 	copyAB(SIZE, dec, b);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(b) = ");
-	printc("", t0, "\n");
+	printZ("", t0, "\n");
 	LUPInvert(SIZE, b, dec, P);
 	copyAB(SIZE, dec, b);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(bi) = ");
-	printc("", t0, "\n");
+	printZ("", t0, "\n");
 	printf("bi\n");
 	
 	mulCAB(SIZE, biai, b, a);
@@ -107,7 +107,7 @@ main()
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(biai) = ");
-	printc("", t0, "\n");
+	printZ("", t0, "\n");
 	printf("biai\n");
 	
 	mi = 0.0;

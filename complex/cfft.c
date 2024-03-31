@@ -9,14 +9,9 @@ rearrange(N, data)
 	complex_t *data;
 {
 	long position, target, mask;
-	complex_t t0;
 	
 	for (position = 0l, target = 0l; position < N; position++) {
-		if (target > position) {
-			t0 = data[target];
-			data[target] = data[position];
-			data[position] = t0;
-		}
+		if (target > position) xchgZ(data[position], data[target]);
 		for (mask = N >> 1; target & mask; mask >>= 1)
 			target &= ~mask;
 		target |= mask;
@@ -59,7 +54,7 @@ do_fft(N, data, inverse)
 		jump = step << 1;
 		delta = pi / (double)step;
 		sine = sin(delta * 0.5);
-		mkC(multiplier, -2.0 * sine * sine, sin(delta));
+		mkZ(multiplier, -2.0 * sine * sine, sin(delta));
 		mk1(factor);
 		
 		for (group = 0u; group < step; group++) {
