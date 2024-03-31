@@ -8,18 +8,16 @@ rearrange(N, data)
 	long N;
 	complex_t *data;
 {
-	long position, mask;
-	long target = 0l;
+	long position, target, mask;
 	complex_t t0;
 	
-	for (position = 0l; position < N; position++) {
+	for (position = 0l, target = 0l; position < N; position++) {
 		if (target > position) {
 			t0 = data[target];
 			data[target] = data[position];
 			data[position] = t0;
 		}
-		mask = N;
-		while (target & (mask >>= 1))
+		for (mask = N >> 1; target & mask; mask >>= 1)
 			target &= ~mask;
 		target |= mask;
 	}
@@ -33,13 +31,11 @@ rearrange2(N, outdata, indata)
 	complex_t *outdata;
 	complex_t *indata;
 {
-	long position, mask;
-	long target = 0l;
+	long position, target, mask;
 	
-	for (position = 0l; position < N; position++) {
+	for (position = 0l, target = 0l; position < N; position++) {
 		outdata[target] = indata[position];
-		mask = N;
-		while (target & (mask >>= 1))
+		for (mask = N >> 1; target & mask; mask >>= 1)
 			target &= ~mask;
 		target |= mask;
 	}
