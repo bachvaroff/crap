@@ -8,13 +8,13 @@ rearrange(N, data)
 	long N;
 	complex_t *data;
 {
-	long position, targZet, mask;
+	long position, target, mask;
 	
-	for (position = 0l, targZet = 0l; position < N; position++) {
-		if (targZet > position) xchgZ(data[position], data[targZet]);
-		for (mask = N >> 1; targZet & mask; mask >>= 1)
-			targZet &= ~mask;
-		targZet |= mask;
+	for (position = 0l, target = 0l; position < N; position++) {
+		if (target > position) xchgZ(data[position], data[target]);
+		for (mask = N >> 1; target & mask; mask >>= 1)
+			target &= ~mask;
+		target |= mask;
 	}
 	
 	return;
@@ -26,13 +26,13 @@ rearrange2(N, outdata, indata)
 	complex_t *outdata;
 	complex_t *indata;
 {
-	long position, targZet, mask;
+	long position, target, mask;
 	
-	for (position = 0l, targZet = 0l; position < N; position++) {
-		outdata[targZet] = indata[position];
-		for (mask = N >> 1; targZet & mask; mask >>= 1)
-			targZet &= ~mask;
-		targZet |= mask;
+	for (position = 0l, target = 0l; position < N; position++) {
+		outdata[target] = indata[position];
+		for (mask = N >> 1; target & mask; mask >>= 1)
+			target &= ~mask;
+		target |= mask;
 	}
 	
 	return;
