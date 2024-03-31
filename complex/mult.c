@@ -44,7 +44,7 @@ main()
 				(double)((3l * i) % SIZE) / 97.0,
 				(double)((7l * j) % SIZE) / 91.0);
 
-	conZtransAB(SIZE, b, a);
+	contransAB(SIZE, b, a);
 
 	printf("begin\n");
 

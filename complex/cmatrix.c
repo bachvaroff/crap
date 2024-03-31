@@ -82,7 +82,7 @@ mulCABtrans(size, C, A, B)
 }
 
 void
-mulCAconZtransB(size, C, A, B)
+mulCAcontransB(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
@@ -109,7 +109,7 @@ mulCAconZtransB(size, C, A, B)
 }
 
 void
-mulCABconZtrans(size, C, A, B)
+mulCABcontrans(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
@@ -169,7 +169,7 @@ transAB(size, A, B)
 }
 
 void
-conZtrans(size, A)
+contrans(size, A)
 	long size;
 	complex_t *A;
 {
@@ -187,7 +187,7 @@ conZtrans(size, A)
 }
 
 void
-conZtransAB(size, A, B)
+contransAB(size, A, B)
 	long size;
 	complex_t *A;
 	complex_t *B;
