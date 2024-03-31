@@ -22,9 +22,9 @@ mulCAB(size, C, A, B)
 			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
-			mk0(MIJ(size, C, i, j));
+			mkZ0(MIJ(size, C, i, j));
 			for (k = 0l; k < size; k++)
-				madd(MIJ(size, C, i, j),
+				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k),
 					MIJ(size, B, k, j));
 		}
@@ -47,9 +47,9 @@ mulCAtransB(size, C, A, B)
 			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
-			mk0(MIJ(size, C, i, j));
+			mkZ0(MIJ(size, C, i, j));
 			for (k = 0l; k < size; k++)
-				madd(MIJ(size, C, i, j),
+				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, k, i),
 					MIJ(size, B, k, j));
 		}
@@ -72,9 +72,9 @@ mulCABtrans(size, C, A, B)
 			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
-			mk0(MIJ(size, C, i, j));
+			mkZ0(MIJ(size, C, i, j));
 			for (k = 0l; k < size; k++)
-				madd(MIJ(size, C, i, j),
+				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k),
 					MIJ(size, B, j, k));
 		}
@@ -82,7 +82,7 @@ mulCABtrans(size, C, A, B)
 }
 
 void
-mulCAcontransB(size, C, A, B)
+mulCAconZtransB(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
@@ -98,10 +98,10 @@ mulCAcontransB(size, C, A, B)
 			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
-			mk0(MIJ(size, C, i, j));
+			mkZ0(MIJ(size, C, i, j));
 			for (k = 0l; k < size; k++) {
-				con2(t0, MIJ(size, A, k, i));
-				madd(MIJ(size, C, i, j),
+				conZ2(t0, MIJ(size, A, k, i));
+				maddZ(MIJ(size, C, i, j),
 					t0, MIJ(size, B, k, j));
 			}
 		}
@@ -109,7 +109,7 @@ mulCAcontransB(size, C, A, B)
 }
 
 void
-mulCABcontrans(size, C, A, B)
+mulCABconZtrans(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
@@ -125,10 +125,10 @@ mulCABcontrans(size, C, A, B)
 			(unsigned long)&MIJ(size, C, i, 0l));
 #endif
 		for (j = 0l; j < size; j++) {
-			mk0(MIJ(size, C, i, j));
+			mkZ0(MIJ(size, C, i, j));
 			for (k = 0l; k < size; k++) {
-				con2(t0, MIJ(size, B, j, k));
-				madd(MIJ(size, C, i, j),
+				conZ2(t0, MIJ(size, B, j, k));
+				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k), t0);
 			}
 		}
@@ -169,7 +169,7 @@ transAB(size, A, B)
 }
 
 void
-contrans(size, A)
+conZtrans(size, A)
 	long size;
 	complex_t *A;
 {
@@ -178,8 +178,8 @@ contrans(size, A)
 	
 	for (i = 0l; i < size; i++)
 		for (j = i; j < size; j++) {
-			con2(t, MIJ(size, A, i, j));
-			con2(MIJ(size, A, i, j), MIJ(size, A, j, i));
+			conZ2(t, MIJ(size, A, i, j));
+			conZ2(MIJ(size, A, i, j), MIJ(size, A, j, i));
 			MIJ(size, A, j, i) = t;
 		}
 	
@@ -187,7 +187,7 @@ contrans(size, A)
 }
 
 void
-contransAB(size, A, B)
+conZtransAB(size, A, B)
 	long size;
 	complex_t *A;
 	complex_t *B;
@@ -196,7 +196,7 @@ contransAB(size, A, B)
 	
 	for (i = 0l; i < size; i++)
 		for (j = 0l; j < size; j++)
-			con2(MIJ(size, A, i, j), MIJ(size, B, j, i));
+			conZ2(MIJ(size, A, i, j), MIJ(size, B, j, i));
 	
 	return;
 }
@@ -211,9 +211,9 @@ mulyAx(size, y, A, x)
 	long i, j;
 	
 	for (i = 0l; i < size; i++) {
-		mk0(y[i]);
+		mkZ0(y[i]);
 		for (j = 0l; j < size; j++)
-			madd(y[i], MIJ(size, A, i, j), x[j]);
+			maddZ(y[i], MIJ(size, A, i, j), x[j]);
 	}
 	
 	return;

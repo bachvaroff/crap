@@ -42,7 +42,7 @@ main()
 
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++) {
-			if (i == j) expiphi(MIJ(SIZE, a, i, j),
+			if (i == j) expiphiZ(MIJ(SIZE, a, i, j),
 				2.0 * M_PI * (double)i / (double)SIZE);
 			else mkZ(MIJ(SIZE, a, i, j),
 				0.0,
@@ -51,7 +51,7 @@ main()
 	
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++) {
-			if (i == j) expiphi(MIJ(SIZE, b, i, j),
+			if (i == j) expiphiZ(MIJ(SIZE, b, i, j),
 				2.0 * M_PI * (double)i / (double)SIZE);
 			else mkZ(MIJ(SIZE, b, i, j),
 				cos(M_PI * (double)j / (double)SIZE),
@@ -113,16 +113,16 @@ main()
 	mi = 0.0;
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++) {
-			sub3(t0, MIJ(SIZE, abi, i, j), MIJ(SIZE, biai, i, j));
-			mi += mag(t0);
+			subZ3(t0, MIJ(SIZE, abi, i, j), MIJ(SIZE, biai, i, j));
+			mi += magZ(t0);
 		}
 	mi /= (double)SIZESQ;
 	
 	stddev = 0.0;
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++) {
-			sub3(t0, MIJ(SIZE, abi, i, j), MIJ(SIZE, biai, i, j));
-			stddev += (mag(t0) - mi) * (mag(t0) - mi);
+			subZ3(t0, MIJ(SIZE, abi, i, j), MIJ(SIZE, biai, i, j));
+			stddev += (magZ(t0) - mi) * (magZ(t0) - mi);
 		}
 	stddev = sqrt(stddev / (double)SIZESQ);
 	

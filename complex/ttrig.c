@@ -17,11 +17,11 @@ main()
 	SinZ(z1);
 	printZ("", z0, "\n");
 	printZ("", z1, "\n");
-	mul2(z0, z0);
-	mul2(z1, z1);
+	mulZ2(z0, z0);
+	mulZ2(z1, z1);
 	printZ("", z0, "\n");
 	printZ("", z1, "\n");
-	add3(u, z0, z1);
+	addZ3(u, z0, z1);
 	printZ("", u, "\n");
 	
 	LogZ(z0);

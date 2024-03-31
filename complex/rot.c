@@ -15,25 +15,25 @@ main()
 	int j;
 	
 	ph = 2.0 * M_PI / STEPS;
-	expiphi(a, M_PI_4);
+	expiphiZ(a, M_PI_4);
 	
-	mk0(cacc);
-	mk0(erracc);
+	mkZ0(cacc);
+	mkZ0(erracc);
 	for (j = 0, phacc = 0.0; ; j++) {
-		expiphi(phasor, phacc);
-		printf("%d %.16lf ", j, Arg(phasor));
-		madd(cacc, a, phasor);
+		expiphiZ(phasor, phacc);
+		printf("%d %.16lf ", j, ArgZ(phasor));
+		maddZ(cacc, a, phasor);
 		printZ("", cacc, " ");
 		LogZ2(t0, cacc);
 		expZ(t0);
 		printZ("", t0, " ");
-		sub2(t0, cacc);
+		subZ2(t0, cacc);
 		printZ("", t0, " ");
-		add2(erracc, t0);
+		addZ2(erracc, t0);
 #ifdef ERRACC
 		printZ("", erracc, "\n");
 #else
-		printf("%.16lf\n", log(mag(erracc)) / M_LN10);
+		printf("%.16lf\n", log(magZ(erracc)) / M_LN10);
 #endif
 		phacc += ph;
 	}

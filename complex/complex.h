@@ -15,9 +15,9 @@ typedef struct _complex_t {
 	Re(Z) = (RE); \
 	Im(Z) = (IM); \
 } while (0)
-#define mk0(Z) mkZ(Z, 0.0, 0.0)
-#define mk1(Z) mkZ(Z, 1.0, 0.0)
-#define mki(Z) mkZ(Z, 0.0, 1.0)
+#define mkZ0(Z) mkZ(Z, 0.0, 0.0)
+#define mkZ1(Z) mkZ(Z, 1.0, 0.0)
+#define mkZi(Z) mkZ(Z, 0.0, 1.0)
 
 #define printZ(PFX, Z, SFX) do { \
 	(void)fprintf(stdout, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
@@ -29,26 +29,26 @@ typedef struct _complex_t {
 	(void)fflush(stderr); \
 } while (0)
 
-#define dist(U, V) \
+#define distZ(U, V) \
 	sqrt((Re(U) - Re(V)) * (Re(U) - Re(V)) + (Im(U) - Im(V)) * (Im(U) - Im(V)))
-#define distsq(U, V) \
+#define distsqZ(U, V) \
 	((Re(U) - Re(V)) * (Re(U) - Re(V)) + (Im(U) - Im(V)) * (Im(U) - Im(V)))
-#define pseudosc(U, V) (Re(U) * Re(V) + Im(U) * Im(V))
-#define magsq(Z) pseudosc(Z, Z)
-#define mag(Z) sqrt(pseudosc(Z, Z))
-#define arg(Z, BR) (atan2(Im(Z), Re(Z)) + 2.0 * (double)(BR) * M_PI)
+#define pseudoscZ(U, V) (Re(U) * Re(V) + Im(U) * Im(V))
+#define magsqZ(Z) pseudoscZ(Z, Z)
+#define magZ(Z) sqrt(pseudoscZ(Z, Z))
+#define argZ(Z, BR) (atan2(Im(Z), Re(Z)) + 2.0 * (double)(BR) * M_PI)
 
 #ifdef __BRANCH
-#define Arg(Z) arg(Z, 0)
+#define ArgZ(Z) argZ(Z, 0)
 #else
-#define Arg(Z) atan2(Im(Z), Re(Z))
+#define ArgZ(Z) atan2(Im(Z), Re(Z))
 #endif
 
 #define xchgZ(U, V) do { \
-	complex_t __t__; \
-	__t__ = (U); \
+	complex_t __txchg__; \
+	__txchg__ = (U); \
 	(U) = (V); \
-	(V) = __t__; \
+	(V) = __txchg__; \
 } while (0)
 
 #define swapZ2(Z, U) do { \
@@ -59,70 +59,70 @@ typedef struct _complex_t {
 } while (0)
 #define swapZ(Z) swapZ2(Z, Z)
 
-#define scale3(Z, U, R) do { \
+#define scaleZ3(Z, U, R) do { \
 	Re(Z) = Re(U) * (R); \
 	Im(Z) = Im(U) * (R); \
 } while (0)
-#define scale2(Z, R) scale3(Z, Z, R)
+#define scaleZ2(Z, R) scaleZ3(Z, Z, R)
 
-#define con2(Z, U) do { \
+#define conZ2(Z, U) do { \
 	Re(Z) = Re(U); \
 	Im(Z) = -Im(U); \
 } while (0)
-#define con(Z) con2(Z, Z)
+#define conZ(Z) conZ2(Z, Z)
 
-#define neg2(Z, U) do { \
+#define negZ2(Z, U) do { \
 	Re(Z) = -Re(U); \
 	Im(Z) = -Im(U); \
 } while (0)
-#define neg(Z) neg2(Z, Z)
+#define negZ(Z) negZ2(Z, Z)
 
-#define add3(Z, U, V) do { \
+#define addZ3(Z, U, V) do { \
 	Re(Z) = Re(U) + Re(V); \
 	Im(Z) = Im(U) + Im(V); \
 } while (0)
-#define add2(Z, U) add3(Z, Z, U)
+#define addZ2(Z, U) addZ3(Z, Z, U)
 
-#define sub3(Z, U, V) do { \
+#define subZ3(Z, U, V) do { \
 	Re(Z) = Re(U) - Re(V); \
 	Im(Z) = Im(U) - Im(V); \
 } while (0)
-#define sub2(Z, U) sub3(Z, Z, U)
+#define subZ2(Z, U) subZ3(Z, Z, U)
 
-#define mul3(Z, U, V) do { \
+#define mulZ3(Z, U, V) do { \
 	register double __ReU__ = Re(U); \
 	register double __ReV__ = Re(V); \
 	Re(Z) = __ReU__ * __ReV__ - Im(U) * Im(V); \
 	Im(Z) = Im(U) * __ReV__ + __ReU__ * Im(V); \
 } while (0)
-#define mul2(Z, U) mul3(Z, Z, U)
+#define mulZ2(Z, U) mulZ3(Z, Z, U)
 
-#define inner3(Z, U, V) do { \
+#define innerZ3(Z, U, V) do { \
 	register double __ReU__ = Re(U); \
 	register double __ReV__ = Re(V); \
 	register double __nImV__ = -Im(V); \
 	Re(Z) = __ReU__ * __ReV__ - Im(U) * __nImV__; \
 	Im(Z) = Im(U) * __ReV__ + __ReU__ * __nImV__; \
 } while (0)
-#define inner2(Z, U) inner3(Z, Z, U)
+#define innerZ2(Z, U) innerZ3(Z, Z, U)
 
-#define madd(Z, U, V) do { \
+#define maddZ(Z, U, V) do { \
 	register double __ReU__ = Re(U); \
 	register double __ReV__ = Re(V); \
 	Re(Z) += __ReU__ * __ReV__ - Im(U) * Im(V); \
 	Im(Z) += Im(U) * __ReV__ + __ReU__ * Im(V); \
 } while (0)
 
-#define div3(Z, U, V) do { \
+#define divZ3(Z, U, V) do { \
 	register double __ReU__ = Re(U); \
 	register double __ReV__ = Re(V); \
-	register double __magsqV__ = magsq(V); \
+	register double __magsqV__ = magsqZ(V); \
 	Re(Z) = (__ReU__ * __ReV__ + Im(U) * Im(V)) / __magsqV__; \
 	Im(Z) = (Im(U) * __ReV__ - __ReU__ * Im(V)) / __magsqV__; \
 } while (0)
-#define div2(Z, U) div3(Z, Z, U)
+#define divZ2(Z, U) divZ3(Z, Z, U)
 
-#define expiphi(Z, PHI) do { \
+#define expiphiZ(Z, PHI) do { \
 	Re(Z) = cos(PHI); \
 	Im(Z) = sin(PHI); \
 } while (0)
@@ -142,8 +142,8 @@ typedef struct _complex_t {
 #define expZ(Z) expZ2(Z, Z)
 
 #define logZ2(Z, U, BR) do { \
-	register double __argU__ = arg(U, BR); \
-	Re(Z) = 0.5 * log(magsq(U)); \
+	register double __argU__ = argZ(U, BR); \
+	Re(Z) = 0.5 * log(magsqZ(U)); \
 	Im(Z) = __argU__; \
 } while (0)
 #define logZ(Z, BR) logZ2(Z, Z, BR)
@@ -153,18 +153,18 @@ typedef struct _complex_t {
 #define LogZ(Z) logZ(Z, 0)
 #else
 #define LogZ2(Z, U) do { \
-	register double __ArgU__ = Arg(U); \
-	Re(Z) = 0.5 * log(magsq(U)); \
+	register double __ArgU__ = ArgZ(U); \
+	Re(Z) = 0.5 * log(magsqZ(U)); \
 	Im(Z) = __ArgU__; \
 } while (0)
 #define LogZ(Z) LogZ2(Z, Z)
 #endif
 
-#define norm2(Z, U) do { \
-	register double __ArgU__ = Arg(U); \
-	expiphi(Z, __ArgU__); \
+#define normZ2(Z, U) do { \
+	register double __ArgU__ = ArgZ(U); \
+	expiphiZ(Z, __ArgU__); \
 } while (0)
-#define norm(Z) norm2(Z, Z)
+#define normZ(Z) normZ2(Z, Z)
 
 #define SinZ2(Z, U) do { \
 	register double __expImU__ = exp(Im(U)); \

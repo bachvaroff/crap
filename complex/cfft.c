@@ -8,13 +8,13 @@ rearrange(N, data)
 	long N;
 	complex_t *data;
 {
-	long position, target, mask;
+	long position, targZet, mask;
 	
-	for (position = 0l, target = 0l; position < N; position++) {
-		if (target > position) xchgZ(data[position], data[target]);
-		for (mask = N >> 1; target & mask; mask >>= 1)
-			target &= ~mask;
-		target |= mask;
+	for (position = 0l, targZet = 0l; position < N; position++) {
+		if (targZet > position) xchgZ(data[position], data[targZet]);
+		for (mask = N >> 1; targZet & mask; mask >>= 1)
+			targZet &= ~mask;
+		targZet |= mask;
 	}
 	
 	return;
@@ -26,13 +26,13 @@ rearrange2(N, outdata, indata)
 	complex_t *outdata;
 	complex_t *indata;
 {
-	long position, target, mask;
+	long position, targZet, mask;
 	
-	for (position = 0l, target = 0l; position < N; position++) {
-		outdata[target] = indata[position];
-		for (mask = N >> 1; target & mask; mask >>= 1)
-			target &= ~mask;
-		target |= mask;
+	for (position = 0l, targZet = 0l; position < N; position++) {
+		outdata[targZet] = indata[position];
+		for (mask = N >> 1; targZet & mask; mask >>= 1)
+			targZet &= ~mask;
+		targZet |= mask;
 	}
 	
 	return;
@@ -55,16 +55,16 @@ do_fft(N, data, inverse)
 		delta = pi / (double)step;
 		sine = sin(delta * 0.5);
 		mkZ(multiplier, -2.0 * sine * sine, sin(delta));
-		mk1(factor);
+		mkZ1(factor);
 		
 		for (group = 0u; group < step; group++) {
 			for (pair = group; pair < N; pair += jump) {
 				match = pair + step;
-				mul3(product, factor, data[match]);
-				sub3(data[match], data[pair], product);
-				add2(data[pair], product);
+				mulZ3(product, factor, data[match]);
+				subZ3(data[match], data[pair], product);
+				addZ2(data[pair], product);
 			}
-			madd(factor, factor, multiplier);
+			maddZ(factor, factor, multiplier);
 		}
 	}
 	
@@ -82,7 +82,7 @@ scaleout(N, data)
 	factor = 1.0 / (double)N;
 	
 	for (position = 0l; position < N; position++)
-		scale2(data[position], factor);
+		scaleZ2(data[position], factor);
 	
 	return;
 }

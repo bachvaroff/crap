@@ -41,7 +41,7 @@ main()
 	for (j = 0l; j < 1024l; j++) {
 		printf("FWD %.16lf ", (double)j * 8000.0 / 1024.0);
 		printZ("", arr[j], " ");
-		printf("%.16lf\n", mag(arr[j]));
+		printf("%.16lf\n", magZ(arr[j]));
 	}
 	
 	ifft(1024l, arr, 1);

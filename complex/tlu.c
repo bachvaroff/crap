@@ -71,7 +71,7 @@ main()
 			printZ("", MIJ(3, LU, i, j), "\n");
 		}
 	
-	contransAB(3, Pminv, Pm);
+	conZtransAB(3, Pminv, Pm);
 	mulCAB(3, PminvLU, Pminv, LU);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
