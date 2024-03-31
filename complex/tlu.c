@@ -82,7 +82,7 @@ main()
 		}
 	
 	t0 = LUPDeterminant(3, Adec, P);
-	printf("detA = ");
+	printf("det(A) = ");
 	printc("", t0, "\n");
 	
 	LUPInvert(3, Ainv, Adec, P);

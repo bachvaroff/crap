@@ -1,10 +1,11 @@
-CC=/bin/cc
+CC=cc
 CFLAGS=-D__BRANCH
 CDEBUG=-g -D_DEBUG_ -D_DEBUG_CI_
 INCLUDE=-I.
 LDFLAGS=
 LDEBUG=-g
-LIB=
+LIB=libcomplex.a
+LIBH=complex.h cmatrix.h clu.h
 LDPOSTFLAGS0=-lm
 SOFLAGS=
 SODEBUG=-g
@@ -12,43 +13,46 @@ COMPILE=$(CC) $(CFLAGS) $(CDEBUG) $(INCLUDE)
 LINK=$(CC) $(LDFLAGS) $(LDEBUG) $(LIB)
 LINKSO=$(CC) $(SOFLAGS) $(SODEBUG) $(LIB)
 
-CMOBJ=cmatrix.o clu.o
-
 .c.o:
 	$(COMPILE) -c $< -o $@
 
-all: mult rot ttrig thyp tinner tlu inv
+all: lib mult rot ttrig thyp tinner tlu inv
 
-cmatrix.o: cmatrix.c complex.h cmatrix.h
-clu.o: clu.c complex.h cmatrix.h clu.h
-mult.o: mult.c complex.h cmatrix.h
-rot.o: rot.c complex.h
-ttrig.o: ttrig.c complex.h
-thyp.o: thyp.c complex.h
-tinner.o: tinner.c complex.h
-tlu.o: tlu.c complex.h cmatrix.h clu.h
-inv.o: inv.c complex.h cmatrix.h clu.h
+cmatrix.o: cmatrix.c $(LIBH)
+clu.o: clu.c $(LIBH)
+$(LIB): cmatrix.o clu.o
+	ar ruv $@ $?
+	ranlib $@
+lib: $(LIB)
 
-mult: mult.o $(CMOBJ)
-	$(LINK) mult.o $(CMOBJ) $(LDPOSTFLAGS0) -o $@
+mult.o: mult.c $(LIBH)
+rot.o: rot.c $(LIBH)
+ttrig.o: ttrig.c $(LIBH)
+thyp.o: thyp.c $(LIBH)
+tinner.o: tinner.c $(LIBH)
+tlu.o: tlu.c $(LIBH)
+inv.o: inv.c $(LIBH)
 
-inv: inv.o $(CMOBJ)
-	$(LINK) inv.o $(CMOBJ) $(LDPOSTFLAGS0) -o $@
+mult: mult.o $(LIB)
+	$(LINK) mult.o $(LDPOSTFLAGS0) -o $@
 
-rot: rot.o
+inv: inv.o $(LIB)
+	$(LINK) inv.o $(LDPOSTFLAGS0) -o $@
+
+rot: rot.o $(LIB)
 	$(LINK) rot.o $(LDPOSTFLAGS0) -o $@
 
-ttrig: ttrig.o
+ttrig: ttrig.o $(LIB)
 	$(LINK) ttrig.o $(LDPOSTFLAGS0) -o $@
 
-thyp: thyp.o
+thyp: thyp.o $(LIB)
 	$(LINK) thyp.o $(LDPOSTFLAGS0) -o $@
 
-tinner: tinner.o
+tinner: tinner.o $(LIB)
 	$(LINK) tinner.o $(LDPOSTFLAGS0) -o $@
 
-tlu: tlu.o $(CMOBJ)
-	$(LINK) tlu.o $(CMOBJ) $(LDPOSTFLAGS0) -o $@
+tlu: tlu.o $(LIB)
+	$(LINK) tlu.o $(LDPOSTFLAGS0) -o $@
 
 clean:
-	rm -f *.o mult rot ttrig thyp tinner tlu inv
+	rm -f *.o $(LIB) mult rot ttrig thyp tinner tlu inv
