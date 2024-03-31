@@ -6,12 +6,12 @@ LDFLAGS=
 LDEBUG=-g
 LIB=libcomplex.a
 LIBH=complex.h cmatrix.h clu.h
-LDPOSTFLAGS0=-lm
+LDPOSTFLAGS0=$(LIB) -lm
 SOFLAGS=
 SODEBUG=-g
 COMPILE=$(CC) $(CFLAGS) $(CDEBUG) $(INCLUDE)
-LINK=$(CC) $(LDFLAGS) $(LDEBUG) $(LIB)
-LINKSO=$(CC) $(SOFLAGS) $(SODEBUG) $(LIB)
+LINK=$(CC) $(LDFLAGS) $(LDEBUG)
+LINKSO=$(CC) $(SOFLAGS) $(SODEBUG)
 
 .c.o:
 	$(COMPILE) -c $< -o $@
