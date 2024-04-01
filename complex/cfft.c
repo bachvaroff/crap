@@ -4,24 +4,7 @@
 #include "cfft.h"
 
 static void
-rearrange(N, data)
-	long N;
-	complex_t *data;
-{
-	long position, target, mask;
-	
-	for (position = 0l, target = 0l; position < N; position++) {
-		if (target > position) xchgZ(data[target], data[position]);
-		for (mask = N >> 1; target & mask; mask >>= 1)
-			target &= ~mask;
-		target |= mask;
-	}
-	
-	return;
-}
-
-static void
-rearrange2(N, outdata, indata)
+rearrange(N, outdata, indata)
 	long N;
 	complex_t *outdata;
 	complex_t *indata;
@@ -29,7 +12,10 @@ rearrange2(N, outdata, indata)
 	long position, target, mask;
 	
 	for (position = 0l, target = 0l; position < N; position++) {
-		outdata[target] = indata[position];
+		if (outdata == indata) {
+			if (target > position)
+				xchgZ(outdata[target], outdata[position]);
+		} else outdata[target] = indata[position];
 		for (mask = N >> 1; target & mask; mask >>= 1)
 			target &= ~mask;
 		target |= mask;
@@ -95,7 +81,7 @@ fft2(N, outdata, indata)
 {
 	if ((N < 1l) || (N & (N - 1l))) return 0;
 	
-	rearrange2(N, outdata, indata);
+	rearrange(N, outdata, indata);
 	do_fft(N, outdata, 0);
 	
 	return 1;
@@ -108,7 +94,7 @@ fft(N, data)
 {
 	if ((N < 1l) || (N & (N - 1l))) return 0;
 	
-	rearrange(N, data);
+	rearrange(N, data, data);
 	do_fft(N, data, 0);
 	
 	return 1;
@@ -123,7 +109,7 @@ ifft2(N, outdata, indata, scale)
 {
 	if ((N < 1l) || (N & (N - 1l))) return 0;
 	
-	rearrange2(N, outdata, indata);
+	rearrange(N, outdata, indata);
 	do_fft(N, outdata, 1);
 	if (scale) scaleout(N, outdata);
 	
@@ -138,7 +124,7 @@ ifft(N, data, scale)
 {
 	if ((N < 1l) || (N & (N - 1l))) return 0;
 	
-	rearrange(N, data);
+	rearrange(N, data, data);
 	do_fft(N, data, 1);
 	if (scale) scaleout(N, data);
 	
