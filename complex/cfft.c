@@ -32,15 +32,15 @@ do_fft(N, data, inverse)
 {
 	long step, jump, group, pair, match;
 	complex_t multiplier, factor, product;
-	double pi, delta, sine;
+	double pi, theta;
 	
 	pi = inverse ? M_PI : -M_PI;
 	
 	for (step = 1l; step < N; step <<= 1) {
 		jump = step << 1;
-		delta = pi / (double)step;
-		sine = sin(delta * 0.5);
-		mkZ(multiplier, -2.0 * sine * sine, sin(delta));
+		theta = pi / (double)step;
+		expiphiZ(multiplier, theta);
+		Re(multiplier) -= 1.0;
 		mkZ1(factor);
 		
 		for (group = 0u; group < step; group++) {
