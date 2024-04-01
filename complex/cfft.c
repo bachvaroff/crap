@@ -11,7 +11,7 @@ rearrange(N, data)
 	long position, target, mask;
 	
 	for (position = 0l, target = 0l; position < N; position++) {
-		if (target > position) xchgZ(data[position], data[target]);
+		if (target > position) xchgZ(data[target], data[position]);
 		for (mask = N >> 1; target & mask; mask >>= 1)
 			target &= ~mask;
 		target |= mask;
