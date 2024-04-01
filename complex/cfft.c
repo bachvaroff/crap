@@ -39,9 +39,9 @@ do_fft(N, data, inverse)
 	for (step = 1l; step < N; step <<= 1) {
 		jump = step << 1;
 		theta = pi / (double)step;
-		expiphiZ(multiplier, theta);
-		Re(multiplier) -= 1.0;
 		mkZ1(factor);
+		expiphiZ(multiplier, theta);
+		subZ2(multiplier, factor);
 		
 		for (group = 0u; group < step; group++) {
 			for (pair = group; pair < N; pair += jump) {
