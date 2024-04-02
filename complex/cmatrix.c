@@ -20,6 +20,7 @@ mulCAB(size, C, A, B)
 		fprintf(stderr, "%16lx % 11ld %16lx\n",
 			(unsigned long)C, i,
 			(unsigned long)&MIJ(size, C, i, 0l));
+		fflush(stderr);
 #endif
 		for (j = 0l; j < size; j++) {
 			mkZ0(MIJ(size, C, i, j));
@@ -27,7 +28,18 @@ mulCAB(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k),
 					MIJ(size, B, k, j));
+#ifdef _DEBUG_CI_
+			if ((j & 0x7l) == 0x7l) {
+				fputc((int)'.', stderr);
+				fflush(stderr);
+			}
+#endif
 		}
+#ifdef _DEBUG_CI_
+		if (j & 0x7l) fputc((int)'_', stderr);
+		fputc((int)'\n', stderr);
+		fflush(stderr);
+#endif
 	}
 }
 
@@ -52,7 +64,18 @@ mulCAtransB(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, k, i),
 					MIJ(size, B, k, j));
+#ifdef _DEBUG_CI_
+			if ((j & 0x7l) == 0x7l) {
+				fputc((int)'.', stderr);
+				fflush(stderr);
+			}
+#endif
 		}
+#ifdef _DEBUG_CI_
+		if (j & 0x7l) fputc((int)'_', stderr);
+		fputc((int)'\n', stderr);
+		fflush(stderr);
+#endif
 	}
 }
 
@@ -77,7 +100,18 @@ mulCABtrans(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k),
 					MIJ(size, B, j, k));
+#ifdef _DEBUG_CI_
+			if ((j & 0x7l) == 0x7l) {
+				fputc((int)'.', stderr);
+				fflush(stderr);
+			}
+#endif
 		}
+#ifdef _DEBUG_CI_
+		if (j & 0x7l) fputc((int)'_', stderr);
+		fputc((int)'\n', stderr);
+		fflush(stderr);
+#endif
 	}
 }
 
@@ -104,7 +138,18 @@ mulCAcontransB(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					t0, MIJ(size, B, k, j));
 			}
+#ifdef _DEBUG_CI_
+			if ((j & 0x7l) == 0x7l) {
+				fputc((int)'.', stderr);
+				fflush(stderr);
+			}
+#endif
 		}
+#ifdef _DEBUG_CI_
+		if (j & 0x7l) fputc((int)'_', stderr);
+		fputc((int)'\n', stderr);
+		fflush(stderr);
+#endif
 	}
 }
 
@@ -131,7 +176,18 @@ mulCABcontrans(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k), t0);
 			}
+#ifdef _DEBUG_CI_
+			if ((j & 0x7l) == 0x7l) {
+				fputc((int)'.', stderr);
+				fflush(stderr);
+			}
+#endif
 		}
+#ifdef _DEBUG_CI_
+		if (j & 0x7l) fputc((int)'_', stderr);
+		fputc((int)'\n', stderr);
+		fflush(stderr);
+#endif
 	}
 }
 
