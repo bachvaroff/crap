@@ -1,5 +1,5 @@
-#ifndef _CFFT_
-#define _CFFT_
+#ifndef _CFFT_H
+#define _CFFT_H
 
 #include "complex.h"
 

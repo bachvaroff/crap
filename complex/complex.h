@@ -1,5 +1,5 @@
-#ifndef _COMPLEX_
-#define _COMPLEX_
+#ifndef _COMPLEX_H
+#define _COMPLEX_H
 
 #include <stdio.h>
 #include <math.h>

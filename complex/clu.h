@@ -1,5 +1,5 @@
-#ifndef _CLU_
-#define _CLU_
+#ifndef _CLU_H
+#define _CLU_H
 
 #include "complex.h"
 #include "cmatrix.h"

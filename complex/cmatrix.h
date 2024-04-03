@@ -1,5 +1,5 @@
-#ifndef _CMATRIX_
-#define _CMATRIX_
+#ifndef _CMATRIX_H
+#define _CMATRIX_H
 
 #include <stdio.h>
 #include <stdlib.h>
