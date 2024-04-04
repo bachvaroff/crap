@@ -58,7 +58,35 @@ do_fft(N, data, inverse)
 }
 
 static void
-scaleout(N, data)
+do_dft(N, outdata, indata, inverse)
+	long N;
+	complex_t *outdata;
+	complex_t *indata;
+	int inverse;
+{
+	long n, k;
+	complex_t multiplier, nph0;
+	double theta;
+	
+	theta = inverse ?
+		2.0 * M_PI / (double)N :
+		-2.0 * M_PI / (double)N;
+	
+	for (n = 0l; n < N; n++) {
+		mkZ0(outdata[n]);
+		mkZ1(multiplier);
+		expiphiZ(nph0, theta * (double)n);
+		for (k = 0l; k < N; k++) {
+			maddZ(outdata[n], indata[k], multiplier);
+			mulZ2(multiplier, nph0);
+		}
+	}
+	
+	return;
+}
+
+void
+scaledata(N, data)
 	long N;
 	complex_t *data;
 {
@@ -71,6 +99,19 @@ scaleout(N, data)
 		scaleZ2(data[position], factor);
 	
 	return;
+}
+
+int
+fft(N, data)
+	long N;
+	complex_t *data;
+{
+	if ((N < 1l) || (N & (N - 1l))) return 0;
+	
+	rearrange(N, data, data);
+	do_fft(N, data, 0);
+	
+	return 1;
 }
 
 int
@@ -88,18 +129,33 @@ fft2(N, outdata, indata)
 }
 
 int
-fft(N, data)
+dft2(N, outdata, indata)
+	long N;
+	complex_t *outdata;
+	complex_t *indata;
+{
+	if (N < 1l) return 0;
+	
+	do_dft(N, outdata, indata, 0);
+	
+	return 1;
+}
+
+int
+ifft(N, data, scale)
 	long N;
 	complex_t *data;
+	int scale;
 {
 	if ((N < 1l) || (N & (N - 1l))) return 0;
 	
 	rearrange(N, data, data);
-	do_fft(N, data, 0);
+	do_fft(N, data, 1);
+	if (scale) scaledata(N, data);
 	
 	return 1;
 }
-	
+
 int
 ifft2(N, outdata, indata, scale)
 	long N;
@@ -111,23 +167,22 @@ ifft2(N, outdata, indata, scale)
 	
 	rearrange(N, outdata, indata);
 	do_fft(N, outdata, 1);
-	if (scale) scaleout(N, outdata);
+	if (scale) scaledata(N, outdata);
 	
 	return 1;
 }
 	
 int
-ifft(N, data, scale)
+idft2(N, outdata, indata, scale)
 	long N;
-	complex_t *data;
+	complex_t *outdata;
+	complex_t *indata;
 	int scale;
 {
-	if ((N < 1l) || (N & (N - 1l))) return 0;
+	if (N < 1l) return 0;
 	
-	rearrange(N, data, data);
-	do_fft(N, data, 1);
-	if (scale) scaleout(N, data);
+	do_dft(N, outdata, indata, 1);
+	if (scale) scaledata(N, outdata);
 	
 	return 1;
 }
-

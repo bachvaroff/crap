@@ -8,6 +8,7 @@ int
 main()
 {
 	complex_t arr[1024];
+	complex_t oarr[1024];
 	double w;
 	long i, j;
 	
@@ -36,18 +37,33 @@ main()
 		printZ("", arr[j], "\n");
 	}
 	
-	fft(1024l, arr);
+	fft2(1024l, oarr, arr);
 	
 	for (j = 0l; j < 1024l; j++) {
-		printf("FWD %.16lf ", (double)j * 8000.0 / 1024.0);
-		printZ("", arr[j], " ");
-		printf("%.16lf\n", magZ(arr[j]));
+		printf("FWDFFT %.16lf ", (double)j * 8000.0 / 1024.0);
+		printZ("", oarr[j], " ");
+		printf("%.16lf\n", magZ(oarr[j]));
 	}
 	
-	ifft(1024l, arr, 1);
+	dft2(1024l, oarr, arr);
 	
 	for (j = 0l; j < 1024l; j++) {
-		printf("INV %.16lf ", (double)j / 8000.0);
+		printf("FWDDFT %.16lf ", (double)j * 8000.0 / 1024.0);
+		printZ("", oarr[j], " ");
+		printf("%.16lf\n", magZ(oarr[j]));
+	}
+	
+	ifft2(1024l, arr, oarr, 1);
+	
+	for (j = 0l; j < 1024l; j++) {
+		printf("INVFFT %.16lf ", (double)j / 8000.0);
+		printZ("", arr[j], "\n");
+	}
+	
+	idft2(1024l, arr, oarr, 1);
+	
+	for (j = 0l; j < 1024l; j++) {
+		printf("INVDFT %.16lf ", (double)j / 8000.0);
 		printZ("", arr[j], "\n");
 	}
 	
