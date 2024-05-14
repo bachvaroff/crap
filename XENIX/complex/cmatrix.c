@@ -14,7 +14,7 @@ mulCAB(size, C, A, B)
 	complex_t *B;
 {
 	long i, j, k;
-
+	
 	for (i = 0l; i < size; i++) {
 #ifdef _DEBUG_CI_
 		fprintf(stderr, "%16lx % 11ld %16lx\n",
@@ -36,7 +36,8 @@ mulCAB(size, C, A, B)
 #endif
 		}
 #ifdef _DEBUG_CI_
-		if (j & 0x7l) fputc((int)'_', stderr);
+		j &= 0x7l;
+		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
 		fflush(stderr);
 #endif
@@ -72,7 +73,8 @@ mulCAtransB(size, C, A, B)
 #endif
 		}
 #ifdef _DEBUG_CI_
-		if (j & 0x7l) fputc((int)'_', stderr);
+		j &= 0x7l;
+		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
 		fflush(stderr);
 #endif
@@ -108,7 +110,8 @@ mulCABtrans(size, C, A, B)
 #endif
 		}
 #ifdef _DEBUG_CI_
-		if (j & 0x7l) fputc((int)'_', stderr);
+		j &= 0x7l;
+		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
 		fflush(stderr);
 #endif
@@ -146,7 +149,8 @@ mulCAcontransB(size, C, A, B)
 #endif
 		}
 #ifdef _DEBUG_CI_
-		if (j & 0x7l) fputc((int)'_', stderr);
+		j &= 0x7l;
+		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
 		fflush(stderr);
 #endif
@@ -184,7 +188,8 @@ mulCABcontrans(size, C, A, B)
 #endif
 		}
 #ifdef _DEBUG_CI_
-		if (j & 0x7l) fputc((int)'_', stderr);
+		j &= 0x7l;
+		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
 		fflush(stderr);
 #endif
