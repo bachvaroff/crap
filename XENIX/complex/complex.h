@@ -65,11 +65,11 @@ typedef struct _complex_t {
 } while (0)
 #define scaleZ2(Z, R) scaleZ3(Z, Z, R)
 
-#define conZ2(Z, U) do { \
+#define conjZ2(Z, U) do { \
 	Re(Z) = Re(U); \
 	Im(Z) = -Im(U); \
 } while (0)
-#define conZ(Z) conZ2(Z, Z)
+#define conjZ(Z) conjZ2(Z, Z)
 
 #define negZ2(Z, U) do { \
 	Re(Z) = -Re(U); \

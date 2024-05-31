@@ -22,7 +22,7 @@ main()
 	innerZ3(t0, z2, z1);
 	printZ("", t0, "\n");
 	
-	conZ(t0);
+	conjZ(t0);
 	printZ("", t0, "\n");
 	
 	Re(z3) = 2.0;
@@ -50,10 +50,10 @@ main()
 	printZ("", t1, "\n");
 
 	innerZ3(t0, z5, z3);
-	conZ2(t1, z1);
+	conjZ2(t1, z1);
 	mulZ2(t0, t1);
 	innerZ3(t1, z5, z4);
-	conZ2(t2, z2);
+	conjZ2(t2, z2);
 	maddZ(t0, t1, t2);
 	printZ("", t0, "\n");
 	

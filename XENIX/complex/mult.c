@@ -28,7 +28,7 @@ main()
 		goto bad0;
 	} else printf("marr %16lx % 10ld\n",
 		(unsigned long)marr, 5l * SIZESQ * sizeof (complex_t));
-
+	
 	a = marr + 0l * SIZESQ;
 	c0 = marr + 1l * SIZESQ;
 	b = marr + 2l * SIZESQ;
@@ -37,34 +37,34 @@ main()
 	printf("a %16lx | b %16lx | bt %16lx | c0 %16lx | c1 %16lx\n",
 		(unsigned long)a, (unsigned long)b, (unsigned long)bt,
 		(unsigned long)c0, (unsigned long)c1);
-
+	
 	for (i = 0l; i < SIZE; i++)
 		for (j = 0l; j < SIZE; j++)
 			mkZ(MIJ(SIZE, a, i, j),
 				(double)((3l * i) % SIZE) / 97.0,
 				(double)((7l * j) % SIZE) / 91.0);
-
-	contransAB(SIZE, b, a);
-
+	
+	AconjtransB(SIZE, b, a);
+	
 	printf("begin\n");
-
+	
 	printf("c0 %16lx\n", (unsigned long)c0);
 	mulCAB(SIZE, c0, a, b);
 	
 	printf("c1 %16lx\n", (unsigned long)c1);
 #ifdef TRANS
-	transAB(SIZE, bt, b);
+	AtransB(SIZE, bt, b);
 #else
-	copyAB(SIZE, bt, b);
-	transA(SIZE, bt);
+	AcopyB(SIZE, bt, b);
+	AtransA(SIZE, bt);
 #endif
-	mulCABtrans(SIZE, c1, a, bt);
-
+	mulCAtransB(SIZE, c1, a, bt);
+	
 	cmp = memcmp((void *)c0, (void *)c1, SIZESQ * sizeof (complex_t));
 	printf("compare %d\n", cmp);
-
+	
 	printf("end\n");
-
+	
 	if (cmp) compare(SIZESQ, c0, c1);
 	
 	free((void *)marr);

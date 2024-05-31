@@ -1,9 +1,11 @@
 CC=cc
-CFLAGS=-D__BRANCH
+# CFLAGS=-D__BRANCH
+CFLAGS=-O -M3 -D__BRANCH
 # CDEBUG=-g -D_DEBUG_ -D_DEBUG_CI_ -D_DEBUG_CI_D_
 CDEBUG=-g -D_DEBUG_ -D_DEBUG_CI_
 INCLUDE=-I.
-LDFLAGS=
+# LDFLAGS=
+LDFLAGS=-M3
 LDEBUG=-g
 LIB=libcomplex.a
 LIBH=complex.h cmatrix.h clu.h cfft.h
