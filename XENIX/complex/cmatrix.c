@@ -7,6 +7,137 @@
 #include "cmatrix.h"
 
 void
+AconjA(size, A)
+	long size; 
+	complex_t *A;
+{
+	long i, j;
+	
+	for (i = 0l; i < size; i++)
+		for (j = i; j < size; j++)
+                        conjZ(MIJ(size, A, i, j));
+	
+	return;
+}
+
+void  
+AconjB(size, A, B)
+	long size;
+	complex_t *A;
+	complex_t *B;
+{
+	long i, j;
+	
+	for (i = 0l; i < size; i++)
+		for (j = i; j < size; j++)
+			conjZ2(MIJ(size, A, i, j), MIJ(size, B, i, j));
+        
+        return;
+}
+
+void
+AtransA(size, A)
+	long size;
+	complex_t *A;
+{
+	long i, j;
+	complex_t t;
+	
+	for (i = 0l; i < size; i++)
+		for (j = i; j < size; j++) {
+			t = MIJ(size, A, i, j);
+			MIJ(size, A, i, j) = MIJ(size, A, j, i);
+			MIJ(size, A, j, i) = t;
+		}
+	
+	return;
+}
+
+void
+AtransB(size, A, B)
+	long size;
+	complex_t *A;
+	complex_t *B;
+{
+	long i, j;
+	
+	for (i = 0l; i < size; i++)
+		for (j = 0l; j < size; j++)
+			MIJ(size, A, i, j) = MIJ(size, B, j, i);
+	
+	return;
+}
+
+void
+AconjtransA(size, A)
+	long size;
+	complex_t *A;
+{
+	long i, j;
+	complex_t t;
+	
+	for (i = 0l; i < size; i++)
+		for (j = i; j < size; j++) {
+			conjZ2(t, MIJ(size, A, i, j));
+			conjZ2(MIJ(size, A, i, j), MIJ(size, A, j, i));
+			MIJ(size, A, j, i) = t;
+		}
+	
+	return;
+}
+
+void
+AconjtransB(size, A, B)
+	long size;
+	complex_t *A;
+	complex_t *B;
+{
+	long i, j;
+	
+	for (i = 0l; i < size; i++)
+		for (j = 0l; j < size; j++)
+			conjZ2(MIJ(size, A, i, j), MIJ(size, B, j, i));
+	
+	return;
+}
+
+void
+mulyvAxv(size, yv, A, xv)
+	long size;
+	complex_t *yv;
+	complex_t *A;
+	complex_t *xv;
+{
+	long i, j;
+	
+	for (i = 0l; i < size; i++) {
+		mkZ0(yv[i]);
+		for (j = 0l; j < size; j++)
+			maddZ(yv[i], MIJ(size, A, i, j), xv[j]);
+	}
+	
+	return;
+}
+
+void
+mulycovxcovA(size, ycv, xcv, A)
+	long size;
+	complex_t *ycv;
+	complex_t *xcv;
+	complex_t *A;
+{
+	long i, j;
+	
+	for (j = 0l; j < size; j++) {
+		mkZ0(ycv[j]);
+		for (i = 0l; i < size; i++)
+			maddZ(ycv[j], xcv[i], MIJ(size, A, i, j));
+	}
+	
+	return;
+}
+
+void
 mulCAB(size, C, A, B)
 	long size;
 	complex_t *C;
@@ -196,133 +327,3 @@ mulCAconjtransB(size, C, A, B)
 	}
 }
 
-void
-AconjA(size, A)
-	long size; 
-	complex_t *A;
-{
-	long i, j;
-	
-	for (i = 0l; i < size; i++)
-		for (j = i; j < size; j++)
-                        conjZ(MIJ(size, A, i, j));
-	
-	return;
-}
-
-void  
-AconjB(size, A, B)
-	long size;
-	complex_t *A;
-	complex_t *B;
-{
-	long i, j;
-	
-	for (i = 0l; i < size; i++)
-		for (j = i; j < size; j++)
-			conjZ2(MIJ(size, A, i, j), MIJ(size, B, i, j));
-        
-        return;
-}
-
-void
-AtransA(size, A)
-	long size;
-	complex_t *A;
-{
-	long i, j;
-	complex_t t;
-	
-	for (i = 0l; i < size; i++)
-		for (j = i; j < size; j++) {
-			t = MIJ(size, A, i, j);
-			MIJ(size, A, i, j) = MIJ(size, A, j, i);
-			MIJ(size, A, j, i) = t;
-		}
-	
-	return;
-}
-
-void
-AtransB(size, A, B)
-	long size;
-	complex_t *A;
-	complex_t *B;
-{
-	long i, j;
-	
-	for (i = 0l; i < size; i++)
-		for (j = 0l; j < size; j++)
-			MIJ(size, A, i, j) = MIJ(size, B, j, i);
-	
-	return;
-}
-
-void
-AconjtransA(size, A)
-	long size;
-	complex_t *A;
-{
-	long i, j;
-	complex_t t;
-	
-	for (i = 0l; i < size; i++)
-		for (j = i; j < size; j++) {
-			conjZ2(t, MIJ(size, A, i, j));
-			conjZ2(MIJ(size, A, i, j), MIJ(size, A, j, i));
-			MIJ(size, A, j, i) = t;
-		}
-	
-	return;
-}
-
-void
-AconjtransB(size, A, B)
-	long size;
-	complex_t *A;
-	complex_t *B;
-{
-	long i, j;
-	
-	for (i = 0l; i < size; i++)
-		for (j = 0l; j < size; j++)
-			conjZ2(MIJ(size, A, i, j), MIJ(size, B, j, i));
-	
-	return;
-}
-
-void
-mulyvAxv(size, yv, A, xv)
-	long size;
-	complex_t *yv;
-	complex_t *A;
-	complex_t *xv;
-{
-	long i, j;
-	
-	for (i = 0l; i < size; i++) {
-		mkZ0(yv[i]);
-		for (j = 0l; j < size; j++)
-			maddZ(yv[i], MIJ(size, A, i, j), xv[j]);
-	}
-	
-	return;
-}
-
-void
-mulycovxcovA(size, ycv, xcv, A)
-	long size;
-	complex_t *ycv;
-	complex_t *xcv;
-	complex_t *A;
-{
-	long i, j;
-	
-	for (j = 0l; j < size; j++) {
-		mkZ0(ycv[j]);
-		for (i = 0l; i < size; i++)
-			maddZ(ycv[j], xcv[i], MIJ(size, A, i, j));
-	}
-	
-	return;
-}
