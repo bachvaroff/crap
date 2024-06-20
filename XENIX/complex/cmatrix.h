@@ -6,6 +6,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "cconfig.h"
 #include "complex.h"
 
 #define MIJ(SIZE, M, I, J) ((M)[(I) * (SIZE) + (J)])

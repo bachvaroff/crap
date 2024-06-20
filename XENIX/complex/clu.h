@@ -1,6 +1,7 @@
 #ifndef _CLU_H
 #define _CLU_H
 
+#include "cconfig.h"
 #include "complex.h"
 #include "cmatrix.h"
 

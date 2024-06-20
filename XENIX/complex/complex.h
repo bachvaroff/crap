@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "cconfig.h"
+
 typedef struct _complex_t {
 	double re;
 	double im;

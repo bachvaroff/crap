@@ -1,6 +1,7 @@
 #ifndef _CFFT_H
 #define _CFFT_H
 
+#include "cconfig.h"
 #include "complex.h"
 
 void scaledata(long, complex_t *);

@@ -1,8 +1,7 @@
 CC=cc
-# CFLAGS=-D__BRANCH
-CFLAGS=-O -M3 -D__BRANCH
-# CDEBUG=-g -D_DEBUG_ -D_DEBUG_CI_ -D_DEBUG_CI_D_
-CDEBUG=-g -D_DEBUG_ -D_DEBUG_CI_
+# CFLAGS=-O
+CFLAGS=-O -M3
+CDEBUG=-g -D_DEBUG_
 INCLUDE=-I.
 # LDFLAGS=
 LDFLAGS=-M3
@@ -21,9 +20,9 @@ LINKSO=$(CC) $(SOFLAGS) $(SODEBUG)
 
 all: lib mult rot ttrig thyp tinner tlu inv tfft
 
-cmatrix.o: cmatrix.c complex.h cmatrix.h
-clu.o: clu.c complex.h clu.h
-cfft.o: cfft.c complex.h cfft.h
+cmatrix.o: cmatrix.c cconfig.h complex.h cmatrix.h
+clu.o: clu.c cconfig.h complex.h clu.h
+cfft.o: cfft.c cconfig.h complex.h cfft.h
 $(LIB): cmatrix.o clu.o cfft.o
 	ar ruv $@ $?
 	ranlib $@
