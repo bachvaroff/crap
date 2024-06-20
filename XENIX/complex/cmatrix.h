@@ -11,23 +11,27 @@
 
 #define MIJ(SIZE, M, I, J) ((M)[(I) * (SIZE) + (J)])
 
-									/* (N, A, B) : A <- B */
-#define AcopyB(SIZE, A, B) do { \
+/*
+	cp - copy
+	is - in situ
+*/
+								/* (N, A, B) : A <- B */
+#define cpAB(SIZE, A, B) do { \
 	(void)memcpy((void *)(A), (void *)(B), (SIZE) * (SIZE) * sizeof (complex_t)); \
 } while (0)
 
-void AconjA(long, complex_t *);						/* (N, A) : A <- conj(A) */
-void AconjB(long, complex_t *, complex_t *);				/* (N, A, B) : A <- conj(B) */ 
-void AtransA(long, complex_t *);					/* (N, A) : A <- trans(A) */
-void AtransB(long, complex_t *, complex_t *);				/* (N, A, B) : A <- trans(B) */
-void AconjtransA(long, complex_t *);					/* (N, A) : A <- conj(trans(A)) */
-void AconjtransB(long, complex_t *, complex_t *);			/* (N, A, B) : A <- conj(trans(B)) */
-void mulCAB(long, complex_t *, complex_t *, complex_t *);		/* (N, C, A, B) : C <- A * B */
-void mulCAtransB(long, complex_t *, complex_t *, complex_t *);		/* (N, C, A, B) : C <- A * trans(B) */
-void mulCtransAB(long, complex_t *, complex_t *, complex_t *);		/* (N, C, A, B) : C <- trans(A) * B */
-void mulCconjtransAB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- conj(trans(A)) * B */
-void mulCAconjtransB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * conj(trans(B)) */
-void mulyvAxv(long, complex_t *, complex_t *, complex_t *);		/* (N, yvec, A, xvec) : yvec <- A * xvec */
-void mulycovxcovA(long, complex_t *, complex_t *, complex_t *);		/* (N, ycovec, xcovec, A) : ycovec <- xcovec * A */
+void isAcA(long, complex_t *);					/* (N, A) : A <- conj(A) */
+void cpAcB(long, complex_t *, complex_t *);			/* (N, A, B) : A <- conj(B) */ 
+void isAtA(long, complex_t *);					/* (N, A) : A <- trans(A) */
+void cpAtB(long, complex_t *, complex_t *);			/* (N, A, B) : A <- trans(B) */
+void isActA(long, complex_t *);					/* (N, A) : A <- conj(trans(A)) */
+void cpActB(long, complex_t *, complex_t *);			/* (N, A, B) : A <- conj(trans(B)) */
+void mulCAB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * B */
+void mulCcpAtB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * trans(B) */
+void mulCtAB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- trans(A) * B */
+void mulCctAB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- conj(trans(A)) * B */
+void mulCcpActB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * conj(trans(B)) */
+void mulYvAXv(long, complex_t *, complex_t *, complex_t *);	/* (N, Yvec, A, Xvec) : Yvec <- A * Xvec */
+void mulYcvXcvA(long, complex_t *, complex_t *, complex_t *);	/* (N, Ycovec, Xcovec, A) : Ycovec <- Xcovec * A */
 
 #endif

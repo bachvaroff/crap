@@ -7,7 +7,7 @@
 #include "cmatrix.h"
 
 void
-AconjA(size, A)
+isAcA(size, A)
 	long size; 
 	complex_t *A;
 {
@@ -21,7 +21,7 @@ AconjA(size, A)
 }
 
 void  
-AconjB(size, A, B)
+cpAcB(size, A, B)
 	long size;
 	complex_t *A;
 	complex_t *B;
@@ -36,7 +36,7 @@ AconjB(size, A, B)
 }
 
 void
-AtransA(size, A)
+isAtA(size, A)
 	long size;
 	complex_t *A;
 {
@@ -54,7 +54,7 @@ AtransA(size, A)
 }
 
 void
-AtransB(size, A, B)
+cpAtB(size, A, B)
 	long size;
 	complex_t *A;
 	complex_t *B;
@@ -69,7 +69,7 @@ AtransB(size, A, B)
 }
 
 void
-AconjtransA(size, A)
+isActA(size, A)
 	long size;
 	complex_t *A;
 {
@@ -87,7 +87,7 @@ AconjtransA(size, A)
 }
 
 void
-AconjtransB(size, A, B)
+cpActB(size, A, B)
 	long size;
 	complex_t *A;
 	complex_t *B;
@@ -102,7 +102,7 @@ AconjtransB(size, A, B)
 }
 
 void
-mulyvAxv(size, yv, A, xv)
+mulYvAXv(size, yv, A, xv)
 	long size;
 	complex_t *yv;
 	complex_t *A;
@@ -120,7 +120,7 @@ mulyvAxv(size, yv, A, xv)
 }
 
 void
-mulycovxcovA(size, ycv, xcv, A)
+mulYcvXcvA(size, ycv, xcv, A)
 	long size;
 	complex_t *ycv;
 	complex_t *xcv;
@@ -176,7 +176,7 @@ mulCAB(size, C, A, B)
 }
 
 void
-mulCtransAB(size, C, A, B)
+mulCtAB(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
@@ -213,7 +213,7 @@ mulCtransAB(size, C, A, B)
 }
 
 void
-mulCAtransB(size, C, A, B)
+mulCcpAtB(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
@@ -250,7 +250,7 @@ mulCAtransB(size, C, A, B)
 }
 
 void
-mulCconjtransAB(size, C, A, B)
+mulCctAB(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
@@ -289,7 +289,7 @@ mulCconjtransAB(size, C, A, B)
 }
 
 void
-mulCAconjtransB(size, C, A, B)
+mulCcpActB(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;

@@ -33,7 +33,7 @@ main()
 	mkZ(b[1], 0.0, 1.0);
 	mkZ(b[2], 0.5, 0.5);
 	
-	AcopyB(3, Adec, A);
+	cpAB(3, Adec, A);
 	
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
@@ -71,7 +71,7 @@ main()
 			printZ("", MIJ(3, LU, i, j), "\n");
 		}
 	
-	AconjtransB(3, Pminv, Pm);
+	cpActB(3, Pminv, Pm);
 	mulCAB(3, PminvLU, Pminv, LU);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
@@ -105,7 +105,7 @@ main()
 		printZ("", x[i], "\n");
 	}
 	
-	mulyvAxv(3, Ax, A, x);
+	mulYvAXv(3, Ax, A, x);
 	for (i = 0; i < 3; i++) {
 		printf("A*x[%d] = ", i);
 		printZ("", Ax[i], " | ");
@@ -113,7 +113,7 @@ main()
 		printZ("", b[i], "\n");
 	}
 	
-	mulyvAxv(3, Ainvb, Ainv, b);
+	mulYvAXv(3, Ainvb, Ainv, b);
 	for (i = 0; i < 3; i++) {
 		printf("Ainv*b[%d] = ", i);
 		printZ("", Ainvb[i], " | ");

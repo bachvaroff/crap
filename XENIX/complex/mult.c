@@ -44,7 +44,7 @@ main()
 				(double)((3l * i) % SIZE) / 97.0,
 				(double)((7l * j) % SIZE) / 91.0);
 	
-	AconjtransB(SIZE, b, a);
+	cpActB(SIZE, b, a);
 	
 	printf("begin\n");
 	
@@ -53,12 +53,12 @@ main()
 	
 	printf("c1 %16lx\n", (unsigned long)c1);
 #ifdef TRANS
-	AtransB(SIZE, bt, b);
+	cpAtB(SIZE, bt, b);
 #else
-	AcopyB(SIZE, bt, b);
-	AtransA(SIZE, bt);
+	cpAB(SIZE, bt, b);
+	isAtA(SIZE, bt);
 #endif
-	mulCAtransB(SIZE, c1, a, bt);
+	mulCcpAtB(SIZE, c1, a, bt);
 	
 	cmp = memcmp((void *)c0, (void *)c1, SIZESQ * sizeof (complex_t));
 	printf("compare %d\n", cmp);

@@ -61,7 +61,7 @@ main()
 	printf("begin\n");
 	
 	mulCAB(SIZE, abi, a, b);
-	AcopyB(SIZE, dec, abi);
+	cpAB(SIZE, dec, abi);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(ab) = ");
@@ -69,33 +69,33 @@ main()
 	printf("ab\n");
 	
 	LUPInvert(SIZE, abi, dec, P);
-	AcopyB(SIZE, dec, abi);
+	cpAB(SIZE, dec, abi);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(abi) = ");
 	printZ("", t0, "\n");
 	printf("abi\n");
 	
-	AcopyB(SIZE, dec, a);
+	cpAB(SIZE, dec, a);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(a) = ");
 	printZ("", t0, "\n");
 	LUPInvert(SIZE, a, dec, P);
-	AcopyB(SIZE, dec, a);
+	cpAB(SIZE, dec, a);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(ai) = ");
 	printZ("", t0, "\n");
 	printf("ai\n");
 	
-	AcopyB(SIZE, dec, b);
+	cpAB(SIZE, dec, b);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(b) = ");
 	printZ("", t0, "\n");
 	LUPInvert(SIZE, b, dec, P);
-	AcopyB(SIZE, dec, b);
+	cpAB(SIZE, dec, b);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(bi) = ");
@@ -103,7 +103,7 @@ main()
 	printf("bi\n");
 	
 	mulCAB(SIZE, biai, b, a);
-	AcopyB(SIZE, dec, biai);
+	cpAB(SIZE, dec, biai);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
 	printf("det(biai) = ");
