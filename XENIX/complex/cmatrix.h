@@ -27,10 +27,10 @@ void cpAtB(long, complex_t *, complex_t *);			/* (N, A, B) : A <- trans(B) */
 void isActA(long, complex_t *);					/* (N, A) : A <- conj(trans(A)) */
 void cpActB(long, complex_t *, complex_t *);			/* (N, A, B) : A <- conj(trans(B)) */
 void mulCAB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * B */
-void mulCcpAtB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * trans(B) */
+void mulCAtB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * trans(B) */
 void mulCtAB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- trans(A) * B */
 void mulCctAB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- conj(trans(A)) * B */
-void mulCcpActB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * conj(trans(B)) */
+void mulCActB(long, complex_t *, complex_t *, complex_t *);	/* (N, C, A, B) : C <- A * conj(trans(B)) */
 void mulYvAXv(long, complex_t *, complex_t *, complex_t *);	/* (N, Yvec, A, Xvec) : Yvec <- A * Xvec */
 void mulYcvXcvA(long, complex_t *, complex_t *, complex_t *);	/* (N, Ycovec, Xcovec, A) : Ycovec <- Xcovec * A */
 

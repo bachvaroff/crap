@@ -58,7 +58,7 @@ main()
 	cpAB(SIZE, bt, b);
 	isAtA(SIZE, bt);
 #endif
-	mulCcpAtB(SIZE, c1, a, bt);
+	mulCAtB(SIZE, c1, a, bt);
 	
 	cmp = memcmp((void *)c0, (void *)c1, SIZESQ * sizeof (complex_t));
 	printf("compare %d\n", cmp);

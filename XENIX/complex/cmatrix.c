@@ -213,7 +213,7 @@ mulCtAB(size, C, A, B)
 }
 
 void
-mulCcpAtB(size, C, A, B)
+mulCAtB(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
@@ -289,7 +289,7 @@ mulCctAB(size, C, A, B)
 }
 
 void
-mulCcpActB(size, C, A, B)
+mulCActB(size, C, A, B)
 	long size;
 	complex_t *C;
 	complex_t *A;
