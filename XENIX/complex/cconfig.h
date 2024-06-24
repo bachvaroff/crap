@@ -5,7 +5,7 @@
 
 #ifdef _DEBUG_
 #define _DEBUG_CI_
-#define _DEBUG_CI_D_
+#undef _DEBUG_CI_D_
 #endif
 
 #endif
