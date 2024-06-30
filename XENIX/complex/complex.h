@@ -134,7 +134,7 @@ typedef struct _complex_t {
 	Re(Z) = exp(-Im(U)) * cos(__ReU__); \
 	Im(Z) = exp(-Im(U)) * sin(__ReU__); \
 } while (0)
-#define expiZ(Z) expiZ(Z, Z)
+#define expiZ(Z) expiZ2(Z, Z)
 
 #define expZ2(Z, U) do { \
 	register double __ReU__ = Re(U); \
