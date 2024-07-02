@@ -45,6 +45,13 @@ main()
 		printf("%.16lf\n", magZ(oarr[j]));
 	}
 	
+	idft2(1024l, arr, oarr, 1);
+	
+	for (j = 0l; j < 1024l; j++) {
+		printf("INVDFT %.16lf ", (double)j / 8000.0);
+		printZ("", arr[j], "\n");
+	}
+	
 	dft2(1024l, oarr, arr);
 	
 	for (j = 0l; j < 1024l; j++) {
@@ -57,13 +64,6 @@ main()
 	
 	for (j = 0l; j < 1024l; j++) {
 		printf("INVFFT %.16lf ", (double)j / 8000.0);
-		printZ("", arr[j], "\n");
-	}
-	
-	idft2(1024l, arr, oarr, 1);
-	
-	for (j = 0l; j < 1024l; j++) {
-		printf("INVDFT %.16lf ", (double)j / 8000.0);
 		printZ("", arr[j], "\n");
 	}
 	
