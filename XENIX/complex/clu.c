@@ -2,19 +2,30 @@
 #include "cmatrix.h"
 #include "clu.h"
 
-/* INPUT: A - array of polongers to rows of a square matrix having dimension N
- *		Tol - small tolerance number to detect failure when the matrix is near degenerate
- * OUTPUT: Matrix A is changed, it contains a copy of both matrices L-E and U as A=(L-E)+U such that P*A=L*U.
- *		The permutation matrix is not stored as a matrix, but in an longeger vector P of size N+1 
- *		containing column indexes where the permutation matrix has "1". The last element P[N]=S+N, 
- *		where S is the number of row exchanges needed for determinant computation, det(P)=(-1)^S	
- */
+/*
+	INPUT:
+		A - pointer to a square matrix, indexable by the MIJ macro
+		N - dim(A)
+		eps - lowest allowed degeneracy limit
+	OUTPUT:
+		A is changed in situ, after the procedure it contains a
+		copy of both matrices L - E and U as A = (L - E) + U
+		such that PA = LU. The vector P of size N + 1 contains a
+		compressed form of the permutation matrix, with each element
+		being the column in which the matrix has 1 on the
+		corresponding row. The last element P[N] = S + N, where S is the
+		number of row exchanges needed for the determinant computation,
+		det(P) = (-1)^S. Also check LUPExtract().
+	RETURNS:
+		0 - failure (degeneracy limit reached)
+		1 - A contains the LU decomposition in situ
+*/
 int
-LUPDecompose(N, A, P, Tol)
+LUPDecompose(N, A, P, eps)
 	long N;
 	complex_t *A;
 	long *P;
-	double Tol;
+	double eps;
 {
 	long i, j, k, imax; 
 	double maxA, absA;
@@ -33,7 +44,7 @@ LUPDecompose(N, A, P, Tol)
 				imax = k;
 			}
 		
-		if (maxA < Tol) return 0; /* failure, matrix is degenerate */
+		if (maxA < eps) return 0; /* failure, matrix is degenerate */
 		
 		if (imax != i) {
 			/* pivoting P */
@@ -62,6 +73,15 @@ LUPDecompose(N, A, P, Tol)
 	return 1; /* decomposition done */
 }
 
+/*
+	INPUT:
+		A, P as filled by LUPDecompose
+		N - dim(A)
+	OUTPUT:
+		Pm - the permutation matrix corresponding to P
+		L - lower triangular
+		U - upper triangular
+*/
 void
 LUPExtract(N, Pm, L, U, A, P)
 	long N;
@@ -93,9 +113,14 @@ LUPExtract(N, Pm, L, U, A, P)
 	return;
 }
 
-/* INPUT: A,P filled in LUPDecompose; b - rhs vector; N - dimension
- * OUTPUT: x - solution vector of A*x=b
- */
+/*
+	INPUT:
+		A, P as filled by LUPDecompose
+		N - dim(A)
+		b - rhs vector
+	OUTPUT:
+		x - solution of of A*x=b
+*/
 void
 LUPSolve(N, A, P, x, b)
 	long N;
@@ -128,9 +153,14 @@ LUPSolve(N, A, P, x, b)
 	return;
 }
 
-/* INPUT: A,P filled in LUPDecompose; N - dimension
- * OUTPUT: IA is the inverse of the initial matrix
- */
+/*
+	INPUT:
+		A, P as filled by LUPDecompose
+		N - dim(A)
+		b - rhs vector
+	OUTPUT:
+		IA - A^-1
+*/
 void
 LUPInvert(N, IA, A, P)
 	long N;
@@ -165,9 +195,13 @@ LUPInvert(N, IA, A, P)
 	return;
 }
 
-/* INPUT: A,P filled in LUPDecompose; N - dimension. 
- * OUTPUT: Function returns the determinant of the initial matrix
- */
+/*
+	INPUT:
+		A, P as filled by LUPDecompose
+		N - dim(A)
+	RETURNS:
+		det(A)
+*/
 complex_t
 LUPDeterminant(N, A, P)
 	long N;
