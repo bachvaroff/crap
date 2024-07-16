@@ -14,7 +14,7 @@
 		of the permutation matrix Pm, each element being the column on
 		the corresponding row of Pm which is equal to 1.
 		P[N] = S + N : det(P) = (-1)^S.
-		See also LUPExtract().
+		See also LUPExtract(N, Pm, L, U, A, P).
 	RETURNS:
 		0 - failure (degeneracy limit reached)
 		1 - A contains the LU decomposition in situ
