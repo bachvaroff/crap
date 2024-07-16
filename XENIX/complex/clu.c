@@ -8,14 +8,13 @@
 		N - dim(A)
 		eps - lowest allowed degeneracy limit
 	OUTPUT:
-		A is changed in situ, after the procedure it contains a
-		copy of both matrices L - E and U as A = (L - E) + U
-		such that PA = LU. The vector P of size N + 1 contains a
-		compressed form of the permutation matrix, with each element
-		being the column in which the matrix has 1 on the
-		corresponding row. The last element P[N] = S + N, where S is the
-		number of row exchanges needed for the determinant computation,
-		det(P) = (-1)^S. Also check LUPExtract().
+		A - in situ LU decomposition of A, A = L - E + U, with PmA = LU
+		where Pm is the permutation matrix
+		P - vector of N + 1 components containing a compressed form
+		of the permutation matrix Pm, each element being the column on
+		the corresponding row of Pm which is equal to 1.
+		P[N] = S + N : det(P) = (-1)^S.
+		See also LUPExtract().
 	RETURNS:
 		0 - failure (degeneracy limit reached)
 		1 - A contains the LU decomposition in situ
