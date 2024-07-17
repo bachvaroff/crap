@@ -2,6 +2,7 @@
 #define _CCONFIG_H
 
 #define __BRANCH
+#define __FASM
 
 #ifdef _DEBUG_
 #define _DEBUG_CI_

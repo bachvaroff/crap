@@ -16,12 +16,15 @@ LINKSO=$(CC) $(SOFLAGS) $(SODEBUG)
 .c.o:
 	$(COMPILE) -c $< -o $@
 
+.s.o:
+	$(COMPILE) -c $< -o $@
+
 all: lib mult rot ttrig thyp tinner tlu inv tfft
 
-cmatrix.o: cmatrix.c cconfig.h complex.h cmatrix.h
-clu.o: clu.c cconfig.h complex.h clu.h
-cfft.o: cfft.c cconfig.h complex.h cfft.h
-$(LIB): cmatrix.o clu.o cfft.o
+cmatrix.o: cmatrix.c cconfig.h complex.h fasm.h cmatrix.h
+clu.o: clu.c cconfig.h complex.h fasm.h clu.h
+cfft.o: cfft.c cconfig.h complex.h fasm.h cfft.h
+$(LIB): cmatrix.o clu.o cfft.o fasm.o
 	ar ruv $@ $?
 	ranlib $@
 lib: $(LIB)

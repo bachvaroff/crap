@@ -5,6 +5,9 @@
 #include <math.h>
 
 #include "cconfig.h"
+#ifdef __FASM
+#include "fasm.h"
+#endif
 
 typedef struct _complex_t {
 	double re;
@@ -44,6 +47,16 @@ typedef struct _complex_t {
 #define ArgZ(Z) argZ(Z, 0)
 #else
 #define ArgZ(Z) atan2(Im(Z), Re(Z))
+#endif
+
+#ifdef __FASM
+#define FSINCOS(PHI, C, S) fsincos((PHI), &(C), &(S))
+#else
+#define FSINCOS(PHI, C, S) do { \
+	double __phi__ = (PHI); \
+	(C) = cos(__phi__); \
+	(S) = sin(__phi__); \
+} while (0)
 #endif
 
 #define xchgZ(U, V) do { \
@@ -123,22 +136,21 @@ typedef struct _complex_t {
 } while (0)
 #define divZ2(Z, U) divZ3(Z, Z, U)
 
-#define expiphiZ(Z, PHI) do { \
-	Re(Z) = cos(PHI); \
-	Im(Z) = sin(PHI); \
-} while (0)
+#define expiphiZ(Z, PHI) FSINCOS((PHI), Re(Z), Im(Z))
 
 #define expiZ2(Z, U) do { \
-	double __ReU__ = Re(U); \
-	Re(Z) = exp(-Im(U)) * cos(__ReU__); \
-	Im(Z) = exp(-Im(U)) * sin(__ReU__); \
+	double __expnImU__ = exp(-Im(U)); \
+	FSINCOS(Re(U), Re(Z), Im(Z)); \
+	Re(Z) *= __expnImU__; \
+	Im(Z) *= __expnImU__; \
 } while (0)
 #define expiZ(Z) expiZ2(Z, Z)
 
 #define expZ2(Z, U) do { \
-	double __ReU__ = Re(U); \
-	Re(Z) = exp(__ReU__) * cos(Im(U)); \
-	Im(Z) = exp(__ReU__) * sin(Im(U)); \
+	double __expReU__ = exp(Re(U)); \
+	FSINCOS(Im(U), Re(Z), Im(Z)); \
+	Re(Z) *= __expReU__; \
+	Im(Z) *= __expReU__; \
 } while (0)
 #define expZ(Z) expZ2(Z, Z)
 
@@ -169,29 +181,33 @@ typedef struct _complex_t {
 
 #define SinZ2(Z, U) do { \
 	double __expImU__ = exp(Im(U)); \
-	Im(Z) = -0.5 * (1.0 / __expImU__ - __expImU__) * cos(Re(U)); \
-	Re(Z) = 0.5 * (1.0 / __expImU__ + __expImU__) * sin(Re(U)); \
+	FSINCOS(Re(U), Im(Z), Re(Z)); \
+	Re(Z) *= 0.5 * (1.0 / __expImU__ + __expImU__); \
+	Im(Z) *= -0.5 * (1.0 / __expImU__ - __expImU__); \
 } while (0)
 #define SinZ(Z) SinZ2(Z, Z)
 
 #define CosZ2(Z, U) do { \
 	double __expImU__ = exp(Im(U)); \
-	Im(Z) = 0.5 * (1.0 / __expImU__ - __expImU__) * sin(Re(U)); \
-	Re(Z) = 0.5 * (1.0 / __expImU__ + __expImU__) * cos(Re(U)); \
+	FSINCOS(Re(U), Re(Z), Im(Z)); \
+	Re(Z) *= 0.5 * (1.0 / __expImU__ + __expImU__); \
+	Im(Z) *= 0.5 * (1.0 / __expImU__ - __expImU__); \
 } while (0)
 #define CosZ(Z) CosZ2(Z, Z)
 
 #define SinhZ2(Z, U) do { \
 	double __expReU__ = exp(Re(U)); \
-	Re(Z) = 0.5 * (__expReU__ - 1.0 / __expReU__) * cos(Im(U)); \
-	Im(Z) = 0.5 * (__expReU__ + 1.0 / __expReU__) * sin(Im(U)); \
+	FSINCOS(Im(U), Re(Z), Im(Z)); \
+	Re(Z) *= 0.5 * (__expReU__ - 1.0 / __expReU__); \
+	Im(Z) *= 0.5 * (__expReU__ + 1.0 / __expReU__); \
 } while (0)
 #define SinhZ(Z) SinhZ2(Z, Z)
 
 #define CoshZ2(Z, U) do { \
 	double __expReU__ = exp(Re(U)); \
-	Re(Z) = 0.5 * (__expReU__ + 1.0 / __expReU__) * cos(Im(U)); \
-	Im(Z) = 0.5 * (__expReU__ - 1.0 / __expReU__) * sin(Im(U)); \
+	FSINCOS(Im(U), Re(Z), Im(Z)); \
+	Re(Z) *= 0.5 * (__expReU__ + 1.0 / __expReU__); \
+	Im(Z) *= 0.5 * (__expReU__ - 1.0 / __expReU__); \
 } while (0)
 #define CoshZ(Z) CoshZ2(Z, Z)
 
