@@ -155,6 +155,8 @@ typedef struct _complex_t {
 #define divZ2(Z, U) divZ3(Z, Z, U)
 
 #define expiphiZ(Z, PHI) FSINCOS((PHI), Re(Z), Im(Z))
+#define normZ2(Z, U) expiphiZ(Z, ArgZ(U))
+#define normZ(Z) normZ2(Z, Z)
 
 #define expiZ2(Z, U) do { \
 	double __expImU__ = exp(Im(U)); \
@@ -188,12 +190,6 @@ typedef struct _complex_t {
 } while (0)
 #define LogZ(Z) LogZ2(Z, Z)
 #endif
-
-#define normZ2(Z, U) do { \
-	double __ArgU__ = ArgZ(U); \
-	expiphiZ(Z, __ArgU__); \
-} while (0)
-#define normZ(Z) normZ2(Z, Z)
 
 #define SinZ2(Z, U) do { \
 	double __expImU__ = exp(Im(U)); \
