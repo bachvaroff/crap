@@ -127,9 +127,9 @@ typedef struct _complex_t {
 #define innerZ3(Z, U, V) do { \
 	double __ReU__ = Re(U); \
 	double __ReV__ = Re(V); \
-	double __nImV__ = -Im(V); \
-	Re(Z) = __ReU__ * __ReV__ - Im(U) * __nImV__; \
-	Im(Z) = Im(U) * __ReV__ + __ReU__ * __nImV__; \
+	double __ImV__ = Im(V); \
+	Re(Z) = __ReU__ * __ReV__ + Im(U) * __ImV__; \
+	Im(Z) = Im(U) * __ReV__ - __ReU__ * __ImV__; \
 } while (0)
 #define innerZ2(Z, U) innerZ3(Z, Z, U)
 
