@@ -91,12 +91,9 @@ scaledata(N, data)
 	complex_t *data;
 {
 	long position;
-	double factor;
-	
-	factor = 1.0 / (double)N;
 	
 	for (position = 0l; position < N; position++)
-		scaleZ2(data[position], factor);
+		scaledZ2(data[position], (double)N);
 	
 	return;
 }

@@ -73,11 +73,17 @@ typedef struct _complex_t {
 } while (0)
 #define swapZ(Z) swapZ2(Z, Z)
 
-#define scaleZ3(Z, U, R) do { \
+#define scalemZ3(Z, U, R) do { \
 	Re(Z) = Re(U) * (R); \
 	Im(Z) = Im(U) * (R); \
 } while (0)
-#define scaleZ2(Z, R) scaleZ3(Z, Z, R)
+#define scalemZ2(Z, R) scalemZ3(Z, Z, R)
+
+#define scaledZ3(Z, U, R) do { \
+	Re(Z) = Re(U) / (R); \
+	Im(Z) = Im(U) / (R); \
+} while (0)
+#define scaledZ2(Z, R) scaledZ3(Z, Z, R)
 
 #define conjZ2(Z, U) do { \
 	Re(Z) = Re(U); \
@@ -94,7 +100,7 @@ typedef struct _complex_t {
 #define invZ2(Z, U) do { \
 	double __magsqU__ = magsqZ(U); \
 	conjZ2(Z, U); \
-	scaleZ2(Z, 1.0 / __magsqU__); \
+	scaledZ2(Z, __magsqU__); \
 } while (0)
 #define invZ(Z) invZ2(Z, Z)
 
@@ -146,18 +152,16 @@ typedef struct _complex_t {
 #define expiphiZ(Z, PHI) FSINCOS((PHI), Re(Z), Im(Z))
 
 #define expiZ2(Z, U) do { \
-	double __expnImU__ = exp(-Im(U)); \
+	double __expImU__ = exp(Im(U)); \
 	FSINCOS(Re(U), Re(Z), Im(Z)); \
-	Re(Z) *= __expnImU__; \
-	Im(Z) *= __expnImU__; \
+	scaledZ2(Z, __expImU__); \
 } while (0)
 #define expiZ(Z) expiZ2(Z, Z)
 
 #define expZ2(Z, U) do { \
 	double __expReU__ = exp(Re(U)); \
 	FSINCOS(Im(U), Re(Z), Im(Z)); \
-	Re(Z) *= __expReU__; \
-	Im(Z) *= __expReU__; \
+	scalemZ2(Z, __expReU__); \
 } while (0)
 #define expZ(Z) expZ2(Z, Z)
 
@@ -188,33 +192,37 @@ typedef struct _complex_t {
 
 #define SinZ2(Z, U) do { \
 	double __expImU__ = exp(Im(U)); \
+	double __expnImU__ = 1.0 / __expImU__; \
 	FSINCOS(Re(U), Im(Z), Re(Z)); \
-	Re(Z) *= 0.5 * (1.0 / __expImU__ + __expImU__); \
-	Im(Z) *= -0.5 * (1.0 / __expImU__ - __expImU__); \
+	Re(Z) *= 0.5 * (__expnImU__ + __expImU__); \
+	Im(Z) *= 0.5 * (__expImU__ - __expnImU__); \
 } while (0)
 #define SinZ(Z) SinZ2(Z, Z)
 
 #define CosZ2(Z, U) do { \
 	double __expImU__ = exp(Im(U)); \
+	double __expnImU__ = 1.0 / __expImU__; \
 	FSINCOS(Re(U), Re(Z), Im(Z)); \
-	Re(Z) *= 0.5 * (1.0 / __expImU__ + __expImU__); \
-	Im(Z) *= 0.5 * (1.0 / __expImU__ - __expImU__); \
+	Re(Z) *= 0.5 * (__expnImU__ + __expImU__); \
+	Im(Z) *= 0.5 * (__expnImU__ - __expImU__); \
 } while (0)
 #define CosZ(Z) CosZ2(Z, Z)
 
 #define SinhZ2(Z, U) do { \
 	double __expReU__ = exp(Re(U)); \
+	double __expnReU__ = 1.0 / __expReU__; \
 	FSINCOS(Im(U), Re(Z), Im(Z)); \
-	Re(Z) *= 0.5 * (__expReU__ - 1.0 / __expReU__); \
-	Im(Z) *= 0.5 * (__expReU__ + 1.0 / __expReU__); \
+	Re(Z) *= 0.5 * (__expReU__ - __expnReU__); \
+	Im(Z) *= 0.5 * (__expReU__ + __expnReU__); \
 } while (0)
 #define SinhZ(Z) SinhZ2(Z, Z)
 
 #define CoshZ2(Z, U) do { \
 	double __expReU__ = exp(Re(U)); \
+	double __expnReU__ = 1.0 / __expReU__; \
 	FSINCOS(Im(U), Re(Z), Im(Z)); \
-	Re(Z) *= 0.5 * (__expReU__ + 1.0 / __expReU__); \
-	Im(Z) *= 0.5 * (__expReU__ - 1.0 / __expReU__); \
+	Re(Z) *= 0.5 * (__expReU__ + __expnReU__); \
+	Im(Z) *= 0.5 * (__expReU__ - __expnReU__); \
 } while (0)
 #define CoshZ(Z) CoshZ2(Z, Z)
 
