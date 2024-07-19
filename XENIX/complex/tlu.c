@@ -44,7 +44,7 @@ main()
 	assert(r);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
-			printf("\tAdec[%d][%d] = ", i, j);
+			printf("\tLU(A)[%d][%d] = ", i, j);
 			printZ("", MIJ(3, Adec, i, j), "\n");
 		}
 	for (i = 0; i <= 3; i++)
@@ -77,7 +77,7 @@ main()
 		for (j = 0; j < 3; j++) {
 			printf("A[%d][%d] = ", i, j);
 			printZ("", MIJ(3, A, i, j), " | ");
-			printf("Pminv*L*U[%d][%d] = ", i, j);
+			printf("inv(Pm)*L*U[%d][%d] = ", i, j);
 			printZ("", MIJ(3, PminvLU, i, j), "\n");
 		}
 	
@@ -88,14 +88,14 @@ main()
 	LUPInvert(3, Ainv, Adec, P);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
-			printf("Ainv[%d][%d] = ", i, j);
+			printf("inv(A)[%d][%d] = ", i, j);
 			printZ("", MIJ(3, Ainv, i, j), "\n");
 		}
 	
 	mulCAB(3, AinvA, Ainv, A);
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++) {
-			printf("Ainv*A[%d][%d] = ", i, j);
+			printf("inv(A)*A[%d][%d] = ", i, j);
 			printZ("", MIJ(3, AinvA, i, j), "\n");
 		}
 	
@@ -115,7 +115,7 @@ main()
 	
 	mulYvAXv(3, Ainvb, Ainv, b);
 	for (i = 0; i < 3; i++) {
-		printf("Ainv*b[%d] = ", i);
+		printf("inv(A)*b[%d] = ", i);
 		printZ("", Ainvb[i], " | ");
 		printf("x[%d] = ", i);
 		printZ("", x[i], "\n");
