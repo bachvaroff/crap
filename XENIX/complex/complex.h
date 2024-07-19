@@ -91,6 +91,13 @@ typedef struct _complex_t {
 } while (0)
 #define negZ(Z) negZ2(Z, Z)
 
+#define invZ2(Z, U) do { \
+	double __magsqU__ = magsqZ(U); \
+	conjZ2(Z, U); \
+	scaleZ2(Z, 1.0 / __magsqU__); \
+} while (0)
+#define invZ(Z) invZ2(Z, Z)
+
 #define addZ3(Z, U, V) do { \
 	Re(Z) = Re(U) + Re(V); \
 	Im(Z) = Im(U) + Im(V); \

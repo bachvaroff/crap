@@ -64,51 +64,45 @@ main()
 	cpAB(SIZE, dec, abi);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
-	printf("det(ab) = ");
-	printZ("", t0, "\n");
-	printf("ab\n");
+	printZ("det(ab) = ", t0, "\n");
+	invZ(t0);
+	printZ("1/det(ab) = ", t0, "\n**** ab ****\n");
 	
 	LUPInvert(SIZE, abi, dec, P);
 	cpAB(SIZE, dec, abi);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
-	printf("det(abi) = ");
-	printZ("", t0, "\n");
-	printf("abi\n");
+	printZ("det(inv(ab)) = ", t0, "\n**** inv(ab) ****\n");
 	
 	cpAB(SIZE, dec, a);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
-	printf("det(a) = ");
-	printZ("", t0, "\n");
+	printZ("det(a) = ", t0, "\n");
+	invZ(t0);
+	printZ("1/det(a) = ", t0, "\n");
 	LUPInvert(SIZE, a, dec, P);
 	cpAB(SIZE, dec, a);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
-	printf("det(ai) = ");
-	printZ("", t0, "\n");
-	printf("ai\n");
+	printZ("det(inv(a)) = ", t0, "\n**** inv(a) ****\n");
 	
 	cpAB(SIZE, dec, b);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
-	printf("det(b) = ");
-	printZ("", t0, "\n");
+	printZ("det(b) = ", t0, "\n");
+	invZ(t0);
+	printZ("1/det(b) = ", t0, "\n");
 	LUPInvert(SIZE, b, dec, P);
 	cpAB(SIZE, dec, b);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
-	printf("det(bi) = ");
-	printZ("", t0, "\n");
-	printf("bi\n");
+	printZ("det(inv(b)) = ", t0, "\n**** inv(b) ****\n");
 	
 	mulCAB(SIZE, biai, b, a);
 	cpAB(SIZE, dec, biai);
 	assert(LUPDecompose(SIZE, dec, P, 0.000000000001));
 	t0 = LUPDeterminant(SIZE, dec, P);
-	printf("det(biai) = ");
-	printZ("", t0, "\n");
-	printf("biai\n");
+	printZ("det(inv(b)inv(a)) = ", t0, "\n**** inv(b)inv(a) ****\n");
 	
 	mi = 0.0;
 	for (i = 0l; i < SIZE; i++)
