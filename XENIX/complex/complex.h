@@ -124,12 +124,17 @@ typedef struct _complex_t {
 } while (0)
 #define mulZ2(Z, U) mulZ3(Z, Z, U)
 
+#define mulpZ3(Z, U, V) do { \
+	Re(Z) = Re(U) * Re(V); \
+	Im(Z) = Im(U) * Im(V); \
+} while (0)
+#define mulpZ2(Z, U) mulpZ3(Z, Z, U)
+
 #define innerZ3(Z, U, V) do { \
 	double __ReU__ = Re(U); \
 	double __ReV__ = Re(V); \
-	double __ImV__ = Im(V); \
-	Re(Z) = __ReU__ * __ReV__ + Im(U) * __ImV__; \
-	Im(Z) = Im(U) * __ReV__ - __ReU__ * __ImV__; \
+	Re(Z) = __ReU__ * __ReV__ + Im(U) * Im(V); \
+	Im(Z) = Im(U) * __ReV__ - __ReU__ * Im(V); \
 } while (0)
 #define innerZ2(Z, U) innerZ3(Z, Z, U)
 
@@ -194,7 +199,7 @@ typedef struct _complex_t {
 	double __expImU__ = exp(Im(U)); \
 	double __expnImU__ = 1.0 / __expImU__; \
 	FSINCOS(Re(U), Im(Z), Re(Z)); \
-	Re(Z) *= 0.5 * (__expnImU__ + __expImU__); \
+	Re(Z) *= 0.5 * (__expImU__ + __expnImU__); \
 	Im(Z) *= 0.5 * (__expImU__ - __expnImU__); \
 } while (0)
 #define SinZ(Z) SinZ2(Z, Z)
