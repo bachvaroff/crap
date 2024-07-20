@@ -59,8 +59,8 @@ printcv(size, xcv, label, pc)
 	long i;
 	
 	if (label) printf("%s", label);
+	fputc('\t', stdout);
 	for (i = 0l; i < size; i++) {
-		fputc('\t', stdout);
 		if (pc) printf("[% 11ld]", i);
 		printZ("", xcv[i], "");
 	}
