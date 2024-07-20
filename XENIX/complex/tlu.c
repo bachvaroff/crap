@@ -6,120 +6,86 @@
 #include "cmatrix.h"
 #include "clu.h"
 
+#define SIZE (4l)
+#define SIZESQ (SIZE * SIZE)
+
 int
 main()
 {
-	complex_t A[9], Adec[9], Ainv[9], AinvA[9];
-	complex_t Pm[9], L[9], U[9], PmA[9], LU[9];
-	complex_t Pminv[9], PminvLU[9];
-	complex_t x[3], b[3], Ax[3];
-	complex_t Ainvb[3];
+	complex_t A[SIZESQ], Adec[SIZESQ], Ainv[SIZESQ], AinvA[SIZESQ];
+	complex_t Pm[SIZESQ], L[SIZESQ], U[SIZESQ], PmA[SIZESQ], LU[SIZESQ];
+	complex_t Pminv[SIZESQ], PminvLU[SIZESQ];
+	complex_t x[SIZE], b[SIZE], Ax[SIZE];
+	complex_t Ainvb[SIZE];
 	complex_t t0;
-	long P[4];
+	long P[SIZE + 1l];
 	int i, j;
 	int r;
 	
-	mkZ(MIJ(3, A, 0, 0), 4.0, 0.0);
-	mkZ(MIJ(3, A, 0, 1), 3.0, -1.0);
-	mkZ(MIJ(3, A, 0, 2), 3.0, 1.0);
-	mkZ(MIJ(3, A, 1, 0), 6.0, 0.0);
-	mkZ(MIJ(3, A, 1, 1), 3.0, -2.0);
-	mkZ(MIJ(3, A, 1, 2), 3.0, 0.0);
-	mkZ(MIJ(3, A, 2, 0), 3.0, 1.0);
-	mkZ(MIJ(3, A, 2, 1), 4.0, 0.0);
-	mkZ(MIJ(3, A, 2, 2), 3.0, -3.0);
+	mkZ(MIJ(SIZE, A, 0, 0), 4.0, 0.0);
+	mkZ(MIJ(SIZE, A, 0, 1), 3.0, -1.0);
+	mkZ(MIJ(SIZE, A, 0, 2), 3.0, 1.0);
+	mkZ(MIJ(SIZE, A, 0, 3), -2.0, 3.5);
+	mkZ(MIJ(SIZE, A, 1, 0), 6.0, 0.0);
+	mkZ(MIJ(SIZE, A, 1, 1), 3.0, -2.0);
+	mkZ(MIJ(SIZE, A, 1, 2), 3.0, 0.0);
+	mkZ(MIJ(SIZE, A, 1, 3), 1.5, 2.5);
+	mkZ(MIJ(SIZE, A, 2, 0), 3.0, 1.0);
+	mkZ(MIJ(SIZE, A, 2, 1), 4.0, 0.0);
+	mkZ(MIJ(SIZE, A, 2, 2), 3.0, -3.0);
+	mkZ(MIJ(SIZE, A, 2, 3), 0.2, 0.3);
+	mkZ(MIJ(SIZE, A, 3, 0), 4.1, 1.7);
+	mkZ(MIJ(SIZE, A, 3, 1), 3.6, 1.9);
+	mkZ(MIJ(SIZE, A, 3, 2), -2.3, 0.25);
+	mkZ(MIJ(SIZE, A, 3, 3), -5.0, -1.15);
 	
 	mkZ(b[0], 1.0, 0.0);
 	mkZ(b[1], 0.0, 1.0);
 	mkZ(b[2], 0.5, 0.5);
+	mkZ(b[3], 2.2, 3.4);
 	
-	cpAB(3, Adec, A);
+	cpAB(SIZE, Adec, A);
 	
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++) {
-			printf("A[%d][%d] = ", i, j);
-			printZ("", MIJ(3, A, i, j), "\n");
-		}
-	r = LUPDecompose(3, Adec, P, 0.000000000001);
+	printm(SIZE, A, "A =\n", 0, 0);
+	r = LUPDecompose(SIZE, Adec, P, 0.000000000001);
 	assert(r);
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++) {
-			printf("\tLU(A)[%d][%d] = ", i, j);
-			printZ("", MIJ(3, Adec, i, j), "\n");
-		}
-	for (i = 0; i <= 3; i++)
-		printf("\tP[%d] = %ld\n", i, P[i]);
+	printm(SIZE, Adec, "LU(A) =\n", 0, 0);
+	for (i = 0; i <= SIZE; i++)
+		printf("P[%d] = %ld\n", i, P[i]);
 	
-	LUPExtract(3, Pm, L, U, Adec, P);
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++) {
-			printf("Pm[%d][%d] = ", i, j);
-			printZ("", MIJ(3, Pm, i, j), " | ");
-			printf("L[%d][%d] = ", i, j);
-			printZ("", MIJ(3, L, i, j), " | ");
-			printf("U[%d][%d] = ", i, j);
-			printZ("", MIJ(3, U, i, j), "\n");
-		}
+	LUPExtract(SIZE, Pm, L, U, Adec, P);
+	printm(SIZE, Pm, "Pm =\n", 0, 0);
+	printm(SIZE, L, "L =\n", 0, 0);
+	printm(SIZE, U, "U =\n", 0, 0);
 	
-	mulCAB(3, PmA, Pm, A);
-	mulCAB(3, LU, L, U);
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++) {
-			printf("Pm*A[%d][%d] = ", i, j);
-			printZ("", MIJ(3, PmA, i, j), " | ");
-			printf("L*U[%d][%d] = ", i, j);
-			printZ("", MIJ(3, LU, i, j), "\n");
-		}
+	mulCAB(SIZE, PmA, Pm, A);
+	mulCAB(SIZE, LU, L, U);
+	printm(SIZE, PmA, "Pm*A =\n", 0, 0);
+	printm(SIZE, LU, "L*U =\n", 0, 0);
 	
-	cpActB(3, Pminv, Pm);
-	mulCAB(3, PminvLU, Pminv, LU);
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++) {
-			printf("A[%d][%d] = ", i, j);
-			printZ("", MIJ(3, A, i, j), " | ");
-			printf("inv(Pm)*L*U[%d][%d] = ", i, j);
-			printZ("", MIJ(3, PminvLU, i, j), "\n");
-		}
+	cpActB(SIZE, Pminv, Pm);
+	mulCAB(SIZE, PminvLU, Pminv, LU);
+	printm(SIZE, PminvLU, "inv(Pm)*L*U =\n", 0, 0);
 	
-	t0 = LUPDeterminant(3, Adec, P);
+	t0 = LUPDeterminant(SIZE, Adec, P);
 	printf("det(A) = ");
 	printZ("", t0, "\n");
 	
-	LUPInvert(3, Ainv, Adec, P);
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++) {
-			printf("inv(A)[%d][%d] = ", i, j);
-			printZ("", MIJ(3, Ainv, i, j), "\n");
-		}
+	LUPInvert(SIZE, Ainv, Adec, P);
+	printm(SIZE, Ainv, "inv(A) =\n", 0, 0);
 	
-	mulCAB(3, AinvA, Ainv, A);
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++) {
-			printf("inv(A)*A[%d][%d] = ", i, j);
-			printZ("", MIJ(3, AinvA, i, j), "\n");
-		}
+	mulCAB(SIZE, AinvA, Ainv, A);
+	printm(SIZE, AinvA, "inv(A)*A =\n", 0, 0);
 	
-	LUPSolve(3, Adec, P, x, b);
-	for (i = 0; i < 3; i++) {
-		printf("x[%d] = ", i);
-		printZ("", x[i], "\n");
-	}
+	LUPSolve(SIZE, Adec, P, x, b);
+	printv(SIZE, x, "x =\n", 0);
 	
-	mulYvAXv(3, Ax, A, x);
-	for (i = 0; i < 3; i++) {
-		printf("A*x[%d] = ", i);
-		printZ("", Ax[i], " | ");
-		printf("b[%d] = ", i);
-		printZ("", b[i], "\n");
-	}
+	mulYvAXv(SIZE, Ax, A, x);
+	printv(SIZE, Ax, "A*x =\n", 0);
+	printv(SIZE, b, "b =\n", 0);
 	
-	mulYvAXv(3, Ainvb, Ainv, b);
-	for (i = 0; i < 3; i++) {
-		printf("inv(A)*b[%d] = ", i);
-		printZ("", Ainvb[i], " | ");
-		printf("x[%d] = ", i);
-		printZ("", x[i], "\n");
-	}
+	mulYvAXv(SIZE, Ainvb, Ainv, b);
+	printv(SIZE, Ainvb, "inv(A)*b =\n", 0);
 	
 	return 0;
 }

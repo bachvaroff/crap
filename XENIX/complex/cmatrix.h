@@ -11,6 +11,10 @@
 
 #define MIJ(SIZE, M, I, J) ((M)[(I) * (SIZE) + (J)])
 
+void printm(long, complex_t *, char *, int, int);
+void printv(long, complex_t *, char *, int);
+void printcv(long, complex_t *, char *, int);
+
 /*
 	cp - copy
 	is - in situ

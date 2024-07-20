@@ -7,6 +7,69 @@
 #include "cmatrix.h"
 
 void
+printm(size, A, label, pr, pc)
+	long size;
+	complex_t *A;
+	char *label;
+	int pr;
+	int pc;
+{
+	long i, j;
+	
+	if (label) printf("%s", label);
+	for (i = 0l; i < size; i++) {
+		fputc('\t', stdout);
+		if (pr) printf("[% 11ld] | ", i);
+		for (j = 0l; j < size; j++) {
+			if (pc) printf("[% 11ld]", j);
+			printZ("", MIJ(size, A, i, j), "");
+		}
+		fputc('\n', stdout);
+	}
+	
+	return;
+}
+
+void
+printv(size, xv, label, pr)
+	long size;
+	complex_t *xv;
+	char *label;
+	int pr;
+{
+	long i;
+	
+	if (label) printf("%s", label);
+	for (i = 0l; i < size; i++) {
+		fputc('\t', stdout);
+		if (pr) printf("[% 11ld] | ", i);
+		printZ("", xv[i], "\n");
+	}
+	
+	return;
+}
+
+void
+printcv(size, xcv, label, pc)
+	long size;
+	complex_t *xcv;
+	char *label;
+	int pc;
+{
+	long i;
+	
+	if (label) printf("%s", label);
+	for (i = 0l; i < size; i++) {
+		fputc('\t', stdout);
+		if (pc) printf("[% 11ld]", i);
+		printZ("", xcv[i], "");
+	}
+	fputc('\n', stdout);
+	
+	return;
+}
+
+void
 isAcA(size, A)
 	long size; 
 	complex_t *A;
