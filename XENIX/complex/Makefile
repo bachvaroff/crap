@@ -1,8 +1,8 @@
 CC=cc
-CFLAGS=-O -M3
+CFLAGS?=-O -M3
 CDEBUG?=
 INCLUDE=-I.
-LDFLAGS=-M3
+LDFLAGS?=-M3
 LDEBUG?=
 LIB=libcomplex.a
 LIBH=complex.h cmatrix.h clu.h cfft.h
