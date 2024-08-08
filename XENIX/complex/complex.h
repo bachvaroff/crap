@@ -5,7 +5,7 @@
 #include <math.h>
 
 #include "cconfig.h"
-#ifdef __FASM
+#ifdef __FASM__
 #include "fasm.h"
 #endif
 
@@ -43,13 +43,13 @@ typedef struct _complex_t {
 #define magZ(Z) sqrt(pseudoscZ(Z, Z))
 #define argZ(Z, BR) (atan2(Im(Z), Re(Z)) + 2.0 * (double)(BR) * M_PI)
 
-#ifdef __BRANCH
+#ifdef __BRANCH__
 #define ArgZ(Z) argZ(Z, 0)
 #else
 #define ArgZ(Z) atan2(Im(Z), Re(Z))
 #endif
 
-#ifdef __FASM
+#ifdef __FASM__
 #define FSINCOS(PHI, C, S) fsincos((PHI), &(C), &(S))
 #else
 #define FSINCOS(PHI, C, S) do { \
@@ -179,7 +179,7 @@ typedef struct _complex_t {
 } while (0)
 #define logZ(Z, BR) logZ2(Z, Z, BR)
 
-#ifdef __BRANCH
+#ifdef __BRANCH__
 #define LogZ2(Z, U) logZ2(Z, U, 0)
 #define LogZ(Z) logZ(Z, 0)
 #else

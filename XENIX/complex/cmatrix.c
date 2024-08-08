@@ -174,7 +174,7 @@ mulCAB(size, C, A, B)
 	long i, j, k;
 	
 	for (i = 0l; i < size; i++) {
-#ifdef _DEBUG_CI_
+#ifdef __DEBUG_CI__
 		fprintf(stderr, "%16lx % 11ld %16lx\n",
 			(unsigned long)C, i,
 			(unsigned long)&MIJ(size, C, i, 0l));
@@ -186,14 +186,14 @@ mulCAB(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k),
 					MIJ(size, B, k, j));
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 			if ((j & 0x7l) == 0x7l) {
 				fputc((int)'.', stderr);
 				fflush(stderr);
 			}
 #endif
 		}
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 		j &= 0x7l;
 		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
@@ -212,7 +212,7 @@ mulCtAB(size, C, A, B)
 	long i, j, k;
 
 	for (i = 0l; i < size; i++) {
-#ifdef _DEBUG_CI_
+#ifdef __DEBUG_CI__
 		fprintf(stderr, "%16lx % 11ld %16lx\n",
 			(unsigned long)C, i,
 			(unsigned long)&MIJ(size, C, i, 0l));
@@ -223,14 +223,14 @@ mulCtAB(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, k, i),
 					MIJ(size, B, k, j));
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 			if ((j & 0x7l) == 0x7l) {
 				fputc((int)'.', stderr);
 				fflush(stderr);
 			}
 #endif
 		}
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 		j &= 0x7l;
 		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
@@ -250,7 +250,7 @@ mulCctAB(size, C, A, B)
 	complex_t t0;
 	
 	for (i = 0l; i < size; i++) {
-#ifdef _DEBUG_CI_
+#ifdef __DEBUG_CI__
 		fprintf(stderr, "%16lx % 11ld %16lx\n",
 			(unsigned long)C, i,
 			(unsigned long)&MIJ(size, C, i, 0l));
@@ -262,14 +262,14 @@ mulCctAB(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					t0, MIJ(size, B, k, j));
 			}
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 			if ((j & 0x7l) == 0x7l) {
 				fputc((int)'.', stderr);
 				fflush(stderr);
 			}
 #endif
 		}
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 		j &= 0x7l;
 		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
@@ -288,7 +288,7 @@ mulCAtB(size, C, A, B)
 	long i, j, k;
 
 	for (i = 0l; i < size; i++) {
-#ifdef _DEBUG_CI_
+#ifdef __DEBUG_CI__
 		fprintf(stderr, "%16lx % 11ld %16lx\n",
 			(unsigned long)C, i,
 			(unsigned long)&MIJ(size, C, i, 0l));
@@ -299,14 +299,14 @@ mulCAtB(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k),
 					MIJ(size, B, j, k));
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 			if ((j & 0x7l) == 0x7l) {
 				fputc((int)'.', stderr);
 				fflush(stderr);
 			}
 #endif
 		}
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 		j &= 0x7l;
 		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
@@ -326,7 +326,7 @@ mulCActB(size, C, A, B)
 	complex_t t0;
 	
 	for (i = 0l; i < size; i++) {
-#ifdef _DEBUG_CI_
+#ifdef __DEBUG_CI__
 		fprintf(stderr, "%16lx % 11ld %16lx\n",
 			(unsigned long)C, i,
 			(unsigned long)&MIJ(size, C, i, 0l));
@@ -338,14 +338,14 @@ mulCActB(size, C, A, B)
 				maddZ(MIJ(size, C, i, j),
 					MIJ(size, A, i, k), t0);
 			}
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 			if ((j & 0x7l) == 0x7l) {
 				fputc((int)'.', stderr);
 				fflush(stderr);
 			}
 #endif
 		}
-#ifdef _DEBUG_CI_D_
+#ifdef __DEBUG_CI_D__
 		j &= 0x7l;
 		if (j) fputc((int)'0' + (int)j, stderr);
 		fputc((int)'\n', stderr);
