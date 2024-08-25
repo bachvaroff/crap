@@ -14,15 +14,12 @@ _TEXT	SEGMENT  DWORD USE32 PUBLIC 'CODE'
 	ASSUME   CS: _TEXT, DS: DGROUP, SS: DGROUP, ES: DGROUP
 
 _fsincos	PROC NEAR
-	push	ebp
-	mov	ebp, esp
-	fld	QWORD PTR [ebp+8]
+	fld	QWORD PTR [esp+4]
 	fsincos
-	mov	eax, DWORD PTR [ebp+16]
+	mov	eax, DWORD PTR [esp+12]
 	fstp	QWORD PTR [eax]
-	mov	eax, DWORD PTR [ebp+20]
+	mov	eax, DWORD PTR [esp+16]
 	fstp	QWORD PTR [eax]
-	leave
 	ret
 _fsincos	ENDP
 
