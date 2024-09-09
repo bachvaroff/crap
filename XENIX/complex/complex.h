@@ -24,15 +24,12 @@ typedef struct _complex_t {
 #define mkZ1(Z) mkZ(Z, 1.0, 0.0)
 #define mkZi(Z) mkZ(Z, 0.0, 1.0)
 
-#define printZ(PFX, Z, SFX) do { \
-	(void)fprintf(stdout, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
-	(void)fflush(stdout); \
+#define printZfp(F, PFX, Z, SFX) do { \
+	(void)fprintf((F), PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
+	(void)fflush((F)); \
 } while (0)
-
-#define printZerr(PFX, Z, SFX) do { \
-	(void)fprintf(stderr, PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
-	(void)fflush(stderr); \
-} while (0)
+#define printZ(PFX, Z, SFX) printZfp(stdout, PFX, Z, SFX)
+#define printZerr(PFX, Z, SFX) printZfp(stderr, PFX, Z, SFX)
 
 #define distZ(U, V) \
 	sqrt((Re(U) - Re(V)) * (Re(U) - Re(V)) + (Im(U) - Im(V)) * (Im(U) - Im(V)))
