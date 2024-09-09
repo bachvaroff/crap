@@ -17,7 +17,7 @@ compile = $(cflags) $(cdebug) $(include)
 link = $(ldflags) $(ldebug)
 linkso = $(soflags) $(sodebug)
 
-all : clean $(lib) mult.exe rot.exe ttrig.exe thyp.exe tinner.exe tlu.exe inv.exe tfft.exe
+all : $(lib) mult.exe rot.exe ttrig.exe thyp.exe tinner.exe tlu.exe inv.exe tfft.exe
 
 clean : .symbolic
 	@del *.obj
