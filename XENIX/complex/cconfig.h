@@ -29,7 +29,7 @@
 #endif
 #ifndef M_LN10
 #define M_LN10		2.30258509299404568402	/* log_e 10 */
-#define
+#endif
 #endif
 
 #endif

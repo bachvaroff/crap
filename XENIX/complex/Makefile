@@ -2,10 +2,14 @@ CC=cc
 CFLAGS=-O -M3 -D_USE_ASM_ -D_USE_BRANCH_
 CDEBUG=
 INCLUDE=-I.
+AS=cc
+LD=cc
 LDFLAGS=-M3
 LDEBUG=
+AR=ar
 LIB=libcomplex.a
-LIBH=complex.h cmatrix.h clu.h cfft.h
+LIBH=cconfig.h complex.h cmatrix.h clu.h cfft.h fasm.h
+LIBO=cmatrix.o clu.o cfft.o fasm.o
 LDPOSTFLAGS0=$(LIB) -lm
 SOFLAGS=
 SODEBUG=
@@ -17,15 +21,15 @@ LINKSO=$(SOFLAGS) $(SODEBUG)
 	$(CC) -c $(COMPILE) $< -o $@
 
 .s.o:
-	$(CC) -c $(COMPILE) $< -o $@
+	$(AS) -c $(COMPILE) $< -o $@
 
 all: lib mult rot ttrig thyp tinner tlu inv tfft
 
-cmatrix.o: cmatrix.c cconfig.h complex.h fasm.h cmatrix.h
-clu.o: clu.c cconfig.h complex.h fasm.h clu.h
-cfft.o: cfft.c cconfig.h complex.h fasm.h cfft.h
-$(LIB): cmatrix.o clu.o cfft.o fasm.o
-	ar ruv $@ $?
+cmatrix.o: cmatrix.c $(LIBH)
+clu.o: clu.c $(LIBH)
+cfft.o: cfft.c $(LIBH)
+$(LIB): $(LIBO)
+	$(AR) ruv $@ $?
 	ranlib $@
 lib: $(LIB)
 
@@ -39,28 +43,29 @@ inv.o: inv.c $(LIBH)
 tfft.o: tfft.c $(LIBH)
 
 mult: mult.o $(LIB)
-	$(CC) $(LINK) mult.o $(LDPOSTFLAGS0) -o $@
+	$(LD) $(LINK) mult.o $(LDPOSTFLAGS0) -o $@
 
 inv: inv.o $(LIB)
-	$(CC) $(LINK) inv.o $(LDPOSTFLAGS0) -o $@
+	$(LD) $(LINK) inv.o $(LDPOSTFLAGS0) -o $@
 
 rot: rot.o $(LIB)
-	$(CC) $(LINK) rot.o $(LDPOSTFLAGS0) -o $@
+	$(LD) $(LINK) rot.o $(LDPOSTFLAGS0) -o $@
 
 ttrig: ttrig.o $(LIB)
-	$(CC) $(LINK) ttrig.o $(LDPOSTFLAGS0) -o $@
+	$(LD) $(LINK) ttrig.o $(LDPOSTFLAGS0) -o $@
 
 thyp: thyp.o $(LIB)
-	$(CC) $(LINK) thyp.o $(LDPOSTFLAGS0) -o $@
+	$(LD) $(LINK) thyp.o $(LDPOSTFLAGS0) -o $@
 
 tinner: tinner.o $(LIB)
-	$(CC) $(LINK) tinner.o $(LDPOSTFLAGS0) -o $@
+	$(LD) $(LINK) tinner.o $(LDPOSTFLAGS0) -o $@
 
 tlu: tlu.o $(LIB)
-	$(CC) $(LINK) tlu.o $(LDPOSTFLAGS0) -o $@
+	$(LD) $(LINK) tlu.o $(LDPOSTFLAGS0) -o $@
 
 tfft: tfft.o $(LIB)
-	$(CC) $(LINK) tfft.o $(LDPOSTFLAGS0) -o $@
+	$(LD) $(LINK) tfft.o $(LDPOSTFLAGS0) -o $@
 
 clean:
 	rm -f *.o $(LIB) mult rot ttrig thyp tinner tlu inv tfft
+
