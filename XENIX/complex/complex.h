@@ -25,7 +25,7 @@ typedef struct _complex_t {
 #define mkZi(Z) mkZ(Z, 0.0, 1.0)
 
 #define printZfp(F, PFX, Z, SFX) do { \
-	(void)fprintf((F), PFX "[ %.16lf, %.16lf ]" SFX, Re(Z), Im(Z)); \
+	(void)fprintf((F), PFX "[ %.16lf %.16lf ]" SFX, Re(Z), Im(Z)); \
 	(void)fflush((F)); \
 } while (0)
 #define printZ(PFX, Z, SFX) printZfp(stdout, PFX, Z, SFX)
