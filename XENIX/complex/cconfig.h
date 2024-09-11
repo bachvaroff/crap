@@ -10,8 +10,12 @@
 #endif
 
 #ifdef _DEBUG_
+#if _DEBUG_ > 0
 #define __DEBUG_CI__
-#undef __DEBUG_CI_D__
+#endif
+#if _DEBUG_ > 1
+#define __DEBUG_CI_D__
+#endif
 #endif
 
 #ifdef __WATCOMC__

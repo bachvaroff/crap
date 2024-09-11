@@ -1,6 +1,6 @@
 cc = wcc386
 cflags = /d_USE_ASM_ /d_USE_BRANCH_
-cdebug =
+cdebug = /d_DEBUG_=0
 include = /i=.
 as = wasm
 ld = wcl386
