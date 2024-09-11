@@ -23,7 +23,7 @@ main()
 	complex_t t0;
 	double mi, stddev;
 	
-	printf("init\n");
+	printf("init(N = %ld)\n", SIZE);
 	
 	marr = (complex_t *)calloc(5l * SIZESQ, sizeof (complex_t));
 	if (!marr) {
