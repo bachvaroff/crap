@@ -237,15 +237,15 @@ typedef struct _complex_t {
 	double __expnReU__ = 1.0 / __expReU__; \
 	double __A__ = __expReU__ + __expnReU__; \
 	double __B__ = __expReU__ - __expnReU__; \
-	complex_t __scale__; \
-	double __magsqsc__; \
-	FSINCOS(Im(U), Re(__scale__), Im(__scale__)); \
-	Re(__scale__) *= __A__; \
-	Im(__scale__) *= __B__; \
-	__magsqsc__ = magsqZ(__scale__); \
+	complex_t __denom__; \
+	double __magsqd__; \
+	FSINCOS(Im(U), Re(__denom__), Im(__denom__)); \
+	Re(__denom__) *= __A__; \
+	Im(__denom__) *= __B__; \
+	__magsqd__ = magsqZ(__denom__); \
 	Re(Z) = __A__ * __B__; \
 	Im(Z) = 0.5 * sin(2.0 * Im(U)) * (__A__ * __A__ - __B__ * __B__); \
-	scaledZ2(Z, __magsqsc__); \
+	scaledZ2(Z, __magsqd__); \
 } while (0)
 #define TanhZ(Z) TanhZ2(Z, Z)
 
