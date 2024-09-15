@@ -1,5 +1,5 @@
 CC=cc
-CFLAGS=-O -D_USE_ASM_ -D_USE_BRANCH_
+CFLAGS=-O -D_USE_FASM_ -D_USE_BRANCH_
 CDEBUG=-D_DEBUG_=0
 INCLUDE=-I.
 AS=cc
@@ -9,8 +9,9 @@ LDEBUG=
 AR=ar
 LIB=libcomplex.a
 LIBH=cconfig.h complex.h cmatrix.h clu.h cfft.h fasm.h
+# LIBH=cconfig.h complex.h cmatrix.h clu.h cfft.h
 LIBO=cmatrix.o clu.o cfft.o fasm.o
-#LIBO=cmatrix.o clu.o cfft.o fasmatt.o
+# LIBO=cmatrix.o clu.o cfft.o fasmatt.o
 LDPOSTFLAGS0=$(LIB) -lm
 SOFLAGS=
 SODEBUG=

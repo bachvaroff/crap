@@ -48,6 +48,8 @@ typedef struct _complex_t {
 
 #ifdef __FASM__
 #define FSINCOS(PHI, C, S) fsincos((PHI), &(C), &(S))
+#elif __FLIBM__
+#define FSINCOS(PHI, C, S) sincos((PHI), &(S), &(C))
 #else
 #define FSINCOS(PHI, C, S) do { \
 	double __phi__ = (PHI); \

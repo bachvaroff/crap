@@ -1,8 +1,10 @@
 #ifndef _CCONFIG_H
 #define _CCONFIG_H
 
-#ifdef _USE_ASM_
+#ifdef _USE_FASM_
 #define __FASM__
+#elif _USE_FLIBM_
+#define __FLIBM__
 #endif
 
 #ifdef _USE_BRANCH_

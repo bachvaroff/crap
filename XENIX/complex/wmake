@@ -1,5 +1,5 @@
 cc = wcc386
-cflags = /d_USE_ASM_ /d_USE_BRANCH_
+cflags = /d_USE_FASM_ /d_USE_BRANCH_
 cdebug = /d_DEBUG_=0
 include = /i=.
 as = wasm
