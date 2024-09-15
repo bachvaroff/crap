@@ -101,7 +101,7 @@ compare(size, c0, c1)
 				printf("\t%16lx %02x | %16lx %02x%s",
 					(unsigned long)pb0, (unsigned int)b0,
 					(unsigned long)pb1, (unsigned int)b1,
-					(b0 == b1) ? "\n" : " ***\n");
+					(b0 == b1) ? "\n" : " ****\n");
 			}
 		}
 	
