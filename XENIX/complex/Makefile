@@ -12,6 +12,7 @@ LIBH=cconfig.h complex.h cmatrix.h clu.h cfft.h fasm.h
 # LIBH=cconfig.h complex.h cmatrix.h clu.h cfft.h
 LIBO=cmatrix.o clu.o cfft.o fasm.o
 # LIBO=cmatrix.o clu.o cfft.o fasmatt.o
+# LIBO=cmatrix.o clu.o cfft.o
 LDPOSTFLAGS0=$(LIB) -lm
 SOFLAGS=
 SODEBUG=
