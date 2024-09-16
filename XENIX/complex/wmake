@@ -20,12 +20,13 @@ linkso = $(soflags) $(sodebug)
 all : $(lib) mult.exe rot.exe ttrig.exe thyp.exe tinner.exe tlu.exe inv.exe tfft.exe
 
 clean : .symbolic
-	@del *.obj
-	@del *.err
-	@del *.bak
-	@del *.exe
-	@del *.map
-	@del *.lib
+	del *.obj
+	del *.err
+	del *.bak
+	del *.exe
+	del *.map
+	del *.lib
+	del runtime
 
 .c.obj :
 	$(cc) $(compile) $*.c
