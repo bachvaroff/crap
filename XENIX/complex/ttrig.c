@@ -35,6 +35,12 @@ main()
 	
 	expZ(z1);
 	printZ("", z1, "\n");
-
+	
+	TanZ(z0);
+	printZ("", z0, "\n");
+	
+	TanZ(z1);
+	printZ("", z1, "\n");
+	
 	return 0;
 }
